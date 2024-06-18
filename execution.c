@@ -104,7 +104,7 @@ static int	child(t_tokens *token, t_mini *line, int in_fd, int *fd)
 	return (in_fd);
 }
 
-void	execute(t_tokens **token, t_mini *line)
+void	execute(t_tokens *token, t_mini *line)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -117,9 +117,10 @@ void	execute(t_tokens **token, t_mini *line)
 		line->flag = 0;
 		if (line->i < line->pipe_num - 1 && pipe(fd) == -1)
 			exit(1);
-		if (is_builtin(token[line->i]->command[0]))
+		printf("%s is this\n", token[line->i].command[0]);
+		if (is_builtin(token[line->i].command[0]))
 		{
-			builtin_execution(*token, line); // Execute the built-in
+			builtin_execution(token, line); // Execute the built-in
 			continue ;
 		}
 		pid = fork();
@@ -127,8 +128,8 @@ void	execute(t_tokens **token, t_mini *line)
 			exit(1);
 		if (pid == 0)
 		{
-			if (!is_builtin(token[line->i]->command[0]))
-				in_fd = child(*token, line, in_fd, fd);
+			if (!is_builtin(token[line->i].command[0]))
+				in_fd = child(token, line, in_fd, fd);
 		}
 		else
 			in_fd = parent(in_fd, line, fd);

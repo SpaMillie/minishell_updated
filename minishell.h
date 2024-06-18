@@ -82,7 +82,7 @@ void		malloc_failure(t_mini *line);
 void		void_malloc_failure(void);
 int			syntax_error(t_mini *line, char *s, int i);
 //execution.c
-void		execute(t_tokens **token, t_mini *line);
+void		execute(t_tokens *token, t_mini *line);
 //expansion.c
 void		expansion(t_mini *line);
 //expansion2.c
@@ -113,7 +113,7 @@ void		print_error(char *message, char **args);
 char		**malloc_2d(char **arr);
 char		**envp_dup(char **envp);
 //utils2.c
-void		cleanup(t_mini *line, t_tokens **token, char *line_read, int option);
+void		cleanup(t_mini *line, t_tokens *token, char *line_read, int option);
 void		print_2d(char **tab);
 char		*join_and_free(char *prompt, char *str);
 //validation.c

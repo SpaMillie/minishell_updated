@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	cleanup(t_mini *line, t_tokens **token, char *line_read, int option)
+void	cleanup(t_mini *line, t_tokens *token, char *line_read, int option)
 {
 	int	i;
 
@@ -25,11 +25,11 @@ void	cleanup(t_mini *line, t_tokens **token, char *line_read, int option)
 		free_2d(line->envp);
 	while (i < line->pipe_num)
 	{
-		free_2d(token[i]->command);
-		free_2d(token[i]->redirect);
+		free_2d(token[i].command);
+		free_2d(token[i].redirect);
 		i++;
 	}
-	free(*token);
+	free(token);
 }
 
 void	print_2d(char **tab)

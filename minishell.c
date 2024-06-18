@@ -82,15 +82,15 @@ static int	minishell_loop(t_mini *line)
 		expansion(line);
 		to_token(line, &token);
 		// printf("arrived here %s\n", token->command[0]);
-		execute(&token, line);
+		execute(token, line);
 		// printf("does it reach here?\n");
 		// printf("here %s\n", token->command[0]);
 		if (token->command[0] && ft_strncmp(token->command[0], "exit", ft_strlen(token->command[0])) == 0)
 		{
-			cleanup(line, &token, line_read, 1);
+			cleanup(line, token, line_read, 1);
 			break ;
 		}
-		cleanup(line, &token, line_read, 0);
+		cleanup(line, token, line_read, 0);
 		// printf("does it clean up?\n");
 	}
 	// printf("exited minishell_loop\n");
