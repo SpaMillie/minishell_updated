@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:50:13 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/17 15:51:08 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:29:01 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char	*get_env_value(char **envp, char *str, t_mini *line)
 	env_value = ft_substr(env, i, ft_strlen(env));
 	if (!env_value)
 		malloc_failure(line);
+	free(env);
 	return (env_value);
 }
 

@@ -6,13 +6,13 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:00:48 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/17 16:36:34 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:13:03 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_error(char *message, char **args)
+void	print_error(char *message, char **args) // this is wrong if there are more than 2 args
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(args[0], 2);

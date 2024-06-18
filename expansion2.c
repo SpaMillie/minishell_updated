@@ -6,47 +6,66 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:21:50 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/17 16:47:46 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:46:20 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	get_len(char *s, int start, int len)
+static int	get_len(char *s, int start, int len) 
 {
-	if (s[start - 1] == '$') // something in this if clause to fix
+	if (start > 0 && s[start - 1] == '$') 
 	{
-		while (s[len] != '$' && s[len] != '\0' && (ft_isalnum(s[len])
-				|| s[len] == '_' || s[len] == '?' || is_whitespace(s[len])))
+		if (is_whitespace(s[len])) // e.g. "hello $ hello"
 		{
-			len++;
-			if (s[len] == '?')
-				break ;
+			while (s[len] != '$' && s[len] != '\0' && (ft_isalnum(s[len]) || s[len] == '_' || s[len] == '?' || is_whitespace(s[len]))) 
+			{
+				len++;
+				if (s[len] == '?') 
+				{
+					len++;
+					break ;
+				}
+			}
 		}
-	}
-	else
+		else // e.g. "$USER hello"
+		{
+			while (s[len] != '$' && s[len] != '\0' && (ft_isalnum(s[len]) || s[len] == '_' || s[len] == '?')) 
+			{
+				len++;
+				if (s[len] == '?') 
+				{
+					len++;
+					break ;
+				}
+			}
+		}
+	} 
+	else 
 	{
-		while (s[len] != '$' && s[len] != '\0')
+		while (s[len] != '$' && s[len] != '\0') 
 			len++;
 	}
-	len = len - start;
-	return (len);
+	return len - start;
 }
 
-char	*get_substring(char *s, int j)
+char *get_substring(char *s, int j) 
 {
-	int		start;
-	int		len;
+    int		start;
+    int		len;
 	char	*substring;
-
+	
 	start = j;
 	len = j;
-	len = get_len(s, start, len);
-	substring = ft_substr(s, start, len);
-	if (!substring)
-		void_malloc_failure();
-	return (substring);
+    if (start < 0 || start >= (int)ft_strlen(s)) 
+        return ft_strdup("");
+    len = get_len(s, start, len);
+    substring = ft_substr(s, start, len);
+    if (!substring) 
+        void_malloc_failure();
+    return substring;
 }
+
 
 void	dup_or_join(char **new_tokens, int loop, int i, char *str)
 {

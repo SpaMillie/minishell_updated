@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:02:36 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/18 13:45:47 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:53:33 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ char	*get_path(char **tokens, char **envp)
 	if (res)
 		return (res);
 	free_2d(paths);
-	print_error("command not found", tokens);
+	print_error("No such file or directory", tokens);
 	return (NULL);
 }

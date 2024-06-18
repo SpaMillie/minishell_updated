@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 09:29:33 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/14 20:01:38 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/06/18 15:21:33 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	cd(char **args, t_mini *line)
 	char	*old_pwd;
 	char	*new_pwd_path;
 
+	if (args[2])
+		print_error("too many arguments", args);
 	old_pwd_path = getcwd(NULL, 0);
 	if (!old_pwd_path)
 		exit(1);
