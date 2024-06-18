@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:28:58 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/14 20:02:29 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/06/18 15:14:02 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ void	export_cmd(char **args, t_mini *line)
 		while (args[i])
 		{
 			export(args[i], line);
+			if (ft_strchr(args[i], '=') && !ft_strchr(args[i + 1], '='))
+				break ;
 			i++;
 		}
 	}
