@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:02:36 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/17 17:05:49 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:37:00 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,15 @@ char	*get_path(char **tokens, char **envp)
 	char	*res;
 	char	**paths;
 
-	if (!ft_strncmp(tokens[0], "./", 2))
+	/*if (!ft_strncmp(tokens[0], "./", 2))  //executes executable only in the current directory
 	{
 		res = ft_strdup(tokens[0]);
 		if (!res)
 			void_malloc_failure();
 		return (res);
-	}
+	}*/
+	if (ft_strchr(tokens[0], '/'))
+		return(tokens[0]);
 	paths = create_paths(tokens, envp);
 	if (!paths)
 		return (NULL);
