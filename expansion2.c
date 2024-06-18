@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:21:50 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/18 17:51:59 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:53:02 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	get_len(char *s, int start, int len)
 		while (s[len] != '$' && s[len] != '\0') 
 			len++;
 	}
-	return len - start;
+	return(len - start);
 }
 
 char *get_substring(char *s, int j) 
