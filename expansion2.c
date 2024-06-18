@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:21:50 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/18 17:46:20 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:51:59 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ char *get_substring(char *s, int j)
 	start = j;
 	len = j;
     if (start < 0 || start >= (int)ft_strlen(s)) 
-        return ft_strdup("");
+        return(ft_strdup(""));
     len = get_len(s, start, len);
     substring = ft_substr(s, start, len);
     if (!substring) 
         void_malloc_failure();
-    return substring;
+    return(substring);
 }
 
 
