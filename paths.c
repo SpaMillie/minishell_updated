@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:02:36 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/12 15:14:04 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:05:49 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static char	**create_paths(char **tokens, char **envp)
 	{
 		paths[i] = join_and_free(paths[i], "/");
 		paths[i] = join_and_free(paths[i], tokens[0]);
+		if (!paths[i])
+			return (NULL);
 		i++;
 	}
 	return (paths);
@@ -66,7 +68,7 @@ char	*get_path(char **tokens, char **envp)
 	{
 		res = ft_strdup(tokens[0]);
 		if (!res)
-			malloc_failure();
+			void_malloc_failure();
 		return (res);
 	}
 	paths = create_paths(tokens, envp);

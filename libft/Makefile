@@ -43,7 +43,7 @@ SRC	=	ft_isalpha.c \
 
 OBJS = ${SRC:.c=.o}
 
-HEAD = libft.h
+HEAD = include/
 
 NAME = libft.a
 

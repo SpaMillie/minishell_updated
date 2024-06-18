@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/13 14:29:41 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:57:53 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,14 @@ static void	shell_lvl_check(t_mini *line)
 	value = ft_atoi(shell_value);
 	value++;
 	str = ft_itoa(value);
+	if(!str)
+		malloc_failure(line);
 	str_to_export = ft_strjoin("SHLVL=", str);
+	if(!str_to_export)
+		malloc_failure(line);
 	export(str_to_export, line);
+	free(str);
+	free(str_to_export);
 }
 
 static void	wait_for_child(t_mini *line)
@@ -69,7 +75,7 @@ static int	parent(int in_fd, t_mini *line, int *fd)
 
 static int	child(t_tokens *token, t_mini *line, int in_fd, int *fd)
 {
-	if (!ft_strncmp(token[line->i].command[0], "./minishell", 11))
+	if (!ft_strncmp(token[line->i].command[0], "./minishell", 12)) //what if token[line->i].command[0] == ./minishellsoemthing?
 		shell_lvl_check(line);
 	if (in_fd != STDIN_FILENO) // Redirect input
 	{
@@ -98,7 +104,7 @@ static int	child(t_tokens *token, t_mini *line, int in_fd, int *fd)
 	return (in_fd);
 }
 
-void	execute(t_tokens *token, t_mini *line)
+void	execute(t_tokens **token, t_mini *line)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -111,9 +117,9 @@ void	execute(t_tokens *token, t_mini *line)
 		line->flag = 0;
 		if (line->i < line->pipe_num - 1 && pipe(fd) == -1)
 			exit(1);
-		if (is_builtin(&token[line->i]))
+		if (is_builtin(token[line->i]->command[0]))
 		{
-			builtin_execution(token, line); // Execute the built-in
+			builtin_execution(*token, line); // Execute the built-in
 			continue ;
 		}
 		pid = fork();
@@ -121,8 +127,8 @@ void	execute(t_tokens *token, t_mini *line)
 			exit(1);
 		if (pid == 0)
 		{
-			if (!is_builtin(&token[line->i]))
-				in_fd = child(token, line, in_fd, fd);
+			if (!is_builtin(token[line->i]->command[0]))
+				in_fd = child(*token, line, in_fd, fd);
 		}
 		else
 			in_fd = parent(in_fd, line, fd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:21:50 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/13 15:06:33 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:47:46 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,20 @@ char	*get_substring(char *s, int j)
 	len = get_len(s, start, len);
 	substring = ft_substr(s, start, len);
 	if (!substring)
-		malloc_failure();
+		void_malloc_failure();
 	return (substring);
 }
 
 void	dup_or_join(char **new_tokens, int loop, int i, char *str)
 {
 	if (loop == 0)
+	{
 		new_tokens[i] = ft_strdup(str);
+		if (!new_tokens[i])
+			void_malloc_failure();
+	}
 	else
 		new_tokens[i] = join_and_free(new_tokens[i], str);
-	ft_printf("new_tokens = %s\n", new_tokens[i]);
 }
 
 void	duplicate(t_mini *line, char **new_tokens)
@@ -73,5 +76,5 @@ void	duplicate(t_mini *line, char **new_tokens)
 	}
 	new_tokens[line->i] = ft_strdup(line->metaed[line->i]);
 	if (!new_tokens[line->i])
-		malloc_failure();
+		malloc_failure(line);
 }

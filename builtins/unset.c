@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:41:22 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/10 15:10:14 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/14 20:03:26 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	unset(char *arg, t_mini *line)
 
 	new_envp = malloc_2d(line->envp);
 	if (!new_envp)
-		malloc_failure();
+		malloc_failure(line);
 	i = 0;
 	j = 0;
 	while (line->envp[i])
@@ -29,7 +29,7 @@ void	unset(char *arg, t_mini *line)
 		{
 			new_envp[j] = ft_strdup(line->envp[i]);
 			if (!new_envp[j])
-				malloc_failure();
+				malloc_failure(line);
 			j++;
 		}
 		i++;

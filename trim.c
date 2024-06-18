@@ -43,7 +43,7 @@ static int	snip_snip(t_mini *line, int i, int j)
 	count = j + 1;
 	trimmed_string = malloc((sizeof(char)) * (len - 1));
 	if (!trimmed_string)
-		printf("malloc error\n");
+		malloc_failure(line);
 	while (line->metaed[i][count] != c)
 		count++;
 	count = count - 1;

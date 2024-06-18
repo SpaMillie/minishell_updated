@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_unsigned.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:05:32 by tparratt          #+#    #+#             */
-/*   Updated: 2024/02/20 17:20:40 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:10:41 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "include/libft.h"
 
 static int	no_of_digits(unsigned int n)
 {
@@ -34,11 +34,6 @@ static char	*ft_utoa(unsigned int n)
 
 	num = n;
 	digits = no_of_digits(n);
-	if (n < 0)
-	{
-		num *= -1;
-		digits++;
-	}
 	str = (char *)malloc(sizeof(char) * (digits + 1));
 	if (str == NULL)
 		return (NULL);
@@ -48,8 +43,6 @@ static char	*ft_utoa(unsigned int n)
 		str[digits] = num % 10 + '0';
 		num = num / 10;
 	}
-	if (n < 0)
-		str[0] = '-';
 	return (str);
 }
 

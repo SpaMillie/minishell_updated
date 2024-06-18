@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:28:58 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/12 14:46:51 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/14 20:02:29 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	*env_exists(char *arg, t_mini *line)
 		{
 			existing = malloc(sizeof(char) * len + 1);
 			if (!existing)
-				malloc_failure();
+				malloc_failure(line);
 			existing = get_existing_name(existing, line, i);
 			return (existing);
 		}
@@ -73,18 +73,18 @@ void	export(char *arg, t_mini *line)
 	unset_existing(arg, line);
 	new_envp = malloc_2d(line->envp);
 	if (!new_envp)
-		malloc_failure();
+		malloc_failure(line);
 	i = 0;
 	while (line->envp[i])
 	{
 		new_envp[i] = ft_strdup(line->envp[i]);
 		if (!new_envp[i])
-			malloc_failure();
+			malloc_failure(line);
 		i++;
 	}
 	new_envp[i] = ft_strdup(arg);
 	if (!new_envp[i])
-		malloc_failure();
+		malloc_failure(line);
 	i++;
 	new_envp[i] = NULL;
 	free_2d(line->envp);

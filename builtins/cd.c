@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 09:29:33 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/10 12:40:47 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/14 20:01:38 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ void	cd(char **args, t_mini *line)
 	}
 	old_pwd = ft_strjoin("OLDPWD=", old_pwd_path);
 	if (!old_pwd)
-		malloc_failure();
+		malloc_failure(line);
 	new_pwd_path = getcwd(NULL, 0);
 	if (!new_pwd_path)
 		exit(1);
 	new_pwd = ft_strjoin("PWD=", new_pwd_path);
 	if (!new_pwd)
-		malloc_failure();
+		malloc_failure(line);
 	export(old_pwd, line);
 	export(new_pwd, line);
 	free_strings(old_pwd, new_pwd, old_pwd_path, new_pwd_path);

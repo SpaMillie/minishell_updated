@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:00:48 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/12 15:12:15 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:36:34 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_error(char *message, char **args)
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(args[0], 2);
 	ft_putstr_fd(": ", 2);
-	if (!args[2])
+	if (args[1])
 	{
 		ft_putstr_fd(args[1], 2);
 		ft_putstr_fd(": ", 2);
@@ -25,19 +25,13 @@ void	print_error(char *message, char **args)
 	ft_putendl_fd(message, 2);
 }
 
-int	is_whitespace(char c)
+int	is_whitespace(char c) //can we combine is_whitespace and is_it_space?
 {
 	if (c == ' ' || c == '\t' || c == '\n'
 		|| c == '\v' || c == '\f' || c == '\r')
 		return (1);
 	else
 		return (0);
-}
-
-void	malloc_failure(void)
-{
-	ft_putendl_fd("minishell: malloc failure", 2);
-	exit(1);
 }
 
 char	**malloc_2d(char **arr)
