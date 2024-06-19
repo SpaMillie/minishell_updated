@@ -6,7 +6,7 @@
 #    By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 10:22:54 by tparratt          #+#    #+#              #
-#    Updated: 2024/06/18 17:04:51 by tparratt         ###   ########.fr        #
+#    Updated: 2024/06/19 12:07:53 by tparratt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC			=	minishell.c \
 					builtins/echo-pwd-env.c \
 					builtins/cd.c \
 					builtins/export.c \
+					builtins/export_unset_error.c \
 					builtins/unset.c \
 					builtins/builtin_check.c \
 					builtins/exit.c \
