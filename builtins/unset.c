@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:41:22 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/18 15:11:09 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/19 12:06:09 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,38 +37,6 @@ void	unset(char *arg, t_mini *line)
 	new_envp[j] = NULL;
 	free_2d(line->envp);
 	line->envp = new_envp;
-}
-
-int	export_unset_error_check(char **args, t_mini *line)
-{
-	int		i;
-	int		j;
-
-	i = 1;
-	while (args[i])
-	{
-		j = 0;
-		while (args[i][j])
-		{
-			if (args[i][0] == '=' || ft_isdigit(args[i][0]))
-			{
-				line->err_num = 1;
-				print_error("not a valid identifier", args);
-				return (1);
-			}
-			if (args[i][j] == '=')
-				break ;
-			if ((!ft_isalnum(args[i][j]) && args[i][j] != '_') || args[i][j] == '-')
-			{
-				line->err_num = 1;
-				print_error("not a valid identifier", args);
-				return (1);
-			}
-			j++;
-		}
-		i++;
-	}
-	return (0);
 }
 
 void	unset_cmd(char **args, t_mini *line)

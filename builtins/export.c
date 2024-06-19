@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:28:58 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/18 15:14:02 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:38:30 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static char	*env_exists(char *arg, t_mini *line)
 	len = 0;
 	while (arg[len] != '=' && arg[len] != '\0')
 		len++;
+	len++;
 	i = 0;
 	while (line->envp[i])
 	{
@@ -112,8 +113,6 @@ void	export_cmd(char **args, t_mini *line)
 		while (args[i])
 		{
 			export(args[i], line);
-			if (ft_strchr(args[i], '=') && !ft_strchr(args[i + 1], '='))
-				break ;
 			i++;
 		}
 	}

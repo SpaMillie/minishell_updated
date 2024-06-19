@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 09:29:33 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/18 15:21:33 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/19 10:50:34 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,27 @@ static int	check_args(char **args, t_mini *line)
 	return (0);
 }
 
+static char	*cd_error_check(char **args, t_mini *line)
+{
+	char	*old_pwd_path;
+
+	if (args[2])
+		print_error("too many arguments", args);
+	old_pwd_path = getcwd(NULL, 0);
+	if (!old_pwd_path)
+	{
+		ft_putendl_fd("getcwd error", 2);
+		exit(1);
+	}
+	if (check_args(args, line) == 1)
+	{
+		free(old_pwd_path);
+		return (NULL);
+	}
+	else
+		return (old_pwd_path);
+}
+
 void	cd(char **args, t_mini *line)
 {
 	char	*old_pwd_path;
@@ -40,16 +61,9 @@ void	cd(char **args, t_mini *line)
 	char	*old_pwd;
 	char	*new_pwd_path;
 
-	if (args[2])
-		print_error("too many arguments", args);
-	old_pwd_path = getcwd(NULL, 0);
+	old_pwd_path = cd_error_check(args, line);
 	if (!old_pwd_path)
-		exit(1);
-	if (check_args(args, line) == 1)
-	{
-		free(old_pwd_path);
 		return ;
-	}
 	old_pwd = ft_strjoin("OLDPWD=", old_pwd_path);
 	if (!old_pwd)
 		malloc_failure(line);
