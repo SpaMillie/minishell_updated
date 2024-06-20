@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 09:29:33 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/20 14:21:18 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:48:28 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static int	check_args(char **args, t_mini *line)
 			print_error("No such file or directory", args);
 			return (1);
 		}
+		free(home);
 	}
 	else
 	{
