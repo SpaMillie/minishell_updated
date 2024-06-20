@@ -6,7 +6,7 @@
 #    By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 10:22:54 by tparratt          #+#    #+#              #
-#    Updated: 2024/06/20 14:54:43 by tparratt         ###   ########.fr        #
+#    Updated: 2024/06/20 15:27:39 by tparratt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC			=	minishell.c \
 					utils.c \
 					utils2.c \
 					execution.c \
+					execution2.c \
 					error.c \
 					redirect.c \
 					signals.c \

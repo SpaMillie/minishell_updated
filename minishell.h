@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/19 17:05:23 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:26:09 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,12 @@ void		malloc_failure(t_mini *line);
 void		void_malloc_failure(void);
 int			syntax_error(t_mini *line, char *s, int i);
 //execution.c
+void		builtin_execution(t_tokens *token, t_mini *line);
 void		execute(t_tokens *token, t_mini *line);
+//execution2.c
+void		single_builtin(t_tokens *token, t_mini *line, int *fd);
+void		shell_lvl_check(t_mini *line);
+void		wait_for_child(t_mini *line);
 //expansion.c
 void		expansion(t_mini *line);
 //expansion2.c

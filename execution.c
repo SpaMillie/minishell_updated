@@ -6,51 +6,13 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/20 14:28:59 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:28:09 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	shell_lvl_check(t_mini *line)
-{
-	char	*shell_value;
-	int		value;
-	char	*str;
-	char	*str_to_export;
-
-	shell_value = get_env_value(line->envp, "SHLVL", line);
-	value = ft_atoi(shell_value);
-	value++;
-	str = ft_itoa(value);
-	if(!str)
-		malloc_failure(line);
-	str_to_export = ft_strjoin("SHLVL=", str);
-	if(!str_to_export)
-		malloc_failure(line);
-	export(str_to_export, line);
-	free(str);
-	free(str_to_export);
-}
-
-static void	wait_for_child(t_mini *line)
-{
-	int	status;
-
-	line->i = 0;
-	while (line->i < line->pipe_num)
-	{
-		if (line->flag == 0)
-		{
-			wait(&status);
-			if (WIFEXITED(status))
-				line->err_num = WEXITSTATUS(status);
-		}
-		line->i++;
-	}
-}
-
-static void	builtin_execution(t_tokens *token, t_mini *line)
+void	builtin_execution(t_tokens *token, t_mini *line)
 {
 	// if (line->i == line->pipe_num - 1)
 	// {
@@ -102,28 +64,28 @@ static int	child(t_tokens *token, t_mini *line, int in_fd, int *fd)
 	return (in_fd);
 }
 
+
 void	execute(t_tokens *token, t_mini *line)
 {
 	int		fd[2];
 	pid_t	pid;
 	int		in_fd;
 
-	in_fd = STDIN_FILENO;
+	in_fd = dup(STDIN_FILENO);
 	line->i = 0;
+	if (line->pipe_num == 1 && is_builtin(token[line->i].command[0]))
+		return (single_builtin(token, line, fd));
 	while (line->i < line->pipe_num)
 	{
 		line->flag = 0;
 		if (line->i < line->pipe_num - 1 && pipe(fd) == -1)
 			exit(1);
-		printf("%s is this\n", token[line->i].command[0]);
-		if (is_builtin(token[line->i].command[0]))
-			line->flag = 1;
-		if (is_builtin(token[line->i].command[0]) && (line->i == line->pipe_num - 1)) // no pipes
-		{
-			redirections(&token[line->i]);
-			builtin_execution(token, line);
-			return ;
-		}
+		// if (is_builtin(token[line->i].command[0]))
+		// {
+		// 	builtin_execution(token, line, in_fd, fd); // Execute the built-in
+		// 	line->i++; // Move to the next command in the pipeline
+		// 	continue ;
+		// }
 		pid = fork();
 		if (pid == -1)
 			exit(1);
