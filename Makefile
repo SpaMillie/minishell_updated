@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+         #
+#    By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 10:22:54 by tparratt          #+#    #+#              #
-#    Updated: 2024/06/19 12:07:53 by tparratt         ###   ########.fr        #
+#    Updated: 2024/06/20 15:08:08 by mspasic          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC			=	minishell.c \
 					utils.c \
 					utils2.c \
 					execution.c \
+					execution2.c \
 					error.c \
 					redirect.c \
 					signals.c \
