@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/17 16:57:53 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:40:29 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,11 @@ static void	wait_for_child(t_mini *line)
 
 static void	builtin_execution(t_tokens *token, t_mini *line)
 {
-	if (line->i == line->pipe_num - 1)
-	{
-		redirections(&token[line->i]); // Handle redirections for the built-in
+	// if (line->i == line->pipe_num - 1)
+	// {
 		execute_builtin(&token[line->i], line); // Execute the built-in
 		line->flag = 1;
-	}
-	line->i++; // Move to the next command in the pipeline
+	//}
 }
 
 static int	parent(int in_fd, t_mini *line, int *fd)
@@ -90,17 +88,18 @@ static int	child(t_tokens *token, t_mini *line, int in_fd, int *fd)
 			exit(1);
 		close(fd[1]);
 	}
-	redirections(&token[line->i]);
-	/* if (is_builtin(&token[line->i]))
+	if (is_builtin(token[line->i].command[0]))
 	{
+		redirections(&token[line->i]);
 		builtin_execution(token, line); // Execute the built-in
 		exit(line->err_num);
-	} */
-	//else
-	//{
-	if (execve(get_path(token[line->i].command, line->envp), token[line->i].command, line->envp) == -1)
-		exit(1);
-	//}
+	}
+	else
+	{
+		redirections(&token[line->i]);
+		if (execve(get_path(token[line->i].command, line->envp), token[line->i].command, line->envp) == -1)
+			exit(1);
+	}
 	return (in_fd);
 }
 
@@ -118,19 +117,17 @@ void	execute(t_tokens *token, t_mini *line)
 		if (line->i < line->pipe_num - 1 && pipe(fd) == -1)
 			exit(1);
 		printf("%s is this\n", token[line->i].command[0]);
-		if (is_builtin(token[line->i].command[0]))
-		{
-			builtin_execution(token, line); // Execute the built-in
-			continue ;
-		}
+		// if (is_builtin(token[line->i].command[0]))
+		// {
+		// 	builtin_execution(token, line, in_fd, fd); // Execute the built-in
+		// 	line->i++; // Move to the next command in the pipeline
+		// 	continue ;
+		// }
 		pid = fork();
 		if (pid == -1)
 			exit(1);
 		if (pid == 0)
-		{
-			if (!is_builtin(token[line->i].command[0]))
-				in_fd = child(token, line, in_fd, fd);
-		}
+			in_fd = child(token, line, in_fd, fd);
 		else
 			in_fd = parent(in_fd, line, fd);
 		line->i++;
