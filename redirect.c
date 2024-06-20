@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:55:18 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/12 15:19:24 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:42:23 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,7 @@ void	redirections(t_tokens *token)
 		else if (ft_strncmp(token->redirect[j], ">>", 3) == 0)
 			redirect_output_append(token, j);
 		j++;
+		// j++;
+		// printf("it came here\n");
 	}
 }

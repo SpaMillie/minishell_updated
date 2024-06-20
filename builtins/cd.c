@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 09:29:33 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/20 14:48:28 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:14:36 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ static void	free_strings(char *str1, char *str2, char *str3, char *str4)
 
 static int	check_args(char **args, t_mini *line)
 {
-	char *home;
-	
-	home = get_env_value(line->envp, "HOME", line);
+	char	*home;
+
 	if (!args[1])
 	{
+		home = get_env_value(line->envp, "HOME", line);
 		if (chdir(home) == -1)
 		{
 			line->err_num = 1;

@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/20 13:40:29 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:28:59 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static void	builtin_execution(t_tokens *token, t_mini *line)
 	// if (line->i == line->pipe_num - 1)
 	// {
 		execute_builtin(&token[line->i], line); // Execute the built-in
-		line->flag = 1;
 	//}
 }
 
@@ -117,12 +116,14 @@ void	execute(t_tokens *token, t_mini *line)
 		if (line->i < line->pipe_num - 1 && pipe(fd) == -1)
 			exit(1);
 		printf("%s is this\n", token[line->i].command[0]);
-		// if (is_builtin(token[line->i].command[0]))
-		// {
-		// 	builtin_execution(token, line, in_fd, fd); // Execute the built-in
-		// 	line->i++; // Move to the next command in the pipeline
-		// 	continue ;
-		// }
+		if (is_builtin(token[line->i].command[0]))
+			line->flag = 1;
+		if (is_builtin(token[line->i].command[0]) && (line->i == line->pipe_num - 1)) // no pipes
+		{
+			redirections(&token[line->i]);
+			builtin_execution(token, line);
+			return ;
+		}
 		pid = fork();
 		if (pid == -1)
 			exit(1);
