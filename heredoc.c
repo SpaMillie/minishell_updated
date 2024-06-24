@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:22:45 by mspasic           #+#    #+#             */
-/*   Updated: 2024/06/14 20:09:53 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/06/24 15:01:35 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char	*simple_itoa(int n)
 	len = ft_intlen(n);
 	str = malloc(sizeof(char) * (len + 1));
 	if (!str)
-		void_malloc_failure();
+		exit(1);
 	str[len--] = '\0';
 	while (n)
 	{

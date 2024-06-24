@@ -6,13 +6,13 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:41:22 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/19 12:06:09 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:11:33 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	unset(char *arg, t_mini *line)
+void	unset(char *arg, t_mini *line, t_tokens *token)
 {
 	char	**new_envp;
 	int		i;
@@ -20,7 +20,7 @@ void	unset(char *arg, t_mini *line)
 
 	new_envp = malloc_2d(line->envp);
 	if (!new_envp)
-		malloc_failure(line);
+		malloc_failure(line, token);
 	i = 0;
 	j = 0;
 	while (line->envp[i])
@@ -29,7 +29,7 @@ void	unset(char *arg, t_mini *line)
 		{
 			new_envp[j] = ft_strdup(line->envp[i]);
 			if (!new_envp[j])
-				malloc_failure(line);
+				malloc_failure(line, token);
 			j++;
 		}
 		i++;
@@ -39,7 +39,7 @@ void	unset(char *arg, t_mini *line)
 	line->envp = new_envp;
 }
 
-void	unset_cmd(char **args, t_mini *line)
+void	unset_cmd(char **args, t_mini *line, t_tokens *token)
 {
 	int	i;
 
@@ -52,7 +52,7 @@ void	unset_cmd(char **args, t_mini *line)
 		i = 1;
 		while (args[i])
 		{
-			unset(args[i], line);
+			unset(args[i], line, token);
 			i++;
 		}
 	}

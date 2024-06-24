@@ -6,19 +6,17 @@
 /*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:51:42 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 15:56:05 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/24 16:26:01 by milica           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cleanup(t_mini *line, t_tokens *token, char *line_read, int option)
+void	cleanup(t_mini *line, t_tokens *token, int option)
 {
 	int	i;
 
 	i = 0;
-	if (line_read)
-		free(line_read);
 	free_2d(line->element);
 	free_2d(line->metaed);
 	if (line->paths)

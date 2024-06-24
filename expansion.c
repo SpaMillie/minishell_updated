@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 12:31:15 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/19 12:53:12 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:45:02 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ static char	*nothing_to_expand(t_mini *line, char **new_tokens, int loop, int j)
 	return (substring);
 }
 
-static char	*substring_expand(t_mini *line, char **new_tokens, int loop, int *j)
+static char	*substring_expand(t_mini *line, char **new_tokens, int loop, int *j, t_tokens *token)
 {
 	char	*substring;
 	char	*env_value;
 
 	(*j)++;
 	substring = get_substring(line->metaed[line->i], *j);
-	env_value = get_env_value(line->envp, substring, line);
+	env_value = get_env_value(line->envp, substring, line, token);
 	if (!env_value)
 		dup_or_join(new_tokens, loop, line->i, "");
 	else
@@ -44,7 +44,7 @@ static void	dollars_only(t_mini *line, char **new_tokens, int *loop, int *j)
 	(*loop)++;
 }
 
-static void	expand(t_mini *line, char **new_tokens)
+static void	expand(t_mini *line, char **new_tokens, t_tokens *token)
 {
 	int		j;
 	int		loop;
@@ -64,7 +64,7 @@ static void	expand(t_mini *line, char **new_tokens)
 		}
 		else if (metaed[j] == '$' && (ft_isalnum(metaed[j + 1])
 				|| metaed[j + 1] == '_' || metaed[j + 1] == '?'))
-			substring = substring_expand(line, new_tokens, loop, &j);
+			substring = substring_expand(line, new_tokens, loop, &j, token);
 		else
 			substring = nothing_to_expand(line, new_tokens, loop, j);
 		j += ft_strlen(substring);
@@ -73,7 +73,7 @@ static void	expand(t_mini *line, char **new_tokens)
 	}
 }
 
-void	expansion(t_mini *line)
+void	expansion(t_mini *line, t_tokens *token)
 {
 	char	**new_tokens;
 
@@ -82,9 +82,9 @@ void	expansion(t_mini *line)
 	while (line->metaed[line->i])
 	{
 		if (ft_strchr(line->metaed[line->i], '$'))
-			expand(line, new_tokens);
+			expand(line, new_tokens, token);
 		else
-			duplicate(line, new_tokens);
+			duplicate(line, new_tokens, token);
 		line->i++;
 	}
 	new_tokens[line->i] = NULL;

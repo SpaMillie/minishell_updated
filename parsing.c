@@ -6,7 +6,7 @@
 /*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:05:39 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 15:33:53 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/24 16:25:33 by milica           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,16 @@ static void	copy_tokens(t_mini *line, t_tokens *token, int pre_i, int i)
         {
             token->redirect[k++] = ft_strdup(line->metaed[pre_i++]);
 			if (!(token->redirect[k - 1]))
-				malloc_failure(line);
+				malloc_failure(line, token);
 			token->redirect[k++] = ft_strdup(line->metaed[pre_i++]);
 			if (!(token->redirect[k - 1]))
-				malloc_failure(line);
+				malloc_failure(line, token);
         }
         else
 		{
             token->command[j++] = ft_strdup(line->metaed[pre_i++]);
 			if (!(token->command[j - 1]))
-				malloc_failure(line);
+				malloc_failure(line, token);
 		}
 	}
     token->redirect[k] = NULL;
@@ -108,7 +108,7 @@ void	tokenising(t_mini *line, t_tokens *token)
 		i = c_count(line, &ed, i);
 		check = allocating_token(&token[j], &ed);
 		if (check == -1)
-			malloc_failure(line);
+			malloc_failure(line, token);
 		copy_tokens(line, &token[j], prev_i, i);
 		if (line->metaed[i] != NULL && ft_strncmp(line->metaed[i], "|", ft_strlen(line->metaed[i])) == 0)
 			i++;
