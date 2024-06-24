@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:28:58 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 14:53:25 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:24:41 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ static char	*get_existing_name(char *existing, t_mini *line, int i)
 {
 	int	j;
 
-	// if (!existing)
-	// 	exit(1);
 	j = 0;
 	while (line->envp[i][j] != '=' && line->envp[i][j] != '\0')
 	{
