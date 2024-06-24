@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:21:50 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 14:59:10 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/24 17:03:06 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	dup_or_join(char **new_tokens, int loop, int i, char *str)
 		new_tokens[i] = join_and_free(new_tokens[i], str);
 }
 
-void	duplicate(t_mini *line, char **new_tokens, t_tokens *token)
+void	duplicate(t_mini *line, char **new_tokens)
 {
 	int	j;
 
@@ -85,5 +85,5 @@ void	duplicate(t_mini *line, char **new_tokens, t_tokens *token)
 	}
 	new_tokens[line->i] = ft_strdup(line->metaed[line->i]);
 	if (!new_tokens[line->i])
-		malloc_failure(line, token);
+		malloc_failure_without_token(line);
 }

@@ -31,7 +31,7 @@ static char	*trim_copy(t_mini *line, char *copy, int i, int j)
 	return (copy);
 }
 
-static int	snip_snip(t_mini *line, int i, int j, t_tokens *token)
+static int	snip_snip(t_mini *line, int i, int j)
 {
 	char	*trimmed_string;
 	int		len;
@@ -43,7 +43,7 @@ static int	snip_snip(t_mini *line, int i, int j, t_tokens *token)
 	count = j + 1;
 	trimmed_string = malloc((sizeof(char)) * (len - 1));
 	if (!trimmed_string)
-		malloc_failure(line, token);
+		malloc_failure_without_token(line);
 	while (line->metaed[i][count] != c)
 		count++;
 	count = count - 1;
@@ -52,7 +52,7 @@ static int	snip_snip(t_mini *line, int i, int j, t_tokens *token)
 	return (count);
 }
 
-void	trim_quotes(t_mini *line, t_tokens *token)
+void	trim_quotes(t_mini *line)
 {
 	int	i;
 	int	j;
@@ -64,7 +64,7 @@ void	trim_quotes(t_mini *line, t_tokens *token)
 		while (line->metaed[i][j] != '\0')
 		{
 			if (line->metaed[i][j] == '\'' || line->metaed[i][j] == '\"') 
-				j = snip_snip(line, i, j, token);
+				j = snip_snip(line, i, j);
 			else
 				j++;
 		}

@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:38 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 16:38:11 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:55:25 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ static int	minishell_loop(t_mini *line)
 		if (ft_strlen(line_read) == 0)
 			continue ;
 		add_history(line_read);
-		if (validating(line_read, line, token) == 1)
+		if (validating(line_read, line) == 1)
 			continue ;
 		free(line_read);
-		expansion(line, token);
+		expansion(line);
 		to_token(line, &token);
 		// printf("arrived here %s\n", token->command[0]);
 		execute(token, line);

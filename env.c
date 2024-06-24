@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:50:13 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 14:49:35 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/24 17:08:26 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,12 @@ char	*get_env_value(char **envp, char *str, t_mini *line, t_tokens *token)
 	i++;
 	env_value = ft_substr(env, i, ft_strlen(env));
 	if (!env_value)
-		malloc_failure(line, token);
+	{
+		if (token == NULL)
+			malloc_failure_without_token(line);
+		else
+			malloc_failure(line, token);
+	}
 	free(env);
 	return (env_value);
 }
