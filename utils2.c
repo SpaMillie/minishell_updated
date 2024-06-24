@@ -3,22 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:51:42 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/14 19:49:38 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/06/24 13:40:52 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cleanup(t_mini *line, t_tokens *token, char *line_read, int option)
+void	cleanup(t_mini *line, t_tokens *token, int option)
 {
 	int	i;
 
 	i = 0;
-	if (line_read)
-		free(line_read);
 	free_2d(line->element);
 	free_2d(line->metaed);
 	if (option)

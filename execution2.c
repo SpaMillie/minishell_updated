@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:50 by mspasic           #+#    #+#             */
-/*   Updated: 2024/06/24 11:48:47 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/24 14:55:26 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,23 @@ void	single_builtin(t_tokens *token, t_mini *line, int *fd)
 	return ;
 }
 
-void	shell_lvl_check(t_mini *line)
+void	shell_lvl_check(t_mini *line, t_tokens *token)
 {
 	char	*shell_value;
 	int		value;
 	char	*str;
 	char	*str_to_export;
 
-	shell_value = get_env_value(line->envp, "SHLVL", line);
+	shell_value = get_env_value(line->envp, "SHLVL", line, token);
 	value = ft_atoi(shell_value);
 	value++;
 	str = ft_itoa(value);
 	if(!str)
-		malloc_failure(line);
+		malloc_failure(line, token);
 	str_to_export = ft_strjoin("SHLVL=", str);
 	if(!str_to_export)
-		malloc_failure(line);
-	export(str_to_export, line);
+		malloc_failure(line, token);
+	export(str_to_export, line, token);
 	free(str);
 	free(str_to_export);
 }

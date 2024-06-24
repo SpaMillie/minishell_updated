@@ -6,24 +6,24 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:02:36 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 10:46:52 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:49:17 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**create_paths(char **tokens, char **envp)
+static char	**create_paths(char **tokens, char **envp, t_mini *line, t_tokens *token)
 {
 	char	*path_pointer;
 	char	**paths;
 	int		i;
 
-	path_pointer = ft_getenv(envp, "PATH");
+	path_pointer = ft_getenv(envp, "PATH", line, token);
 	if (!path_pointer)
-		return (NULL);
+		malloc_failure(line, token);
 	paths = ft_split(path_pointer, ':');
 	if (!paths)
-		return (NULL);
+		malloc_failure(line, token);
 	free(path_pointer);
 	i = 0;
 	while (paths[i])
@@ -31,13 +31,13 @@ static char	**create_paths(char **tokens, char **envp)
 		paths[i] = join_and_free(paths[i], "/");
 		paths[i] = join_and_free(paths[i], tokens[0]);
 		if (!paths[i])
-			return (NULL);
+			malloc_failure(line, token);
 		i++;
 	}
 	return (paths);
 }
 
-static char	*check_access(char **paths)
+static char	*check_access(char **paths, t_mini *line, t_tokens *token)
 {
 	int		i;
 	char	*res;
@@ -50,7 +50,7 @@ static char	*check_access(char **paths)
 		{
 			res = ft_strdup(paths[i]);
 			if (!res)
-				exit(1);
+				malloc_failure(line, token);
 			free_2d(paths);
 			return (res);
 		}
@@ -59,7 +59,7 @@ static char	*check_access(char **paths)
 	return (res);
 }
 
-char	*get_path(char **tokens, char **envp)
+char	*get_path(char **tokens, char **envp, t_mini *line, t_tokens *token)
 {
 	char	*res;
 	char	**paths;
@@ -74,10 +74,10 @@ char	*get_path(char **tokens, char **envp)
 			return (NULL);
 		}
 	}
-	paths = create_paths(tokens, envp);
+	paths = create_paths(tokens, envp, line, token);
 	if (!paths)
 		return (NULL);
-	res = check_access(paths);
+	res = check_access(paths, line, token);
 	if (res)
 		return (res);
 	free_2d(paths);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 12:07:09 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/24 14:32:50 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	parent(int in_fd, t_mini *line, int *fd)
 static int	child(t_tokens *token, t_mini *line, int in_fd, int *fd)
 {
 	if (!ft_strncmp(token[line->i].command[0], "./minishell", 12)) //what if token[line->i].command[0] == ./minishellsoemthing?
-		shell_lvl_check(line);
+		shell_lvl_check(line, token);
 	if (in_fd != STDIN_FILENO) // Redirect input
 	{
 		if (dup2(in_fd, STDIN_FILENO) == -1)
@@ -56,7 +56,7 @@ static int	child(t_tokens *token, t_mini *line, int in_fd, int *fd)
 	}
 	else
 	{
-		if (execve(get_path(token[line->i].command, line->envp), token[line->i].command, line->envp) == -1)
+		if (execve(get_path(token[line->i].command, line->envp, line, token), token[line->i].command, line->envp) == -1)
 			exit(1);
 	}
 	return (in_fd);
@@ -95,7 +95,7 @@ void	execute(t_tokens *token, t_mini *line)
 		// }
 		check = redirections(&token[line->i]);
 		if (check != -1)
-			get_path(token[line->i].command, line->envp);
+			get_path(token[line->i].command, line->envp, line, token);
 		if (check == -1 || token[line->i].command[0][0] == 9)
 		{
 			set_error(token, line, check);

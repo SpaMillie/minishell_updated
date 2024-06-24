@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:39:35 by mspasic           #+#    #+#             */
-/*   Updated: 2024/06/15 15:13:13 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/06/24 14:50:06 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,20 @@ void	free_2d(char **tab)
 	free(tab);
 }
 
-void	malloc_failure(t_mini *line)
+void	malloc_failure(t_mini *line, t_tokens *token)
 {
 	ft_putendl_fd("minishell: malloc failure", 2);
-    free_2d(line->element);
-    free_2d(line->metaed);
-	//free everything
+    cleanup(line, token, 1);
 	exit(1);
 }
 
-void	void_malloc_failure(void)
-{
-	ft_putendl_fd("minishell: malloc failure", 2);
-	exit(1);
-}
+// void	void_malloc_failure(void)
+// {
+// 	ft_putendl_fd("minishell: malloc failure", 2);
+// 	exit(1);
+// }
 
-int	syntax_error(t_mini *line, char *s, int i)
+int	syntax_error(t_mini *line, char *s, int i, t_tokens *token)
 {
 	char	*str;
 
@@ -55,7 +53,7 @@ int	syntax_error(t_mini *line, char *s, int i)
 	{
 		str = ft_strjoin("minishell: parse error near ", s);
 		if (!str)
-			malloc_failure(line);
+			malloc_failure(line, token);
 		ft_putendl_fd(str, 2);
 		free (str);
 	}

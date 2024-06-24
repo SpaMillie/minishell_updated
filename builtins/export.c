@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:28:58 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/19 11:38:30 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:53:25 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static char	*get_existing_name(char *existing, t_mini *line, int i)
 {
 	int	j;
 
-	if (!existing)
-		exit(1);
+	// if (!existing)
+	// 	exit(1);
 	j = 0;
 	while (line->envp[i][j] != '=' && line->envp[i][j] != '\0')
 	{
@@ -28,7 +28,7 @@ static char	*get_existing_name(char *existing, t_mini *line, int i)
 	return (existing);
 }
 
-static char	*env_exists(char *arg, t_mini *line)
+static char	*env_exists(char *arg, t_mini *line, t_tokens *token)
 {
 	int		len;
 	int		i;
@@ -45,7 +45,7 @@ static char	*env_exists(char *arg, t_mini *line)
 		{
 			existing = malloc(sizeof(char) * len + 1);
 			if (!existing)
-				malloc_failure(line);
+				malloc_failure(line, token);
 			existing = get_existing_name(existing, line, i);
 			return (existing);
 		}
@@ -54,45 +54,45 @@ static char	*env_exists(char *arg, t_mini *line)
 	return (NULL);
 }
 
-static void	unset_existing(char *arg, t_mini *line)
+static void	unset_existing(char *arg, t_mini *line, t_tokens *token)
 {
 	char		*existing;
 
-	existing = env_exists(arg, line);
+	existing = env_exists(arg, line, token);
 	if (existing)
 	{
-		unset(existing, line);
+		unset(existing, line, token);
 		free(existing);
 	}
 }
 
-void	export(char *arg, t_mini *line)
+void	export(char *arg, t_mini *line, t_tokens *token)
 {
 	char	**new_envp;
 	int		i;
 
-	unset_existing(arg, line);
+	unset_existing(arg, line, token);
 	new_envp = malloc_2d(line->envp);
 	if (!new_envp)
-		malloc_failure(line);
+		malloc_failure(line, token);
 	i = 0;
 	while (line->envp[i])
 	{
 		new_envp[i] = ft_strdup(line->envp[i]);
 		if (!new_envp[i])
-			malloc_failure(line);
+			malloc_failure(line, token);
 		i++;
 	}
 	new_envp[i] = ft_strdup(arg);
 	if (!new_envp[i])
-		malloc_failure(line);
+		malloc_failure(line, token);
 	i++;
 	new_envp[i] = NULL;
 	free_2d(line->envp);
 	line->envp = new_envp;
 }
 
-void	export_cmd(char **args, t_mini *line)
+void	export_cmd(char **args, t_mini *line, t_tokens *token)
 {
 	int	i;
 
@@ -112,7 +112,7 @@ void	export_cmd(char **args, t_mini *line)
 		i = 1;
 		while (args[i])
 		{
-			export(args[i], line);
+			export(args[i], line, token);
 			i++;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:38 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/17 15:15:42 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:55:00 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	to_token(t_mini *line, t_tokens **token)
 		p_count(line);
 		*token = malloc(sizeof(t_tokens) * (line->pipe_num));
 		if (!(*token))
-			malloc_failure(line);
+			malloc_failure(line, *token);
 		tokenising(line, *token);
 }
 
@@ -77,9 +77,10 @@ static int	minishell_loop(t_mini *line)
 		if (ft_strlen(line_read) == 0)
 			continue ;
 		add_history(line_read);
-		if (validating(line_read, line) == 1)
+		if (validating(line_read, line, token) == 1)
 			continue ;
-		expansion(line);
+		free(line_read);
+		expansion(line, token);
 		to_token(line, &token);
 		// printf("arrived here %s\n", token->command[0]);
 		execute(token, line);
@@ -87,10 +88,10 @@ static int	minishell_loop(t_mini *line)
 		// printf("here %s\n", token->command[0]);
 		if (token->command[0] && ft_strncmp(token->command[0], "exit", ft_strlen(token->command[0])) == 0)
 		{
-			cleanup(line, token, line_read, 1);
+			cleanup(line, token, 1);
 			break ;
 		}
-		cleanup(line, token, line_read, 0);
+		cleanup(line, token, 0);
 		// printf("does it clean up?\n");
 	}
 	// printf("exited minishell_loop\n");
@@ -107,8 +108,8 @@ int	main(int argc, char **argv, char **envp)
 	line = (t_mini){0};
 	line.envp = envp_dup(envp);
 	if (!line.envp)
-		malloc_failure(&line); //figure out what to free
-	export("OLDPWD", &line);
+		exit(1);
+	//export("OLDPWD", &line);
 	set_term_attr();
 	if (argc == 1)
 	{
