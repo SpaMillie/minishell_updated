@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:02:36 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/20 11:26:32 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/24 10:46:52 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,15 @@ char	*get_path(char **tokens, char **envp)
 	char	**paths;
 
 	if (ft_strchr(tokens[0], '/'))
-		return(tokens[0]);
+	{
+		if (access(tokens[0], F_OK) == 0)
+			return(tokens[0]);
+		else
+		{
+			print_error("No such file or directory", tokens);
+			return (NULL);
+		}
+	}
 	paths = create_paths(tokens, envp);
 	if (!paths)
 		return (NULL);
@@ -73,6 +81,6 @@ char	*get_path(char **tokens, char **envp)
 	if (res)
 		return (res);
 	free_2d(paths);
-	print_error("command not found", tokens);
+	print_error("Command not found", tokens);
 	return (NULL);
 }
