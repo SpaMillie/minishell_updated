@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:05:39 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 16:25:33 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/24 16:38:40 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int    c_count(t_mini *line, t_alloc *ed, int i)
 	return (i);
 }
 
-void    p_count(t_mini *line)
+void    p_count(t_mini *line, t_tokens *token)
 {
     int i;
 
@@ -48,7 +48,7 @@ void    p_count(t_mini *line)
 	line->pipe_num++;
 	line->paths = malloc(sizeof(char *) * line->pipe_num);
 	if (!line->paths)
-		malloc_failure(line);
+		malloc_failure(line, token);
 }
 
 static int	allocating_token(t_tokens *token, t_alloc *ed)

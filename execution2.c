@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:50 by mspasic           #+#    #+#             */
-/*   Updated: 2024/06/24 16:21:53 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/24 16:46:16 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	single_builtin(t_tokens *token, t_mini *line, int *fd)
 	fd[1] = dup(STDOUT_FILENO);
 	line->paths[line->i] = ft_strdup("won't be used\n");
 	if (!line->paths[line->i])
-		malloc_failure(line);
+		malloc_failure(line, token);
 	redirections(&token[line->i]);
 	execute_builtin(&token[line->i], line); // Execute the built-in
 	dup2(fd[0], STDIN_FILENO);

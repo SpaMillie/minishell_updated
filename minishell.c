@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:38 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 16:34:52 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:38:11 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	*create_prompt(void)
 
 static void	to_token(t_mini *line, t_tokens **token)
 {			
-		p_count(line);
+		p_count(line, *token);
 		*token = malloc(sizeof(t_tokens) * (line->pipe_num));
 		if (!(*token))
 			malloc_failure(line, *token);

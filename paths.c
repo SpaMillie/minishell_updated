@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:02:36 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 16:27:36 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/24 16:44:14 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	**create_paths(char **tokens, char **envp, t_mini *line, t_tokens *t
 	return (paths);
 }
 
-static int	check_access(char **paths, t_mini *line)
+static int	check_access(char **paths, t_mini *line, t_tokens *token)
 {
 	int		i;
 
@@ -49,7 +49,7 @@ static int	check_access(char **paths, t_mini *line)
 			line->paths[line->i] = ft_strdup(paths[i]);
 			free_2d(paths);
 			if (!(line->paths[line->i]))
-				malloc_failure(line);
+				malloc_failure(line, token);
 			return (0);
 		}
 		i++;
@@ -59,7 +59,7 @@ static int	check_access(char **paths, t_mini *line)
 	return (-1);
 }
 
-int	get_path(char **tokens, t_mini *line)
+int	get_path(char **tokens, t_mini *line, t_tokens *token)
 {
 	char	**paths;
 
@@ -76,10 +76,10 @@ int	get_path(char **tokens, t_mini *line)
 		return (0);
 	}
 	printf("malloced paths\n");
-	paths = create_paths(tokens, line->envp);
+	paths = create_paths(tokens, line->envp, line, token);
 	if (!paths)
 		return (-1);
-	if (check_access(paths, line) != 0)
+	if (check_access(paths, line, token) != 0)
 	{
 		tokens[0][0] = 9;
 		print_error("command not found", tokens);

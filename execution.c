@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 16:23:39 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/24 16:45:50 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	child(t_tokens *token, t_mini *line, int in_fd, int *fd)
 	else
 	{
 		if (execve(line->paths[line->i], token[line->i].command, line->envp) == -1)
-			exit(1);
+			exit(1); // clean up and error
 	}
 	return (in_fd);
 }
@@ -97,14 +97,14 @@ void	execute(t_tokens *token, t_mini *line)
 		check = redirections(&token[line->i]);
 		if (check != -1 && !(is_builtin(token[line->i].command[0])))
 		{
-			if (get_path(token[line->i].command, line) == -1)
-				malloc_failure(line);
+			if (get_path(token[line->i].command, line, token) == -1)
+				malloc_failure(line, token);
 		}
 		else
 		{
 			line->paths[line->i] = ft_strdup("won't be used\n");
 			if (!line->paths[line->i])
-				malloc_failure(line);
+				malloc_failure(line, token);
 		}
 		if (check == -1 || token[line->i].command[0][0] == 9)
 		{
