@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:51:42 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/14 19:49:38 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/06/24 15:56:05 by milica           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,18 @@ void	cleanup(t_mini *line, t_tokens *token, char *line_read, int option)
 		free(line_read);
 	free_2d(line->element);
 	free_2d(line->metaed);
+	if (line->paths)
+	{
+		while (i < line->pipe_num)
+		{
+			free(line->paths[i++]);
+			printf("i is now %d\n", i);
+		}
+		free(line->paths);
+	}
 	if (option)
 		free_2d(line->envp);
+	i = 0;
 	while (i < line->pipe_num)
 	{
 		free_2d(token[i].command);

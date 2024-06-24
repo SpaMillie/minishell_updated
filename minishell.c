@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:38 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/17 15:15:42 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:09:36 by milica           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,11 @@ static int	minishell_loop(t_mini *line)
 		// printf("here %s\n", token->command[0]);
 		if (token->command[0] && ft_strncmp(token->command[0], "exit", ft_strlen(token->command[0])) == 0)
 		{
+			printf("cleanup 90\n");
 			cleanup(line, token, line_read, 1);
 			break ;
 		}
+		printf("cleanup 94\n");
 		cleanup(line, token, line_read, 0);
 		// printf("does it clean up?\n");
 	}

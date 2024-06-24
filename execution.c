@@ -6,7 +6,7 @@
 /*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 12:07:09 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/24 16:16:47 by milica           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	child(t_tokens *token, t_mini *line, int in_fd, int *fd)
 	}
 	else
 	{
-		if (execve(get_path(token[line->i].command, line->envp), token[line->i].command, line->envp) == -1)
+		if (execve(line->paths[line->i], token[line->i].command, line->envp) == -1)
 			exit(1);
 	}
 	return (in_fd);
@@ -85,6 +85,7 @@ void	execute(t_tokens *token, t_mini *line)
 	while (line->i < line->pipe_num)
 	{
 		line->flag = 0;
+		line->err_num = 0;
 		if (line->i < line->pipe_num - 1 && pipe(fd) == -1)
 			exit(1);
 		// if (is_builtin(token[line->i].command[0]))
@@ -94,8 +95,17 @@ void	execute(t_tokens *token, t_mini *line)
 		// 	continue ;
 		// }
 		check = redirections(&token[line->i]);
-		if (check != -1)
-			get_path(token[line->i].command, line->envp);
+		if (check != -1 && !(is_builtin(token[line->i].command[0])))
+		{
+			if (get_path(token[line->i].command, line) == -1)
+				malloc_failure(line);
+		}
+		else
+		{
+			line->paths[line->i] = ft_strdup("won't be used\n");
+			if (!line->paths[line->i])
+				malloc_failure(line);
+		}
 		if (check == -1 || token[line->i].command[0][0] == 9)
 		{
 			set_error(token, line, check);

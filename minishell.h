@@ -6,7 +6,7 @@
 /*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 11:47:46 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/24 16:15:40 by milica           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ typedef struct s_mini
 {
 	char	**metaed;
 	char	**element;
-	int		pipe_num;
 	char	**envp;
+	char	**paths;
+	int		pipe_num;
 	int		err_num;
 	int		flag;
 	int		i;
@@ -82,7 +83,6 @@ void		malloc_failure(t_mini *line);
 void		void_malloc_failure(void);
 int			syntax_error(t_mini *line, char *s, int i);
 //execution.c
-void		builtin_execution(t_tokens *token, t_mini *line);
 void		execute(t_tokens *token, t_mini *line);
 //execution2.c
 void		single_builtin(t_tokens *token, t_mini *line, int *fd);
@@ -102,7 +102,7 @@ void    	here_doc(t_mini *line);
 void		tokenising(t_mini *line, t_tokens *token);
 void		p_count(t_mini *line);
 //paths.c
-char		*get_path(char **tokens, char **envp);
+int			get_path(char **tokens, t_mini *line);
 //redirect.c
 int			redirections(t_tokens *token);
 //second_split.c

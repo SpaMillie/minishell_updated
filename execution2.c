@@ -6,7 +6,7 @@
 /*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:50 by mspasic           #+#    #+#             */
-/*   Updated: 2024/06/24 11:48:47 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/24 15:30:40 by milica           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ void	single_builtin(t_tokens *token, t_mini *line, int *fd)
 {		
 	fd[0] = dup(STDIN_FILENO);
 	fd[1] = dup(STDOUT_FILENO);
+	line->paths[line->i] = ft_strdup("won't be used\n");
+	if (!line->paths[line->i])
+		malloc_failure(line);
 	redirections(&token[line->i]);
 	execute_builtin(&token[line->i], line); // Execute the built-in
 	dup2(fd[0], STDIN_FILENO);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:39:35 by mspasic           #+#    #+#             */
-/*   Updated: 2024/06/15 15:13:13 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/06/24 15:12:32 by milica           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	malloc_failure(t_mini *line)
 	ft_putendl_fd("minishell: malloc failure", 2);
     free_2d(line->element);
     free_2d(line->metaed);
+	free_2d(line->paths);
 	//free everything
 	exit(1);
 }
