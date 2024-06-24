@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:21:50 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/19 14:28:21 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:08:13 by milica           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	dup_or_join(char **new_tokens, int loop, int i, char *str)
 	{
 		new_tokens[i] = ft_strdup(str);
 		if (!new_tokens[i])
-			void_malloc_failure();
+			void_malloc_failure(); //it's going to exit,but do we need to cleanup?
 	}
 	else
 		new_tokens[i] = join_and_free(new_tokens[i], str);
