@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:21:50 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 12:18:20 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:59:10 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*get_substring(char *s, int j)
 	len = get_len(s, start, len);
 	substring = ft_substr(s, start, len);
 	if (!substring)
-		void_malloc_failure();
+		exit(1);
 	return (substring);
 }
 
@@ -63,13 +63,13 @@ void	dup_or_join(char **new_tokens, int loop, int i, char *str)
 	{
 		new_tokens[i] = ft_strdup(str);
 		if (!new_tokens[i])
-			void_malloc_failure(); //it's going to exit,but do we need to cleanup?
+			exit(1); //it's going to exit,but do we need to cleanup?
 	}
 	else
 		new_tokens[i] = join_and_free(new_tokens[i], str);
 }
 
-void	duplicate(t_mini *line, char **new_tokens)
+void	duplicate(t_mini *line, char **new_tokens, t_tokens *token)
 {
 	int	j;
 
@@ -85,5 +85,5 @@ void	duplicate(t_mini *line, char **new_tokens)
 	}
 	new_tokens[line->i] = ft_strdup(line->metaed[line->i]);
 	if (!new_tokens[line->i])
-		malloc_failure(line);
+		malloc_failure(line, token);
 }
