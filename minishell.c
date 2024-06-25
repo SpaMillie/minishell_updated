@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:38 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/25 11:37:09 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/25 12:37:12 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ static char	*create_prompt(void)
 
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
+	{
+		perror("pwd");
 		exit(1);
+	}
 	username = getenv("USER");
 	if (!username)
 		username = "unknown";
