@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:02:36 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/25 10:01:17 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/25 10:30:15 by milica           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ int	get_path(char **tokens, t_mini *line, t_tokens *token)
 		return (-1);
 	if (check_access(paths, line, token) != 0)
 	{
-		tokens[0][0] = 9;
 		print_error("command not found", tokens);
+		tokens[0][0] = 9;
 	}
 	return (0);
 }
