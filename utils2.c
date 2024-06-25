@@ -6,7 +6,7 @@
 /*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:51:42 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/25 10:30:25 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/25 10:37:23 by milica           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ void	cleanup(t_mini *line, t_tokens *token, int option)
 	if (line->paths)
 	{
 		while (i < line->pipe_num)
-		{
 			free(line->paths[i++]);
-			printf("i is now %d\n", i);
-		}
 		free(line->paths);
 	}
 	if (option)

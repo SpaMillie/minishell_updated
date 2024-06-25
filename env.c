@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:50:13 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 17:08:26 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/25 10:35:42 by milica           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char	*get_env_value(char **envp, char *str, t_mini *line, t_tokens *token)
 	if (!ft_strncmp(str, "?", 2))
 	{
 		env_value = err_num_value(line, token);
+		line->err_num = 0;
 		return (env_value);
 	}
 	env = ft_getenv(envp, str, line, token);
