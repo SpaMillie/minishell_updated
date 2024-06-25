@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:02:36 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 16:44:14 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/25 10:01:17 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	check_access(char **paths, t_mini *line, t_tokens *token)
 		i++;
 	}
 	free_2d(paths);
-	line->paths[line->i] = ft_strdup(NULL);
+	line->paths[line->i] = ft_strdup("");
 	return (-1);
 }
 
