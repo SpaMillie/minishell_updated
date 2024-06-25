@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:48:57 by mspasic           #+#    #+#             */
-/*   Updated: 2024/06/24 16:27:49 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/24 16:57:19 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,33 +59,33 @@ int is_it_redirect(char *s)
     return (-1);
 }
 
-int validating(char *argv, t_mini *line, t_tokens *token)
+int validating(char *argv, t_mini *line)
 {
 	int	words;
 	int	i;
 
     i = 0;
-	if (first_split(argv, line, token) == -1)
-		return (syntax_error(line, NULL, 1, token));
+	if (first_split(argv, line) == -1)
+		return (syntax_error(line, NULL, 1));
 	// i = 0;
     // while (line->element[i] != NULL)
     //     printf("%s\n", line->element[i++]);
-	words = second_split(line, token);
+	words = second_split(line);
 	// i = 0;
     // while (line->metaed[i] != NULL)
     //     printf("%s\n", line->metaed[i++]);
     if (ft_strlen(line->metaed[i]) != 0 && ft_strncmp(line->metaed[i], "|", ft_strlen(line->metaed[i])) == 0)
-		return (syntax_error(line, NULL, 2, token));
+		return (syntax_error(line, NULL, 2));
     while (i + 1 < words)
     {
         if (ft_strlen(line->metaed[i]) != 0 && is_it_redirect(line->metaed[i]) == 0 && is_it_redirect(line->metaed[i + 1]) == 0)
-		    return (syntax_error(line, line->metaed[i + 1], 3, token));
+		    return (syntax_error(line, line->metaed[i + 1], 3));
         i++;
     }
     if (ft_strlen(line->metaed[i]) != 0 && (ft_strncmp(line->metaed[i], "|", ft_strlen(line->metaed[i])) == 0 || \
         (is_it_redirect(line->metaed[i]) == 0)))
-		return (syntax_error(line, NULL, 4, token));
-    trim_quotes(line, token);
+		return (syntax_error(line, NULL, 4));
+    trim_quotes(line);
     return (0);
 }
 

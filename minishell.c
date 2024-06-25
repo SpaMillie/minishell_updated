@@ -6,7 +6,7 @@
 /*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:38 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/25 09:42:34 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/25 09:44:58 by milica           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	*create_prompt(void)
 
 static void	to_token(t_mini *line, t_tokens **token)
 {			
-		p_count(line);
+		p_count(line, *token);
 		*token = malloc(sizeof(t_tokens) * (line->pipe_num));
 		if (!(*token))
 			malloc_failure(line, *token);
@@ -77,10 +77,10 @@ static int	minishell_loop(t_mini *line)
 		if (ft_strlen(line_read) == 0)
 			continue ;
 		add_history(line_read);
-		if (validating(line_read, line, token) == 1)
+		if (validating(line_read, line) == 1)
 			continue ;
 		free(line_read);
-		expansion(line, token);
+		expansion(line);
 		to_token(line, &token);
 		// printf("arrived here %s\n", token->command[0]);
 		execute(token, line);

@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	second_splitting(t_mini *line, t_tokens *token)
+void	second_splitting(t_mini *line)
 {
 	int	prev_j;
 	int	i;
@@ -33,7 +33,7 @@ void	second_splitting(t_mini *line, t_tokens *token)
 			}
 			line->metaed[k++] = ft_substr(line->element[i], prev_j, j - prev_j);
 		    if (line->metaed[k - 1] == NULL)
-				malloc_failure(line, token);
+				malloc_failure_without_token(line);
 		}
 		i++;	
 	}
@@ -77,7 +77,7 @@ static int	w_count(t_mini *line)
 	return (words);
 }
 
-int	second_split(t_mini *line, t_tokens *token)
+int	second_split(t_mini *line)
 {
 	int	words;
 
@@ -85,7 +85,7 @@ int	second_split(t_mini *line, t_tokens *token)
 	// printf("words are %d\n", words);
 	line->metaed = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!line->metaed)
-		malloc_failure(line, token);
-	second_splitting(line, token);
+		malloc_failure_without_token(line);
+	second_splitting(line);
 	return (words);
 }

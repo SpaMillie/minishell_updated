@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 16:25:09 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/24 17:02:07 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,9 @@ char		*get_env_value(char **envp, char *str, t_mini *line, t_tokens *token);
 //error.c
 void		free_2d(char **tab);
 void		malloc_failure(t_mini *line, t_tokens *token);
+void		malloc_failure_without_token(t_mini *line);
 //void		void_malloc_failure(void);
-int			syntax_error(t_mini *line, char *s, int i, t_tokens *token);
+int			syntax_error(t_mini *line, char *s, int i);
 //execution.c
 void		execute(t_tokens *token, t_mini *line);
 //execution2.c
@@ -89,29 +90,29 @@ void		single_builtin(t_tokens *token, t_mini *line, int *fd);
 void		shell_lvl_check(t_mini *line, t_tokens *token);
 void		wait_for_child(t_mini *line);
 //expansion.c
-void		expansion(t_mini *line, t_tokens *token);
+void		expansion(t_mini *line);
 //expansion2.c
 char		*get_substring(char *s, int j);
 void		dup_or_join(char **new_tokens, int loop, int i, char *str);
-void		duplicate(t_mini *line, char **new_tokens, t_tokens *token);
+void		duplicate(t_mini *line, char **new_tokens);
 //first_split.c
-int			first_split(char *argv, t_mini *line, t_tokens *token);
+int			first_split(char *argv, t_mini *line);
 //heredoc.c
 void    	here_doc(t_mini *line);
 //parsing.c
 void		tokenising(t_mini *line, t_tokens *token);
-void		p_count(t_mini *line);
+void		p_count(t_mini *line, t_tokens *token);
 //paths.c
-int			get_path(char **tokens, t_mini *line);
+int			get_path(char **tokens, t_mini *line, t_tokens *token);
 //redirect.c
 int			redirections(t_tokens *token);
 //second_split.c
-int			second_split(t_mini *line, t_tokens *token);
+int			second_split(t_mini *line);
 //signals.c
 void		handle_signal(int signal);
 void		set_term_attr(void);
 //trim.c
-void		trim_quotes(t_mini *line, t_tokens *token);
+void		trim_quotes(t_mini *line);
 //utils.c
 int			is_whitespace(char c);
 void		print_error(char *message, char **args);
@@ -122,7 +123,7 @@ void		cleanup(t_mini *line, t_tokens *token, int option);
 void		print_2d(char **tab);
 char		*join_and_free(char *prompt, char *str);
 //validation.c
-int			validating(char *argv, t_mini *line, t_tokens *token);
+int			validating(char *argv, t_mini *line);
 int			is_it_redirect(char *s);
 int			is_it_space(char *s, int i);
 int			ft_skip(char *s, int i);

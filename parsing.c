@@ -6,7 +6,7 @@
 /*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:05:39 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/25 09:42:21 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/25 09:56:51 by milica           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int    c_count(t_mini *line, t_alloc *ed, int i)
 	return (i);
 }
 
-void    p_count(t_mini *line)
+void    p_count(t_mini *line, t_tokens *token)
 {
     int i;
 
@@ -48,7 +48,7 @@ void    p_count(t_mini *line)
 	line->pipe_num++;
 	line->paths = malloc(sizeof(char *) * line->pipe_num);
 	if (!line->paths)
-		printf("malloc");
+		malloc_failure(line, token);
 }
 
 static int	allocating_token(t_tokens *token, t_alloc *ed)
