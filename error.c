@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:39:35 by mspasic           #+#    #+#             */
-/*   Updated: 2024/06/25 11:34:05 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/25 13:26:47 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ void	malloc_failure_without_token(t_mini *line)
 	if (line->paths)
 	{
 		while (i < line->pipe_num)
-		{
 			free(line->paths[i++]);
-			printf("i is now %d\n", i);
-		}
 		free(line->paths);
 	}
 	free_2d(line->envp);

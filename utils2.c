@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:51:42 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/25 11:21:53 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/25 13:27:50 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ void	cleanup(t_mini *line, t_tokens *token, int option)
 	if (line->paths)
 	{
 		while (i < line->pipe_num)
-		{
 			free(line->paths[i++]);
-			printf("i is now %d\n", i);
-		}
 		free(line->paths);
 	}
 	if (option)
