@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:50:13 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 17:08:26 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/25 10:51:15 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*err_num_value(t_mini *line, t_tokens *token)
 {
 	char	*itoaed_err_num;
 	char	*err_num_value;
-	
+
 	itoaed_err_num = ft_itoa(line->err_num);
 	if (!itoaed_err_num)
 		malloc_failure(line, token);
@@ -34,10 +34,7 @@ char	*get_env_value(char **envp, char *str, t_mini *line, t_tokens *token)
 	int		i;
 
 	if (!ft_strncmp(str, "?", 2))
-	{
-		env_value = err_num_value(line, token);
-		return (env_value);
-	}
+		return (err_num_value(line, token));
 	env = ft_getenv(envp, str, line, token);
 	if (!env)
 		return (NULL);
