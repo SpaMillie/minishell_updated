@@ -63,7 +63,15 @@ void	trim_quotes(t_mini *line)
 		j = 0;
 		while (line->metaed[i][j] != '\0')
 		{
-			if (line->metaed[i][j] == '\'' || line->metaed[i][j] == '\"') 
+			if (ft_strncmp(line->metaed[i], "\"\"", 3) == 0 || ft_strncmp(line->metaed[i], "''", 3) == 0)
+			{
+				free(line->metaed[i]);
+				line->metaed[i] = ft_strdup("");
+				if (!line->metaed[i])
+					malloc_failure_without_token(line);
+				break ;
+			}
+			else if (line->metaed[i][j] == '\'' || line->metaed[i][j] == '\"') 
 				j = snip_snip(line, i, j);
 			else
 				j++;

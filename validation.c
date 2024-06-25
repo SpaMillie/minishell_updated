@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:48:57 by mspasic           #+#    #+#             */
-/*   Updated: 2024/06/24 16:57:19 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/25 13:09:11 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,8 @@ int ft_skip(char *s, int i)
 
 int is_it_redirect(char *s)
 {
-    int len;
-
-    len = ft_strlen(s);
-    if (ft_strncmp(s, "<", len) == 0 || ft_strncmp(s, ">", len) == 0 || \
-        ft_strncmp(s, ">>", len) == 0 || ft_strncmp(s, "<<", len) == 0)
+    if (ft_strncmp(s, "<", 2) == 0 || ft_strncmp(s, ">", 2) == 0 || \
+        ft_strncmp(s, ">>", 3) == 0 || ft_strncmp(s, "<<", 3) == 0)
         return (0);
     return (-1);
 }
@@ -70,22 +67,22 @@ int validating(char *argv, t_mini *line)
 	// i = 0;
     // while (line->element[i] != NULL)
     //     printf("%s\n", line->element[i++]);
-	words = second_split(line);
-	// i = 0;
-    // while (line->metaed[i] != NULL)
-    //     printf("%s\n", line->metaed[i++]);
-    if (ft_strlen(line->metaed[i]) != 0 && ft_strncmp(line->metaed[i], "|", ft_strlen(line->metaed[i])) == 0)
+    words = second_split(line);
+    if (ft_strncmp(line->metaed[i], "\"\"", 3) != 0 && ft_strncmp(line->metaed[i], "''", 3) != 0 && ft_strlen(line->metaed[i]) != 0 && ft_strncmp(line->metaed[i], "|", ft_strlen(line->metaed[i])) == 0)
 		return (syntax_error(line, NULL, 2));
     while (i + 1 < words)
     {
-        if (ft_strlen(line->metaed[i]) != 0 && is_it_redirect(line->metaed[i]) == 0 && is_it_redirect(line->metaed[i + 1]) == 0)
+        if (ft_strncmp(line->metaed[i], "\"\"", 3) != 0 && ft_strncmp(line->metaed[i], "''", 3) != 0 && ft_strlen(line->metaed[i]) != 0 && is_it_redirect(line->metaed[i]) == 0 && is_it_redirect(line->metaed[i + 1]) == 0)
 		    return (syntax_error(line, line->metaed[i + 1], 3));
         i++;
     }
-    if (ft_strlen(line->metaed[i]) != 0 && (ft_strncmp(line->metaed[i], "|", ft_strlen(line->metaed[i])) == 0 || \
+    if (ft_strncmp(line->metaed[i], "\"\"", 3) != 0 && ft_strncmp(line->metaed[i], "''", 3) != 0 && ft_strlen(line->metaed[i]) != 0 && (ft_strncmp(line->metaed[i], "|", ft_strlen(line->metaed[i])) == 0 || \
         (is_it_redirect(line->metaed[i]) == 0)))
 		return (syntax_error(line, NULL, 4));
     trim_quotes(line);
+   	i = 0;
+    while (line->metaed[i] != NULL)
+        printf("%s\n", line->metaed[i++]); 
     return (0);
 }
 

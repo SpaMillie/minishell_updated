@@ -64,8 +64,7 @@ int	first_split(char *argv, t_mini *line)
 
     words = e_count(argv);
     if (words == -1)
-		return (-1); //printf("zsh: could not find the matching quote\n");
-	// printf("elements = %d\n", words);
+		return (-1);
     line->element = (char **)malloc(sizeof(char *) * (words + 1));
     if (!line->element)
 		malloc_failure_without_token(line);
