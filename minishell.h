@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/25 10:13:02 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/25 11:30:58 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,6 @@
 # include <stdio.h>
 # include <termios.h>
 # include <string.h>
-
-// typedef struct s_expansion_data
-// {
-// 	char	**new_tokens;
-// 	int		loop;
-// 	int		i;
-// 	int		j;
-// }				t_expansion_data;
 
 typedef struct s_mini
 {
@@ -81,7 +73,7 @@ char		*get_env_value(char **envp, char *str, t_mini *line, t_tokens *token);
 void		free_2d(char **tab);
 void		malloc_failure(t_mini *line, t_tokens *token);
 void		malloc_failure_without_token(t_mini *line);
-//void		void_malloc_failure(void);
+void		malloc_failure_no_cleanup(void);
 int			syntax_error(t_mini *line, char *s, int i);
 //execution.c
 void		execute(t_tokens *token, t_mini *line);
@@ -93,7 +85,7 @@ void		wait_for_child(t_mini *line);
 void		expansion(t_mini *line);
 //expansion2.c
 char		*get_substring(char *s, int j);
-void		dup_or_join(char **new_tokens, int loop, int i, char *str);
+int			dup_or_join(char **new_tokens, int loop, int i, char *str);
 void		duplicate(t_mini *line, char **new_tokens);
 //first_split.c
 int			first_split(char *argv, t_mini *line);
@@ -114,10 +106,10 @@ void		set_term_attr(void);
 //trim.c
 void		trim_quotes(t_mini *line);
 //utils.c
-int			is_whitespace(char c);
 void		print_error(char *message, char **args);
 char		**malloc_2d(char **arr);
 char		**envp_dup(char **envp);
+char		*build_prompt(char *username, char *hostname, char* cwd);
 //utils2.c
 void		cleanup(t_mini *line, t_tokens *token, int option);
 void		print_2d(char **tab);
@@ -129,6 +121,5 @@ int			is_it_space(char *s, int i);
 int			ft_skip(char *s, int i);
 //external
 extern void	rl_replace_line(const char *text, int clear_undo);
-// void		execute_command(t_tokens *token, t_mini *line);
 
 #endif

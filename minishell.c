@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:38 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/25 10:12:52 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/25 11:37:09 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,7 @@ static char	*create_prompt(void)
 	hostname = getenv("HOSTNAME");
 	if (!hostname)
 		hostname = "hive";
-	prompt = ft_strdup(username);
-	prompt = join_and_free(prompt, "@");
-	prompt = join_and_free(prompt, hostname);
-	prompt = join_and_free(prompt, ":");
-	prompt = join_and_free(prompt, cwd);
-	free(cwd);
-	prompt = join_and_free(prompt, "$ ");
+	prompt = build_prompt(username, hostname, cwd);
 	return (prompt);
 }
 
@@ -108,8 +102,7 @@ int	main(int argc, char **argv, char **envp)
 	line = (t_mini){0};
 	line.envp = envp_dup(envp);
 	if (!line.envp)
-		exit(1);
-	//export("OLDPWD", &line);
+		malloc_failure_no_cleanup();
 	set_term_attr();
 	if (argc == 1)
 	{

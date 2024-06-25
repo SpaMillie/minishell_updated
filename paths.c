@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:02:36 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/25 10:32:58 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:06:25 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	get_path(char **tokens, t_mini *line, t_tokens *token)
 		{
 			line->paths[line->i] = ft_strdup(tokens[0]);
 			if (!line->paths[line->i])
-			 	return (-1);
+				return (-1);
 		}
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 09:29:33 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 14:55:47 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:44:08 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ void	cd(char **args, t_mini *line, t_tokens *token)
 		malloc_failure(line, token);
 	new_pwd_path = getcwd(NULL, 0);
 	if (!new_pwd_path)
+	{
+		perror("getcwd");
 		exit(1);
+	}
 	new_pwd = ft_strjoin("PWD=", new_pwd_path);
 	if (!new_pwd)
 		malloc_failure(line, token);

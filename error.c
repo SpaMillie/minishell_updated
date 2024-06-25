@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:39:35 by mspasic           #+#    #+#             */
-/*   Updated: 2024/06/24 17:09:12 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:34:05 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	free_2d(char **tab)
 
 void	malloc_failure_without_token(t_mini *line)
 {
-	ft_putendl_fd("minishell: malloc failure", 2);
-    int	i;
+	int	i;
 
 	i = 0;
+	ft_putendl_fd("minishell: malloc failure", 2);
 	free_2d(line->element);
 	free_2d(line->metaed);
 	if (line->paths)
@@ -49,15 +49,15 @@ void	malloc_failure_without_token(t_mini *line)
 void	malloc_failure(t_mini *line, t_tokens *token)
 {
 	ft_putendl_fd("minishell: malloc failure", 2);
-    cleanup(line, token, 1);
+	cleanup(line, token, 1);
 	exit(1);
 }
 
-// void	void_malloc_failure(void)
-// {
-// 	ft_putendl_fd("minishell: malloc failure", 2);
-// 	exit(1);
-// }
+void	malloc_failure_no_cleanup(void)
+{
+	ft_putendl_fd("minishell: malloc failure", 2);
+	exit(1);
+}
 
 int	syntax_error(t_mini *line, char *s, int i)
 {
@@ -80,7 +80,7 @@ int	syntax_error(t_mini *line, char *s, int i)
 	}
 	else if (i == 4)
 		ft_putendl_fd("minishell: parse error near \\n", 2);
-	line->err_num = 2;	
+	line->err_num = 2;
 	free_2d(line->element);
 	free_2d(line->metaed);
 	return (1);

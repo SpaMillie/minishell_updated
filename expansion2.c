@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:21:50 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 17:03:06 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:34:33 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,15 @@ char	*get_substring(char *s, int j)
 	return (substring);
 }
 
-void	dup_or_join(char **new_tokens, int loop, int i, char *str)
+int	dup_or_join(char **new_tokens, int loop, int i, char *str)
 {
 	if (loop == 0)
-	{
 		new_tokens[i] = ft_strdup(str);
-		if (!new_tokens[i])
-			exit(1); //it's going to exit,but do we need to cleanup?
-	}
 	else
 		new_tokens[i] = join_and_free(new_tokens[i], str);
+	if (!new_tokens[i])
+		return (1);
+	return (0);
 }
 
 void	duplicate(t_mini *line, char **new_tokens)

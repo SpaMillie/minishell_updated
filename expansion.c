@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 12:31:15 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 17:07:35 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:02:58 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static char	*nothing_to_expand(t_mini *line, char **new_tokens, int loop, int j)
 	char	*substring;
 
 	substring = get_substring(line->metaed[line->i], j);
-	dup_or_join(new_tokens, loop, line->i, substring);
+	if (dup_or_join(new_tokens, loop, line->i, substring))
+		malloc_failure_without_token(line);
 	return (substring);
 }
 
@@ -30,16 +31,23 @@ static char	*substring_expand(t_mini *line, char **new_tokens, int loop, int *j)
 	substring = get_substring(line->metaed[line->i], *j);
 	env_value = get_env_value(line->envp, substring, line, NULL);
 	if (!env_value)
-		dup_or_join(new_tokens, loop, line->i, "");
+	{
+		if (dup_or_join(new_tokens, loop, line->i, ""))
+			malloc_failure_without_token(line);
+	}
 	else
-		dup_or_join(new_tokens, loop, line->i, env_value);
+	{
+		if (dup_or_join(new_tokens, loop, line->i, env_value))
+			malloc_failure_without_token(line);
+	}
 	free(env_value);
 	return (substring);
 }
 
 static void	dollars_only(t_mini *line, char **new_tokens, int *loop, int *j)
 {
-	dup_or_join(new_tokens, *loop, line->i, "$");
+	if (dup_or_join(new_tokens, *loop, line->i, "$"))
+		malloc_failure_without_token(line);
 	(*j)++;
 	(*loop)++;
 }

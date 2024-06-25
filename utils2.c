@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:51:42 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 16:26:01 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/25 11:21:53 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,10 @@ char	*join_and_free(char *prompt, char *str)
 {
 	char	*temp;
 
-	if (!prompt)
-		return (NULL); //if the previous join_and_free failed
 	temp = ft_strjoin(prompt, str);
 	free(prompt);
 	if (!temp)
-	{
-		//malloc_fail?
 		return (NULL);
-	}
 	prompt = temp;
 	return (prompt);
 }
