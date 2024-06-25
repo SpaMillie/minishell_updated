@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 17:02:07 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/06/25 10:13:02 by milica           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int			first_split(char *argv, t_mini *line);
 void    	here_doc(t_mini *line);
 //parsing.c
 void		tokenising(t_mini *line, t_tokens *token);
-void		p_count(t_mini *line, t_tokens *token);
+void		p_count(t_mini *line);
 //paths.c
 int			get_path(char **tokens, t_mini *line, t_tokens *token);
 //redirect.c

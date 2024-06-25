@@ -6,7 +6,7 @@
 /*   By: milica <milica@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:38 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/25 09:44:58 by milica           ###   ########.fr       */
+/*   Updated: 2024/06/25 10:12:52 by milica           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ static char	*create_prompt(void)
 
 static void	to_token(t_mini *line, t_tokens **token)
 {			
-		p_count(line, *token);
+		p_count(line);
 		*token = malloc(sizeof(t_tokens) * (line->pipe_num));
 		if (!(*token))
-			malloc_failure(line, *token);
+			malloc_failure_without_token(line);
 		tokenising(line, *token);
 }
 
