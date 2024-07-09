@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/25 13:27:17 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/09 13:33:40 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct s_mini
 	int		err_num;
 	int		flag;
 	int		i;
+	int		input_fd;
+	int		output_fd;
 }				t_mini;
 
 typedef struct s_tokens
@@ -47,11 +49,20 @@ typedef struct s_alloc
 	int	other;
 }				t_alloc;
 
+typedef struct s_fds
+{
+    int in;
+    int out;
+    int close;
+} t_fds;
+
 //builtin_check.c
 void		execute_builtin(t_tokens *token, t_mini *line);
 int			is_builtin(char *str);
 //cd.c
 void		cd(char **args, t_mini *line, t_tokens *token);
+//children.c
+t_fds		set_fds(t_mini *line, t_tokens *token, int *prev);
 //echo-pwd-env.c
 void		echo(char **args);
 void		pwd(void);
@@ -78,7 +89,7 @@ int			syntax_error(t_mini *line, char *s, int i);
 //execution.c
 void		execute(t_tokens *token, t_mini *line);
 //execution2.c
-void		single_builtin(t_tokens *token, t_mini *line, int *fd);
+void		single_builtin(t_tokens *token, t_mini *line);
 void		shell_lvl_check(t_mini *line, t_tokens *token);
 void		wait_for_child(t_mini *line);
 //expansion.c
@@ -87,17 +98,25 @@ void		expansion(t_mini *line);
 char		*get_substring(char *s, int j);
 int			dup_or_join(char **new_tokens, int loop, int i, char *str);
 void		duplicate(t_mini *line, char **new_tokens);
+//fd_handling.c
+int    		init_fd(int *input, int *output);
+int			close_cleanup(t_mini *line);
 //first_split.c
 int			first_split(char *argv, t_mini *line);
 //heredoc.c
 void    	here_doc(t_mini *line);
+//opening_files.c
+int			opening(t_tokens *token, t_mini *line);
 //parsing.c
 void		tokenising(t_mini *line, t_tokens *token);
 void		p_count(t_mini *line);
 //paths.c
 int			get_path(char **tokens, t_mini *line, t_tokens *token);
 //redirect.c
-int			redirections(t_tokens *token);
+void		redirections(t_mini *line, t_tokens *token, t_fds *cur);
+//restore_fds.c
+int			dup2_in(int *input, int *other, int option);
+int			dup2_out(int *output, int *other, int option);
 //second_split.c
 int			second_split(t_mini *line);
 //signals.c
@@ -114,6 +133,12 @@ char		*build_prompt(char *username, char *hostname, char* cwd);
 void		cleanup(t_mini *line, t_tokens *token, int option);
 void		print_2d(char **tab);
 char		*join_and_free(char *prompt, char *str);
+void		unnecessary_path(t_mini *line, t_tokens *token);
+void		free_paths(t_mini *line);
+//utils3.c
+void		cleanup_close(t_mini *line, t_tokens *token);
+int			has_input(t_tokens *token);
+int			has_output(t_tokens *token);
 //validation.c
 int			validating(char *argv, t_mini *line);
 int			is_it_redirect(char *s);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid Date        by              +#+  #+#    #+#             */
-/*   Updated: 2024/06/25 13:27:00 by tparratt         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/07/09 18:24:44 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,29 @@ static char	*create_prompt(void)
 }
 
 static void	to_token(t_mini *line, t_tokens **token)
-{			
-		p_count(line);
-		*token = malloc(sizeof(t_tokens) * (line->pipe_num));
-		if (!(*token))
-			malloc_failure_without_token(line);
-		tokenising(line, *token);
+{		
+	p_count(line);
+	*token = malloc(sizeof(t_tokens) * (line->pipe_num));
+	if (!(*token))
+		malloc_failure_without_token(line);
+	tokenising(line, *token);
+	if (init_fd(&line->input_fd, &line->output_fd) == -1)
+	{
+		cleanup(line, *token, 1);
+		exit (1);
+	}
 }
 
 static int	prompting(char **line_read)
-{			
-		char *prompt;
+{					
+	char *prompt;
 
-		prompt = create_prompt();
-		*line_read = readline(prompt);
-		if (!line_read)
-			return (1); // NULL if failed to allocate?
-		free(prompt);
-		return (0);
+	prompt = create_prompt();
+	*line_read = readline(prompt);
+	if (!line_read)
+		return (1); // NULL if failed to allocate?
+	free(prompt);
+	return (0);
 }
 
 static int	minishell_loop(t_mini *line)
@@ -66,12 +71,10 @@ static int	minishell_loop(t_mini *line)
 	
 	token = (t_tokens *){0};
 	line_read = NULL;
-	// printf("entered minishell_loop\n");
 	while (1)
 	{			
 		if (prompting(&line_read) == 1)
 			return (1);
-		// printf("read line is %s\n", line_read);
 		if (!line_read)
 			return (2);
 		if (ft_strlen(line_read) == 0)
@@ -82,19 +85,14 @@ static int	minishell_loop(t_mini *line)
 		free(line_read);
 		expansion(line);
 		to_token(line, &token);
-		// printf("arrived here %s\n", token->command[0]);
 		execute(token, line);
-		// printf("does it reach here?\n");
-		// printf("here %s\n", token->command[0]);
 		if (token->command[0] && ft_strncmp(token->command[0], "exit", ft_strlen(token->command[0])) == 0)
 		{
 			cleanup(line, token, 1);
 			break ;
 		}
 		cleanup(line, token, 0);
-		// printf("does it clean up?\n");
 	}
-	// printf("exited minishell_loop\n");
 	return (0);
 }
 
@@ -105,6 +103,7 @@ int	main(int argc, char **argv, char **envp)
 	int					check;
 
 	(void)argv;
+	// system("lsof -p $$");
 	line = (t_mini){0};
 	line.envp = envp_dup(envp);
 	if (!line.envp)

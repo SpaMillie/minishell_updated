@@ -6,26 +6,11 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:48:57 by mspasic           #+#    #+#             */
-/*   Updated: 2024/06/25 13:09:11 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/09 18:26:30 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-//most printf's should be exits
-
-// typedef struct s_tokens
-// {
-//     char    **cmnd;
-//     char    **redirect;
-// }   t_tokens;
-
-// typedef struct s_mini
-// {
-//     char        **metaed;
-//      char    **element; //this needs to be added
-//     int         pipe_num;
-// }   t_mini;
 
 int	is_it_space(char *s, int i)
 {
@@ -64,9 +49,6 @@ int validating(char *argv, t_mini *line)
     i = 0;
 	if (first_split(argv, line) == -1)
 		return (syntax_error(line, NULL, 1));
-	// i = 0;
-    // while (line->element[i] != NULL)
-    //     printf("%s\n", line->element[i++]);
     words = second_split(line);
     if (ft_strncmp(line->metaed[i], "\"\"", 3) != 0 && ft_strncmp(line->metaed[i], "''", 3) != 0 && ft_strlen(line->metaed[i]) != 0 && ft_strncmp(line->metaed[i], "|", ft_strlen(line->metaed[i])) == 0)
 		return (syntax_error(line, NULL, 2));
@@ -79,10 +61,9 @@ int validating(char *argv, t_mini *line)
     if (ft_strncmp(line->metaed[i], "\"\"", 3) != 0 && ft_strncmp(line->metaed[i], "''", 3) != 0 && ft_strlen(line->metaed[i]) != 0 && (ft_strncmp(line->metaed[i], "|", ft_strlen(line->metaed[i])) == 0 || \
         (is_it_redirect(line->metaed[i]) == 0)))
 		return (syntax_error(line, NULL, 4));
+    here_doc(line);
     trim_quotes(line);
    	i = 0;
-    while (line->metaed[i] != NULL)
-        printf("%s\n", line->metaed[i++]); 
     return (0);
 }
 

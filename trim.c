@@ -47,7 +47,6 @@ static int	snip_snip(t_mini *line, int i, int j)
 	while (line->metaed[i][count] != c)
 		count++;
 	count = count - 1;
-	// printf("count is %d\n", count);
 	line->metaed[i] = trim_copy(line, trimmed_string, i, j);
 	return (count);
 }
@@ -76,7 +75,6 @@ void	trim_quotes(t_mini *line)
 			else
 				j++;
 		}
-		// printf("new metaed is %s\n", line->metaed[i]);
 		i++;
 	}
 }

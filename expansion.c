@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 12:31:15 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/25 11:02:58 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/05 17:41:30 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	expansion(t_mini *line)
 
 	line->i = 0;
 	new_tokens = malloc_2d(line->metaed);
+	if (!new_tokens)
+		malloc_failure_without_token(line);
 	while (line->metaed[line->i])
 	{
 		if (ft_strchr(line->metaed[line->i], '$'))

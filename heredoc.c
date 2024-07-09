@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:22:45 by mspasic           #+#    #+#             */
-/*   Updated: 2024/06/24 15:01:35 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:24:20 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*here_strjoin(char *s1, char *s2)
 
 	i = 0;
 	j = 0;
+	if (!s2)
+		return (NULL);
 	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (str == NULL)
 		return (NULL);
@@ -56,7 +58,7 @@ static char	*simple_itoa(int n)
 	len = ft_intlen(n);
 	str = malloc(sizeof(char) * (len + 1));
 	if (!str)
-		exit(1);
+		return (NULL);
 	str[len--] = '\0';
 	while (n)
 	{
@@ -69,32 +71,27 @@ static char	*simple_itoa(int n)
 static char    *heredocing(char *delim, char *hd)
 {
     int     fd;
-    int     check;
 	char	*line;
 
-    check = 0;
     fd = open(hd, O_CREAT | O_RDWR | O_TRUNC, 0777);
 	if (fd == -1)
-		printf("error while opening file\n");
+		return (NULL);	
 	line = readline("heredoc> ");
-	ft_putendl_fd(line, fd); // Tom added this
+	ft_putendl_fd(line, fd);
 	while (ft_strncmp(delim, line, ft_strlen(delim)) != 0)
 	{
 		free (line);
 		line = readline("heredoc> ");
 		if (line == NULL)
 			break ;
-		if (ft_strncmp(delim, line, ft_strlen(delim)) != 0) // Tom added this
-			ft_putendl_fd(line, fd); // Tom changed this
+		if (ft_strncmp(delim, line, ft_strlen(delim)) != 0)
+			ft_putendl_fd(line, fd);
 	}
-    check = close(fd);
-    if (check == -1)
-        printf("error while closing file\n");
+	if (close (fd) == -1)
+		return (NULL);
     free (delim);
 	free (line);
-	line = ft_strdup("");
-	free (line);
-    return (hd); //unlink heredocs in cleanup and close fds
+    return (hd);
 }
 
 void    here_doc(t_mini *line)
@@ -107,11 +104,19 @@ void    here_doc(t_mini *line)
 	i = 0;
     while (line->metaed[i] != NULL)
     {
-        if (ft_strncmp(line->metaed[i], "<<", 3) == 0) // Tom changed this
+        if (ft_strncmp(line->metaed[i], "<<", 3) == 0)
         {
 			hd_name = here_strjoin(".here_", simple_itoa(hd_num));
-			//line->metaed[i + 1] can't be NULL and it can't be a meta which was checked before in validation (syntax errors) so no check is neccessary
-            line->metaed[i + 1] = heredocing(line->metaed[i + 1], hd_name);
+			if (!hd_name)
+				malloc_failure_without_token(line);
+            line->metaed[i + 1] = heredocing(line->metaed[i + 1], hd_name); //line->metaed[i + 1] was checked before, cant be NULL
+			if (line->metaed[i + 1] == NULL)
+			{
+				ft_putendl_fd("minishell: couldn't handle here_doc", 2);
+				free_2d(line->metaed);
+				free_2d(line->envp);
+				exit (1);
+			}
             hd_num++;
         }
         i++;

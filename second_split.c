@@ -82,7 +82,6 @@ int	second_split(t_mini *line)
 	int	words;
 
 	words = w_count(line);
-	// printf("words are %d\n", words);
 	line->metaed = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!line->metaed)
 		malloc_failure_without_token(line);

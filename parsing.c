@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:05:39 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/25 13:20:41 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/09 18:25:05 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,12 @@ static void	copy_tokens(t_mini *line, t_tokens *token, int pre_i, int i)
 			token->redirect[k++] = ft_strdup(line->metaed[pre_i++]);
 			if (!(token->redirect[k - 1]))
 				malloc_failure(line, token);
-			// printf("redirect is %s and %s\n", token->redirect[k - 2], token->redirect[k - 1]);
         }
         else
 		{
             token->command[j++] = ft_strdup(line->metaed[pre_i++]);
 			if (!(token->command[j - 1]))
 				malloc_failure(line, token);
-			// printf("command %d is %s\n", j - 1, token->command[j - 1]);
 		}
 	}
     token->redirect[k] = NULL;
@@ -115,22 +113,4 @@ void	tokenising(t_mini *line, t_tokens *token)
 			i++;
 		j++;
 	}
-	/*j = 0;
-	while (j < line->pipe_num)
-	{
-		i = 0;
-		printf("j is %d\n", j);
-		while (token[j].redirect[i] != NULL)
-		{
-			printf("redirect is: %s\n", token[j].redirect[i]);
-			i++;
-		}
-		i = 0;
-		while (token[j].command[i] != NULL)
-		{
-			printf("command is: %s\n", token[j].command[i]);
-			i++;
-		}
-		j++;
-	}*/
 }

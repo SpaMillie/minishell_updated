@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:39:35 by mspasic           #+#    #+#             */
-/*   Updated: 2024/06/25 13:26:47 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/05 17:35:33 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,11 @@ void	free_2d(char **tab)
 
 void	malloc_failure_without_token(t_mini *line)
 {
-	int	i;
-
-	i = 0;
 	ft_putendl_fd("minishell: malloc failure", 2);
 	free_2d(line->element);
 	free_2d(line->metaed);
 	if (line->paths)
-	{
-		while (i < line->pipe_num)
-			free(line->paths[i++]);
-		free(line->paths);
-	}
+		free_2d(line->paths);
 	free_2d(line->envp);
 	exit(1);
 }

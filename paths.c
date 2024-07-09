@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:02:36 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/25 13:26:15 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:25:28 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	**create_paths(char **tokens, char **envp, t_mini *line, t_tokens *t
 	path_pointer = ft_getenv(envp, "PATH", line, token);
 	if (!path_pointer)
 		malloc_failure(line, token);
-	paths = ft_split(path_pointer, ':');
+	paths = ft_split(path_pointer, ':'); //note: the first element is PATH=home directory; can this cause issues? probably not, right?
 	if (!paths)
 		malloc_failure(line, token);
 	free(path_pointer);
@@ -56,6 +56,8 @@ static int	check_access(char **paths, t_mini *line, t_tokens *token)
 	}
 	free_2d(paths);
 	line->paths[line->i] = ft_strdup("");
+	if (!(line->paths[line->i]))
+		malloc_failure(line, token);
 	return (-1);
 }
 
@@ -74,11 +76,12 @@ int	get_path(char **tokens, t_mini *line, t_tokens *token)
 		else
 		{
 			line->paths[line->i] = ft_strdup("");
+			if (!line->paths[line->i])
+				return (-1);
 			print_error("No such file or directory", tokens);
 		}
 		return (0);
 	}
-	printf("malloced paths\n");
 	paths = create_paths(tokens, line->envp, line, token);
 	if (!paths)
 		return (-1);

@@ -3,29 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   execution2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:50 by mspasic           #+#    #+#             */
-/*   Updated: 2024/06/24 16:46:16 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:23:46 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	single_builtin(t_tokens *token, t_mini *line, int *fd)
+void	single_builtin(t_tokens *token, t_mini *line)
 {		
-	fd[0] = dup(STDIN_FILENO);
-	fd[1] = dup(STDOUT_FILENO);
-	line->paths[line->i] = ft_strdup("won't be used\n");
-	if (!line->paths[line->i])
-		malloc_failure(line, token);
-	redirections(&token[line->i]);
+	int	fd[2];
+	t_fds	cur;
+
+	if (init_fd(&fd[0], &fd[1]) == -1)
+	{
+		cleanup(line, token, 1);
+		exit (1);
+	}
+	opening(&token[line->i], line); //in opening it returns -1 if its an error but thats important for forking only
+	unnecessary_path(line, token);
+	cur = set_fds(line, &token[line->i], &fd[0]);
+	redirections(line, &token[line->i], &cur);
 	execute_builtin(&token[line->i], line); // Execute the built-in
-	dup2(fd[0], STDIN_FILENO);
-	dup2(fd[1], STDOUT_FILENO);
-	close(fd[0]);
-	close(fd[1]);
-	return ;
+	if (dup2_in(&fd[0], NULL, 0) == -1 || dup2_out(&fd[1], NULL, 0) == -1)
+	{
+		cleanup(line, token, 1);
+		exit (1);	
+	}
 }
 
 void	shell_lvl_check(t_mini *line, t_tokens *token)
@@ -54,6 +60,7 @@ void	wait_for_child(t_mini *line)
 	int	status;
 
 	line->i = 0;
+	status = 0;
 	while (line->i < line->pipe_num)
 	{
 		if (line->flag == 0)

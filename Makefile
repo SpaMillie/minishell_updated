@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+         #
+#    By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 10:22:54 by tparratt          #+#    #+#              #
-#    Updated: 2024/06/24 15:29:32 by tparratt         ###   ########.fr        #
+#    Updated: 2024/07/09 10:44:08 by mspasic          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,15 @@ SRC			=	minishell.c \
 					env.c \
 					utils.c \
 					utils2.c \
+					utils3.c \
 					execution.c \
 					execution2.c \
 					error.c \
 					redirect.c \
+					children.c \
+					fd_handling.c \
+					dup2ing_fds.c \
+					opening_files.c \
 					signals.c \
 					heredoc.c \
 					builtins/echo-pwd-env.c \
@@ -48,7 +53,7 @@ RM			=	rm -f
 
 CFLAGS		=	-I /Users/$(USER)/.brew/opt/readline/include/readline.h -Wextra -Wall -Werror -g -fsanitize=address
 
-LDFLAGS 	=	-L /Users/$(USER)/.brew/opt/readline/lib
+# LDFLAGS 	=	-L /Users/$(USER)/.brew/opt/readline/lib
 
 $(NAME):	$(OBJ)
 			make -C ./libft
