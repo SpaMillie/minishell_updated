@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 12:18:11 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/09 18:23:31 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/10 15:24:56 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	dup2_out(int *output, int *other, int option)
 			return (-1);
 		}
 	}
-	if (dup2(*output, STDIN_FILENO) == -1)
+	if (dup2(*output, STDOUT_FILENO) == -1)
 	{
 		if (close(*output) == -1)
 		{
