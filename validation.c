@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:48:57 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/09 18:26:30 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/10 13:55:16 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int validating(char *argv, t_mini *line)
 	if (first_split(argv, line) == -1)
 		return (syntax_error(line, NULL, 1));
     words = second_split(line);
+    if (line->metaed[i] == NULL)
+        return (empty_command(line));
     if (ft_strncmp(line->metaed[i], "\"\"", 3) != 0 && ft_strncmp(line->metaed[i], "''", 3) != 0 && ft_strlen(line->metaed[i]) != 0 && ft_strncmp(line->metaed[i], "|", ft_strlen(line->metaed[i])) == 0)
 		return (syntax_error(line, NULL, 2));
     while (i + 1 < words)

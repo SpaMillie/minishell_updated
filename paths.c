@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:02:36 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/10 11:38:07 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/10 12:27:35 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	**create_paths(char **tokens, char **envp, t_mini *line, t_tokens *t
 
 	path_pointer = ft_getenv(envp, "PATH", line, token); //if the PATH is unset it returns NULL and says it's malloc failure
 	if (!path_pointer)
-		malloc_failure(line, token);
+		return (NULL); //not a malloc failure
 	paths = ft_split(path_pointer, ':'); //note: the first element is PATH=home directory; can this cause issues? probably not, right?
 	if (!paths)
 		malloc_failure(line, token);
@@ -42,6 +42,8 @@ static int	check_access(char **paths, t_mini *line, t_tokens *token)
 	int		i;
 
 	i = 0;
+	if (!paths)
+		return (-1);
 	while (paths[i])
 	{
 		if (access(paths[i], F_OK) == 0)
@@ -75,20 +77,20 @@ int	get_path(char **tokens, t_mini *line, t_tokens *token)
 		}
 		else
 		{
-			line->paths[line->i] = ft_strdup(""); //if there is a false path does it give back malloc failed?
-			if (!line->paths[line->i])
-				return (-1);
 			print_error("No such file or directory", tokens);
+			tokens[0][0] = 9;
+			unnecessary_path(line, token);
 		}
 		return (0);
 	}
 	paths = create_paths(tokens, line->envp, line, token);
-	if (!paths)
-		return (-1);
-	if (check_access(paths, line, token) != 0)
+	// if (!paths)
+	// 	return ();
+	if (!paths || check_access(paths, line, token) != 0)
 	{
 		print_error("command not found", tokens);
 		tokens[0][0] = 9;
+		unnecessary_path(line, token);
 	}
 	return (0);
 }

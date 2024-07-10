@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:51:42 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/09 15:46:18 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/10 13:50:43 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,3 @@ char	*join_and_free(char *prompt, char *str)
 	return (prompt);
 }
 
-void	unnecessary_path(t_mini *line, t_tokens *token)
-{
-	line->paths[line->i] = ft_strdup("won't be used\n");
-	if (!line->paths[line->i])
-		malloc_failure(line, token);	
-}

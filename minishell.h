@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/09 13:33:40 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/10 13:51:40 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,12 +133,13 @@ char		*build_prompt(char *username, char *hostname, char* cwd);
 void		cleanup(t_mini *line, t_tokens *token, int option);
 void		print_2d(char **tab);
 char		*join_and_free(char *prompt, char *str);
-void		unnecessary_path(t_mini *line, t_tokens *token);
 void		free_paths(t_mini *line);
 //utils3.c
 void		cleanup_close(t_mini *line, t_tokens *token);
 int			has_input(t_tokens *token);
 int			has_output(t_tokens *token);
+void		unnecessary_path(t_mini *line, t_tokens *token);
+int			empty_command(t_mini *line);
 //validation.c
 int			validating(char *argv, t_mini *line);
 int			is_it_redirect(char *s);
