@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:02:36 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/10 12:27:35 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/10 14:32:00 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,6 @@ static int	check_access(char **paths, t_mini *line, t_tokens *token)
 		i++;
 	}
 	free_2d(paths);
-	line->paths[line->i] = ft_strdup("");
-	if (!(line->paths[line->i]))
-		malloc_failure(line, token);
 	return (-1);
 }
 

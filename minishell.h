@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/10 13:51:40 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/10 14:38:37 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,9 +139,9 @@ void		cleanup_close(t_mini *line, t_tokens *token);
 int			has_input(t_tokens *token);
 int			has_output(t_tokens *token);
 void		unnecessary_path(t_mini *line, t_tokens *token);
-int			empty_command(t_mini *line);
+int			empty_command(t_mini *line, char *line_read);
 //validation.c
-int			validating(char *argv, t_mini *line);
+int			validating(char *argv, t_mini *line, char *line_read);
 int			is_it_redirect(char *s);
 int			is_it_space(char *s, int i);
 int			ft_skip(char *s, int i);

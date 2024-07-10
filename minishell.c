@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/10 13:46:30 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/10 14:36:58 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	minishell_loop(t_mini *line)
 		if (ft_strlen(line_read) == 0)
 			continue ;
 		add_history(line_read);
-		if (validating(line_read, line) == 1)
+		if (validating(line_read, line, line_read) == 1)
 			continue ;
 		free(line_read);
 		expansion(line);

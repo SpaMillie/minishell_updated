@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 10:38:12 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/10 13:50:36 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/10 14:38:02 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,11 @@ int has_output(t_tokens *token)
     return (0);
 }
 
-int	empty_command(t_mini *line)
+int	empty_command(t_mini *line, char *line_read)
 {
 	free_2d(line->element);
 	free_2d(line->metaed);
+	free(line_read);
 	return (1);
 }
 
