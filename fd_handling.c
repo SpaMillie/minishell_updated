@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:15:28 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/09 15:35:15 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/10 11:04:14 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,19 @@ int    init_fd(int *input, int *output)
 
 int close_cleanup(t_mini *line)
 {
-    if (line->input_fd != -2)
+    if (line->input_fd != -2 && line->input_fd != -1)
     {
         if (close(line->input_fd) == -1)
         {
-		    ft_putendl_fd("cleanup 38 minishell: error while closing a file", 2);
+		    ft_putendl_fd("cleanup 38 minishell: error while closing a file", 2); //change
             return(-1);
         }
     }
-    if (line->output_fd != -2)
+    if (line->output_fd != -2 && line->output_fd != -1)
     {
         if (close(line->output_fd) == -1)
         {
-		    ft_putendl_fd("cleanup 46 minishell: error while closing a file", 2);
+		    ft_putendl_fd("cleanup 46 minishell: error while closing a file", 2); //change
             return (-1);
         }
     }

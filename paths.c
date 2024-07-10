@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:02:36 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/09 18:25:28 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/10 11:38:07 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	**create_paths(char **tokens, char **envp, t_mini *line, t_tokens *t
 	char	**paths;
 	int		i;
 
-	path_pointer = ft_getenv(envp, "PATH", line, token);
+	path_pointer = ft_getenv(envp, "PATH", line, token); //if the PATH is unset it returns NULL and says it's malloc failure
 	if (!path_pointer)
 		malloc_failure(line, token);
 	paths = ft_split(path_pointer, ':'); //note: the first element is PATH=home directory; can this cause issues? probably not, right?
@@ -75,7 +75,7 @@ int	get_path(char **tokens, t_mini *line, t_tokens *token)
 		}
 		else
 		{
-			line->paths[line->i] = ft_strdup("");
+			line->paths[line->i] = ft_strdup(""); //if there is a false path does it give back malloc failed?
 			if (!line->paths[line->i])
 				return (-1);
 			print_error("No such file or directory", tokens);
