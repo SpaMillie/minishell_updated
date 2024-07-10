@@ -17,6 +17,8 @@ static int	all_ens(char *arg)
 	int	i;
 
 	i = 1;
+	if (ft_strlen(arg) == 1)
+		return (0);
 	while(arg[i])
 	{
 		if (arg[i] != 'n')
@@ -31,7 +33,6 @@ static void	echon(char **args)
 	int	i;
 
 	i = 2;
-	if (args[1] )
 	while (args[i])
 	{
 		if (all_ens(args[i]))
