@@ -12,13 +12,30 @@
 
 #include "../minishell.h"
 
+static int	all_ens(char *arg)
+{
+	int	i;
+
+	i = 1;
+	while(arg[i])
+	{
+		if (arg[i] != 'n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 static void	echon(char **args)
 {
 	int	i;
 
 	i = 2;
+	if (args[1] )
 	while (args[i])
 	{
+		if (all_ens(args[i]))
+			i++;
 		if (args[i + 1] == NULL)
 			ft_printf("%s", args[i]);
 		else
@@ -35,7 +52,7 @@ void	echo(char **args)
 		ft_printf("\n");
 	else
 	{
-		if (!ft_strncmp(args[1], "-n", 3))
+		if (all_ens(args[1]))
 			echon(args);
 		else
 		{
