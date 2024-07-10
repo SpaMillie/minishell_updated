@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/10 14:36:58 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/10 16:48:53 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ static int	prompting(char **line_read)
 
 	prompt = create_prompt();
 	*line_read = readline(prompt);
-	if (!line_read)
-		return (1); // NULL if failed to allocate?
 	free(prompt);
+	if (!(*line_read))
+		return (1); // NULL if failed to allocate?
 	return (0);
 }
 
@@ -75,10 +75,11 @@ static int	minishell_loop(t_mini *line)
 	{			
 		if (prompting(&line_read) == 1)
 			return (1);
-		if (!line_read)
-			return (2);
 		if (ft_strlen(line_read) == 0)
+		{
+			free(line_read);
 			continue ;
+		}
 		add_history(line_read);
 		if (validating(line_read, line, line_read) == 1)
 			continue ;
@@ -100,7 +101,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_mini				line;
 	struct sigaction	sa;
-	int					check;
 
 	(void)argv;
 	// system("lsof -p $$");
@@ -117,11 +117,11 @@ int	main(int argc, char **argv, char **envp)
 		sa.sa_flags = 0;
         sigaction(SIGINT, &sa, NULL);
         sigaction(SIGQUIT, &sa, NULL);
-		check = minishell_loop(&line);
-		if (check == 1)
-			return (1);
-		else if (check == 2)
+		if (minishell_loop(&line) == 1)
+		{
 			free_2d(line.envp);
+			return (1);
+		}
 	}
 	else
 		ft_putendl_fd("Minishell cannot take arguments", 2);

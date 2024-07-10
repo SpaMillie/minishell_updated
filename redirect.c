@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/09 18:23:08 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/10 15:39:00 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static void	redirect_output(t_mini *line, t_tokens *token, int *output)
 {
-	if (*output == -2)
+	if (*output == -2 || *output == -1)
 		return ;
 	if (dup2(*output, STDOUT_FILENO) == -1)
 	{
@@ -31,7 +31,7 @@ static void	redirect_output(t_mini *line, t_tokens *token, int *output)
 
 static void	redirect_input(t_mini *line, t_tokens *token, int *input)
 {
-	if (*input == -2)
+	if (*input == -2 || *input == -1)
 		return ;
 	if (dup2(*input, STDIN_FILENO) == -1)
 	{

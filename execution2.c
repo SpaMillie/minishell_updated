@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:50 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/09 18:23:46 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/10 15:42:59 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	single_builtin(t_tokens *token, t_mini *line)
 	unnecessary_path(line, token);
 	cur = set_fds(line, &token[line->i], &fd[0]);
 	redirections(line, &token[line->i], &cur);
-	execute_builtin(&token[line->i], line); // Execute the built-in
+	if (line->input_fd != -1 && line->output_fd != -1)
+		execute_builtin(&token[line->i], line); // Execute the built-in
 	if (dup2_in(&fd[0], NULL, 0) == -1 || dup2_out(&fd[1], NULL, 0) == -1)
 	{
 		cleanup(line, token, 1);
