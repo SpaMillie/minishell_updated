@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/10 14:38:37 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/10 18:41:49 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,26 @@ typedef struct s_mini
 	int		i;
 	int		input_fd;
 	int		output_fd;
-}				t_mini;
+}	t_mini;
 
 typedef struct s_tokens
 {
 	char	**command;
 	char	**redirect;
-}				t_tokens;
+}	t_tokens;
 
 typedef struct s_alloc
 {
 	int	redir;
 	int	other;
-}				t_alloc;
+}	t_alloc;
 
 typedef struct s_fds
 {
-    int in;
-    int out;
-    int close;
-} t_fds;
+	int	in;
+	int	out;
+	int	close;
+}	t_fds;
 
 //builtin_check.c
 void		execute_builtin(t_tokens *token, t_mini *line);
@@ -79,7 +79,8 @@ void		unset(char *arg, t_mini *line, t_tokens *token);
 int			export_unset_error_check(char **args, t_mini *line);
 //env.c
 char		*ft_getenv(char **envp, char *str, t_mini *line, t_tokens *token);
-char		*get_env_value(char **envp, char *str, t_mini *line, t_tokens *token);
+char		*get_env_value(char **envp, char *str, t_mini *line,
+				t_tokens *token);
 //error.c
 void		free_2d(char **tab);
 void		malloc_failure(t_mini *line, t_tokens *token);
@@ -99,12 +100,12 @@ char		*get_substring(char *s, int j);
 int			dup_or_join(char **new_tokens, int loop, int i, char *str);
 void		duplicate(t_mini *line, char **new_tokens);
 //fd_handling.c
-int    		init_fd(int *input, int *output);
+int			init_fd(int *input, int *output);
 int			close_cleanup(t_mini *line);
 //first_split.c
 int			first_split(char *argv, t_mini *line);
 //heredoc.c
-void    	here_doc(t_mini *line);
+void		here_doc(t_mini *line);
 //opening_files.c
 int			opening(t_tokens *token, t_mini *line);
 //parsing.c
@@ -128,7 +129,7 @@ void		trim_quotes(t_mini *line);
 void		print_error(char *message, char **args);
 char		**malloc_2d(char **arr);
 char		**envp_dup(char **envp);
-char		*build_prompt(char *username, char *hostname, char* cwd);
+char		*build_prompt(char *username, char *hostname, char *cwd);
 //utils2.c
 void		cleanup(t_mini *line, t_tokens *token, int option);
 void		print_2d(char **tab);

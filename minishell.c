@@ -5,13 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/10 16:48:53 by mspasic          ###   ########.fr       */
+/*   Created: 2024/07/10 18:13:45 by mspasic           #+#    #+#             */
+/*   Updated: 2024/07/10 18:13:57 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
 
 #include "minishell.h"
 

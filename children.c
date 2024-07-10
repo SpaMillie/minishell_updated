@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   children.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/10 18:14:26 by mspasic           #+#    #+#             */
+/*   Updated: 2024/07/10 18:21:00 by mspasic          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static t_fds   first_child(t_mini *line, t_tokens *token, int *fd)
+static t_fds	first_child(t_mini *line, t_tokens *token, int *fd)
 {		
 	t_fds	cur;
 
@@ -9,18 +21,19 @@ static t_fds   first_child(t_mini *line, t_tokens *token, int *fd)
 		cur.in = -2;
 	else
 		cur.in = line->input_fd;
-    if (!has_output(token))
-        cur.out = fd[1];
+	if (!has_output(token))
+		cur.out = fd[1];
 	else
 	{
 		if (close (fd[1]) == -1)
-			cleanup_close(line, token);	
+			cleanup_close(line, token);
 		cur.out = line->output_fd;
 	}
 	return (cur);
 }
 
-static t_fds	middle_child(t_mini *line, t_tokens *token, int *fd, int *prev_read)
+static t_fds	middle_child(t_mini *line, t_tokens *token,
+	int *fd, int *prev_read)
 {
 	t_fds	cur;
 
@@ -33,12 +46,12 @@ static t_fds	middle_child(t_mini *line, t_tokens *token, int *fd, int *prev_read
 			cleanup_close(line, token);
 		cur.in = line->input_fd;
 	}	
-    if (!has_output(token))
-        cur.out = fd[1];
+	if (!has_output(token))
+		cur.out = fd[1];
 	else
 	{
 		if (close (fd[1]) == -1)
-			cleanup_close(line, token);	
+			cleanup_close(line, token);
 		cur.out = line->output_fd;
 	}	
 	return (cur);
@@ -57,11 +70,10 @@ static t_fds	last_child(t_mini *line, t_tokens *token, int *prev_read)
 			cleanup_close(line, token);
 		cur.in = line->input_fd;
 	}
-    if (!has_output(token))
-        cur.out = -2;
+	if (!has_output(token))
+		cur.out = -2;
 	else
 		cur.out = line->output_fd;
-
 	return (cur);
 }
 
@@ -74,11 +86,11 @@ static t_fds	only_child(t_mini *line, t_tokens *token)
 		cur.in = -2;
 	else
 		cur.in = line->input_fd;
-    if (!has_output(token))
-        cur.out = -2;
+	if (!has_output(token))
+		cur.out = -2;
 	else
 		cur.out = line->output_fd;
-	return (cur);	
+	return (cur);
 }
 
 t_fds	set_fds(t_mini *line, t_tokens *token, int *prev)
@@ -88,7 +100,7 @@ t_fds	set_fds(t_mini *line, t_tokens *token, int *prev)
 
 	if (line->i == 0 && line->pipe_num == 1)
 		cur = only_child(line, token);
-	else 
+	else
 	{
 		if (line->i < line->pipe_num - 1)
 		{
