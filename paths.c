@@ -18,10 +18,10 @@ static char	**create_paths(char **tokens, char **envp, t_mini *line, t_tokens *t
 	char	**paths;
 	int		i;
 
-	path_pointer = ft_getenv(envp, "PATH", line, token); //if the PATH is unset it returns NULL and says it's malloc failure
+	path_pointer = get_env_value(envp, "PATH", line, token); //changed ft_getenv() to get_env_value() to remove path from the first element
 	if (!path_pointer)
-		return (NULL); //not a malloc failure
-	paths = ft_split(path_pointer, ':'); //note: the first element is PATH=home directory; can this cause issues? probably not, right?
+		return (NULL);
+	paths = ft_split(path_pointer, ':');
 	if (!paths)
 		malloc_failure(line, token);
 	free(path_pointer);
