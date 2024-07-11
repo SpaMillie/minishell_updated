@@ -22,6 +22,9 @@
 # include <stdio.h>
 # include <termios.h>
 # include <string.h>
+# include <sys/ioctl.h>
+
+extern int	g_sigflag;
 
 typedef struct s_mini
 {
@@ -35,6 +38,7 @@ typedef struct s_mini
 	int		i;
 	int		input_fd;
 	int		output_fd;
+	//struct sigaction	sa;
 }	t_mini;
 
 typedef struct s_tokens
@@ -121,8 +125,14 @@ int			dup2_out(int *output, int *other, int option);
 //second_split.c
 int			second_split(t_mini *line);
 //signals.c
-void		handle_signal(int signal);
-void		set_term_attr(void);
+void		handle_ctrl_c(int signal);
+void		set_term_attr(struct termios *tios);
+void		set_term_attr_hdoc(struct termios *tios);
+void		reset_term_attr(struct termios *tios);
+void		reset_term_attr_hdoc(struct termios *tios);
+void		check_g_sigflag(t_mini *line);
+void		handle_sigint(int signal);
+//void		handle_heredoc_sig(int signal);
 //trim.c
 void		trim_quotes(t_mini *line);
 //utils.c

@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+int	g_sigflag;
+
 static char	*create_prompt(void)
 {
 	char	*cwd;
@@ -49,28 +51,33 @@ static void	to_token(t_mini *line, t_tokens **token)
 	}
 }
 
-static int	prompting(char **line_read)
+static int	prompting(char **line_read, struct termios tios, t_mini *line)
 {					
 	char *prompt;
 
 	prompt = create_prompt();
+	set_term_attr(&tios);
 	*line_read = readline(prompt);
 	free(prompt);
+	reset_term_attr(&tios);
+	check_g_sigflag(line);
 	if (!(*line_read))
 		return (1); // NULL if failed to allocate?
 	return (0);
 }
 
-static int	minishell_loop(t_mini *line)
+static int	minishell_loop(t_mini *line, struct termios tios)
 {
 	t_tokens	*token;
 	char		*line_read;
 	
 	token = (t_tokens *){0};
 	line_read = NULL;
+	signal(SIGINT, handle_ctrl_c);
+	signal(SIGQUIT, SIG_IGN);
 	while (1)
-	{			
-		if (prompting(&line_read) == 1)
+	{	
+		if (prompting(&line_read, tios, line) == 1)
 			return (1);
 		if (ft_strlen(line_read) == 0)
 		{
@@ -97,24 +104,19 @@ static int	minishell_loop(t_mini *line)
 int	main(int argc, char **argv, char **envp)
 {
 	t_mini				line;
-	struct sigaction	sa;
+	struct termios		tios;
 
 	(void)argv;
 	// system("lsof -p $$");
 	line = (t_mini){0};
+	g_sigflag = 0;
 	line.envp = envp_dup(envp);
 	if (!line.envp)
 		malloc_failure_no_cleanup();
-	set_term_attr();
 	if (argc == 1)
 	{
-		ft_memset(&sa, 0, sizeof(sa));
-		sa.sa_handler = handle_signal;
-		sigemptyset(&sa.sa_mask);
-		sa.sa_flags = 0;
-        sigaction(SIGINT, &sa, NULL);
-        sigaction(SIGQUIT, &sa, NULL);
-		if (minishell_loop(&line) == 1)
+		tcgetattr(0, &tios);
+		if (minishell_loop(&line, tios) == 1)
 		{
 			free_2d(line.envp);
 			return (1);

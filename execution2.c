@@ -62,6 +62,8 @@ void	wait_for_child(t_mini *line)
 
 	line->i = 0;
 	status = 0;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, handle_sigint);
 	while (line->i < line->pipe_num)
 	{
 		if (line->flag == 0)
@@ -72,4 +74,7 @@ void	wait_for_child(t_mini *line)
 		}
 		line->i++;
 	}
+	signal(SIGINT, handle_ctrl_c);
+	signal(SIGQUIT, SIG_IGN);
+	check_g_sigflag(line);
 }
