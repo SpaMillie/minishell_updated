@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:16:35 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/11 13:38:09 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:49:43 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	echo(char **args)
 			i = 1;
 			while (args[i])
 			{
-				if (args[i + 1] == NULL || ft_strlen(args[i]) == 0)
+				if (args[i + 1] == NULL)
 					ft_printf("%s", args[i]);
 				else
 					ft_printf("%s ", args[i]);

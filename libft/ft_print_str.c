@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 12:57:05 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/11 19:07:24 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:38:06 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ int	ft_print_str(char *next_str)
 		if (count < 0)
 			return (-1);
 	}
+	else if (ft_strlen(next_str) == 0)
+	{
+		// ft_printf("it got here\n");
+		return (0);
+	}
+		// return (0);
 	else
 	{
 		while (*next_str)
