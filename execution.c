@@ -86,6 +86,7 @@ void	execute(t_tokens *token, t_mini *line)
 		if (check == -1 || token[line->i].command[0][0] == 9)
 		{
 			set_error(token, line, check);
+			line->flag = 1;
 			continue ;
 		}
 		pid = fork();

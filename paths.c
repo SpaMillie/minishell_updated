@@ -75,6 +75,7 @@ int	get_path(char **tokens, t_mini *line, t_tokens *token)
 		else
 		{
 			print_error("No such file or directory", tokens);
+			line->err_num = 127;
 			tokens[0][0] = 9;
 			unnecessary_path(line, token);
 		}
@@ -86,6 +87,7 @@ int	get_path(char **tokens, t_mini *line, t_tokens *token)
 	if (!paths || check_access(paths, line, token) != 0)
 	{
 		print_error("command not found", tokens);
+		line->err_num = 127;
 		tokens[0][0] = 9;
 		unnecessary_path(line, token);
 	}
