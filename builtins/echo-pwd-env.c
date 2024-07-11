@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo-pwd-env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:16:35 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/20 12:39:09 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/11 13:38:09 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	all_ens(char *arg)
 	int	i;
 
 	i = 1;
-	if (ft_strlen(arg) == 1)
+	if (ft_strlen(arg) == 1 || ft_strlen(arg) == 0)
 		return (0);
 	while(arg[i])
 	{
