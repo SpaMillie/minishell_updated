@@ -63,14 +63,26 @@ static int	check_access(char **paths, t_mini *line, t_tokens *token)
 int	get_path(char **tokens, t_mini *line, t_tokens *token)
 {
 	char	**paths;
+	int		fd;
 
 	if (ft_strchr(tokens[0], '/'))
 	{
 		if (access(tokens[0], F_OK) == 0)
 		{
-			line->paths[line->i] = ft_strdup(tokens[0]);
-			if (!line->paths[line->i])
-				return (-1);
+			fd = open(tokens[0], O_RDONLY | O_DIRECTORY);
+			if (fd == -1)
+			{
+				line->paths[line->i] = ft_strdup(tokens[0]);
+				if (!line->paths[line->i])
+					return (-1);
+			}
+			else
+			{
+				print_error("Is a directory", tokens);
+				line->err_num = 126;
+				tokens[0][0] = 9;
+				unnecessary_path(line, token);
+			}
 		}
 		else
 		{
