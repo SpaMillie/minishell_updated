@@ -6,7 +6,7 @@
 #    By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 10:22:54 by tparratt          #+#    #+#              #
-#    Updated: 2024/07/09 10:44:08 by mspasic          ###   ########.fr        #
+#    Updated: 2024/07/12 13:03:29 by mspasic          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,9 +51,7 @@ CC			=	cc
 
 RM			=	rm -f
 
-CFLAGS		=	-I /Users/$(USER)/.brew/opt/readline/include/readline.h -Wextra -Wall -Werror -g -fsanitize=address
-
-# LDFLAGS 	=	-L /Users/$(USER)/.brew/opt/readline/lib
+CFLAGS		= -Wextra -Wall -Werror -g -fsanitize=address
 
 $(NAME):	$(OBJ)
 			make -C ./libft
