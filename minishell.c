@@ -91,7 +91,7 @@ static int	minishell_loop(t_mini *line, struct termios tios)
 		expansion(line);
 		to_token(line, &token);
 		execute(token, line);
-		if (token->command[0] && ft_strncmp(token->command[0], "exit", ft_strlen(token->command[0])) == 0)
+		if (token->command[0] && ft_strncmp(token->command[0], "exit", ft_strlen(token->command[0])) == 0 && line->pipe_num == 1)
 		{
 			cleanup(line, token, 1);
 			break ;
