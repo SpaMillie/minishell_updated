@@ -48,5 +48,9 @@ void	exit_cmd(char **args, t_mini *line)
 	else if (i > 1)
 		non_numeric_arg(args);
 	else if (i == 1)
-		exit(0);
+	{
+		if (line->pipe_num == 1)
+			exit(0);
+		exit(1);
+	}
 }
