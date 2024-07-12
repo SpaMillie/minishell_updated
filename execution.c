@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/09 18:22:34 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/12 13:41:47 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ static void	parent(t_mini *line, t_tokens *token, t_fds *cur)
 			cleanup_close(line, token);
 	}
 	line->input_fd = -2;
-	line->output_fd = -2;	
+	line->output_fd = -2;
 }
 
 static void	child(t_tokens *token, t_mini *line, t_fds *cur)
 {
-	if (!ft_strncmp(token[line->i].command[0], "./minishell", 12)) //what if token[line->i].command[0] == ./minishellsoemthing?
+	if (!ft_strncmp(token[line->i].command[0], "./minishell", 12))
 		shell_lvl_check(line, token);
 	redirections(line, token, cur);
 	if (is_builtin(token[line->i].command[0]))
@@ -35,7 +35,8 @@ static void	child(t_tokens *token, t_mini *line, t_fds *cur)
 	}
 	else
 	{
-		if (execve(line->paths[line->i], token[line->i].command, line->envp) == -1)
+		if (execve(line->paths[line->i], token[line->i].command,
+				line->envp) == -1)
 		{
 			ft_putstr_fd("minishell: execve failed", 2);
 			cleanup(line, token, 1);
@@ -61,7 +62,7 @@ void	set_path(int check, t_tokens *token, t_mini *line)
 			malloc_failure(line, token);
 	}
 	else
-		unnecessary_path(line, token);	
+		unnecessary_path(line, token);
 }
 
 void	execute(t_tokens *token, t_mini *line)
