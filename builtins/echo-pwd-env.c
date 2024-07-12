@@ -36,7 +36,10 @@ static void	echon(char **args)
 	while (args[i])
 	{
 		if (all_ens(args[i]))
+		{
 			i++;
+			continue ;
+		}
 		if (args[i + 1] == NULL)
 			ft_printf("%s", args[i]);
 		else
