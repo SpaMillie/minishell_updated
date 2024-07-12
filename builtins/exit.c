@@ -35,7 +35,8 @@ void	exit_cmd(char **args, t_mini *line)
 {
 	int	i;
 
-	ft_printf("exit\n");
+	if (line->pipe_num == 1)
+		ft_printf("exit\n");
 	i = 0;
 	while (args[i])
 		i++;
