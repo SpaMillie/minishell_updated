@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/15 15:02:54 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/15 17:30:55 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ static void	parent(t_mini *line, t_tokens *token, t_fds *cur)
 			if (cur->in != -2 && close(cur->in) == -1)
 				cleanup_close(line, token);
 			cur->in = -2;
-			if (has_input(token))
+			if (has_input(&token[line->i]))
 				line->input_fd = -2;
 		}
 		if (cur->out != -2 && close(cur->out) == -1)
 			cleanup_close(line, token);
 		cur->out = -2;
-		if (has_output(token))
+		if (has_output(&token[line->i]))
 			line->output_fd = -2;
 	}
 	close_cleanup(line);
