@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/15 15:02:54 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/15 16:21:32 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,10 @@ static void	child(t_tokens *token, t_mini *line, t_fds *cur)
 	}
 }
 
-static void	set_error(t_tokens *token, t_mini *line, int check)
+static void	set_error(t_mini *line, int check)
 {
 	if (check == -1)
 		line->err_num = 1;
-	else if (token[line->i].command[0][0] == 9)
-		line->err_num = 127;
 	line->i++;
 }
 
@@ -97,7 +95,7 @@ void	execute(t_tokens *token, t_mini *line)
 		prev = cur.close;
 		if (check == -1 || token[line->i].command[0][0] == 9)
 		{
-			set_error(token, line, check);
+			set_error(line, check);
 			line->flag = 1;
 			continue ;
 		}
