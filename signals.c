@@ -14,8 +14,6 @@
 
 void	handle_ctrl_c(int signal)
 {
-	if (signal != SIGINT)
-		return ;
 	if (signal == SIGINT)
 	{
 		g_sigflag = 130;
@@ -63,10 +61,24 @@ void	check_g_sigflag(t_mini *line)
 
 void	handle_sigint(int signal)
 {
-	if (signal != SIGINT)
-		return ;
+	ft_printf("handle sigint\n");
 	if (signal == SIGINT)
 		g_sigflag = 130;
+}
+
+void	handle_sigquit(int signal)
+{
+	char	eot;
+
+	eot = 4;
+	if (signal == SIGQUIT)
+	{
+		g_sigflag = 131;
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		printf("Quit\n");
+		ioctl(STDIN_FILENO, TIOCSTI, &eot);
+	}
 }
 
 void	handle_heredoc_sig(int signal)
@@ -74,8 +86,6 @@ void	handle_heredoc_sig(int signal)
 	char	eot;
 
 	eot = 4;
-	if (signal != SIGINT)
-		return ;
 	if (signal == SIGINT)
 	{
 		g_sigflag = 1;

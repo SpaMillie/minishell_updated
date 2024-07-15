@@ -70,27 +70,33 @@ static char	*simple_itoa(int n)
 
 static char	*heredocing(char *delim, char *hd)
 {
-	int		fd;
-	char	*line;
+	int				fd;
+	char			*line;
+	struct termios	tios;
 
+	tcgetattr(0, &tios);
+	set_term_attr_hdoc(&tios);
+	signal(SIGINT, handle_heredoc_sig);
 	fd = open(hd, O_CREAT | O_RDWR | O_TRUNC, 0777);
 	if (fd == -1)
 		return (NULL);
-	line = readline("heredoc> ");
-	ft_putendl_fd(line, fd);
-	while (ft_strncmp(delim, line, ft_strlen(delim)) != 0)
+	while (1)
 	{
-		free (line);
 		line = readline("heredoc> ");
 		if (line == NULL)
 			break ;
-		if (ft_strncmp(delim, line, ft_strlen(delim)) != 0)
-			ft_putendl_fd(line, fd);
+		if (ft_strncmp(delim, line, ft_strlen(delim)) == 0)
+			break ;
+		ft_putendl_fd(line, fd);
+		free(line);
 	}
 	if (close (fd) == -1)
 		return (NULL);
 	free (delim);
 	free (line);
+	reset_term_attr_hdoc(&tios);
+	signal(SIGINT, handle_ctrl_c);
+	signal(SIGQUIT, SIG_IGN);
 	return (hd);
 }
 

@@ -38,7 +38,6 @@ typedef struct s_mini
 	int		i;
 	int		input_fd;
 	int		output_fd;
-	//struct sigaction	sa;
 }	t_mini;
 
 typedef struct s_tokens
@@ -132,7 +131,8 @@ void		reset_term_attr(struct termios *tios);
 void		reset_term_attr_hdoc(struct termios *tios);
 void		check_g_sigflag(t_mini *line);
 void		handle_sigint(int signal);
-//void		handle_heredoc_sig(int signal);
+void		handle_sigquit(int signal);
+void		handle_heredoc_sig(int signal);
 //trim.c
 void		trim_quotes(t_mini *line);
 //utils.c
