@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:51:42 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/10 13:50:43 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/15 14:47:48 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@ void	cleanup(t_mini *line, t_tokens *token, int option)
 	int	i;
 
 	i = 0;
-	
-	if (close_cleanup(line) == -1)
-		option = 1;
+
 	free_2d(line->element);
 	free_2d(line->metaed);
 	free_paths(line);

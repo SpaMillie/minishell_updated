@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 14:03:35 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/09 18:22:53 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/15 15:04:47 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	open_output_append(t_mini *line, t_tokens *token, int j)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		perror(token->redirect[j + 1]);
-		if (close (line->output_fd) == -1)
+		if (line->output_fd != -2 && close (line->output_fd) == -1)
 			cleanup_close(line, token);
     	line->output_fd = fd;
         return (-1);
@@ -41,7 +41,7 @@ static int	open_output(t_mini *line, t_tokens *token, int j)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		perror(token->redirect[j + 1]);
-		if (close (line->output_fd) == -1)
+		if (line->output_fd != -2 && close (line->output_fd) == -1)
 			cleanup_close(line, token);
         line->output_fd = fd;
         return (-1);

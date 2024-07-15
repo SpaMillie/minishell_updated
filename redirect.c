@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/10 15:39:00 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/15 15:05:05 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static void	redirect_output(t_mini *line, t_tokens *token, int *output)
 	if (close (*output) == -1)
 		cleanup_close(line, token);
 	*output = -2;
-	line->output_fd = -2;
+	if (has_output(token))
+		line->output_fd = -2;
 }
 
 static void	redirect_input(t_mini *line, t_tokens *token, int *input)
@@ -42,7 +43,8 @@ static void	redirect_input(t_mini *line, t_tokens *token, int *input)
 	if (close (*input) == -1)
 		cleanup_close(line, token);
 	*input = -2;
-	line->input_fd = -2;
+	if (has_input(token))
+		line->input_fd = -2;
 }
 
 void	redirections(t_mini *line, t_tokens *token, t_fds *cur)

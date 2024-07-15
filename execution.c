@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/12 13:41:47 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/15 15:02:54 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,21 @@ static void	parent(t_mini *line, t_tokens *token, t_fds *cur)
 {
 	if (line->i < line->pipe_num)
 	{
+		if (line->i != 0)
+		{
+			if (cur->in != -2 && close(cur->in) == -1)
+				cleanup_close(line, token);
+			cur->in = -2;
+			if (has_input(token))
+				line->input_fd = -2;
+		}
 		if (cur->out != -2 && close(cur->out) == -1)
 			cleanup_close(line, token);
+		cur->out = -2;
+		if (has_output(token))
+			line->output_fd = -2;
 	}
-	line->input_fd = -2;
-	line->output_fd = -2;
+	close_cleanup(line);
 }
 
 static void	child(t_tokens *token, t_mini *line, t_fds *cur)
@@ -35,6 +45,7 @@ static void	child(t_tokens *token, t_mini *line, t_fds *cur)
 	}
 	else
 	{
+		close_cleanup(line);
 		if (execve(line->paths[line->i], token[line->i].command,
 				line->envp) == -1)
 		{
