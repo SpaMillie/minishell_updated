@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/15 17:34:37 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/15 18:56:16 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,13 @@ static void	set_error(t_mini *line, int check)
 {
 	if (check == -1)
 		line->err_num = 1;
+	line->flag = 1;
 	line->i++;
 }
 
 void	set_path(int check, t_tokens *token, t_mini *line)
 {	
-	if (check != -1 && !(is_builtin(token[line->i].command[0])))
+	if (check != -1 && token[line->i].command[0] != NULL && !(is_builtin(token[line->i].command[0])))
 	{
 		if (get_path(token[line->i].command, line, token) == -1)
 			malloc_failure(line, token);
@@ -83,7 +84,7 @@ void	execute(t_tokens *token, t_mini *line)
 
 	line->i = 0;
 	prev = -2;
-	if (line->pipe_num == 1 && is_builtin(token[line->i].command[0]))
+	if (line->pipe_num == 1 && token[line->i].command[0] != NULL && is_builtin(token[line->i].command[0]))
 		return (single_builtin(token, line));
 	while (line->i < line->pipe_num)
 	{
@@ -93,10 +94,9 @@ void	execute(t_tokens *token, t_mini *line)
 		set_path(check, token, line);
 		cur = set_fds(line, &token[line->i], &prev);
 		prev = cur.close;
-		if (check == -1 || token[line->i].command[0][0] == 9)
+		if (check == -1 || token[line->i].command[0] == NULL || token[line->i].command[0][0] == 9)
 		{
 			set_error(line, check);
-			line->flag = 1;
 			continue ;
 		}
 		pid = fork();
