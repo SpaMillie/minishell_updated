@@ -40,6 +40,7 @@ SRC	=	ft_isalpha.c \
 			ft_print_str.c \
 			ft_print_unsigned.c \
 			ft_printf.c \
+			get_next_line.c \
 
 OBJS = ${SRC:.c=.o}
 

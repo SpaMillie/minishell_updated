@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:13:45 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/12 13:01:09 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/15 15:03:19 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static int	prompting(char **line_read, struct termios tios, t_mini *line)
 	set_term_attr(&tios);
 	*line_read = readline(prompt);
 	free(prompt);
-	reset_term_attr(&tios);
 	check_g_sigflag(line);
 	if (!(*line_read))
 		return (1); // NULL if failed to allocate?

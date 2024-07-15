@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/10 18:41:49 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/15 12:48:53 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,9 +126,7 @@ int			second_split(t_mini *line);
 //signals.c
 void		handle_ctrl_c(int signal);
 void		set_term_attr(struct termios *tios);
-void		set_term_attr_hdoc(struct termios *tios);
 void		reset_term_attr(struct termios *tios);
-void		reset_term_attr_hdoc(struct termios *tios);
 void		check_g_sigflag(t_mini *line);
 void		handle_sigint(int signal);
 void		handle_sigquit(int signal);

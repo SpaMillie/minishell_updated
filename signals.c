@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:58:47 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/03 10:55:13 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/15 15:00:51 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,8 @@ void	set_term_attr(struct termios *tios)
 	tcsetattr(STDIN_FILENO, TCSANOW, tios);
 }
 
-void	set_term_attr_hdoc(struct termios *tios)
-{
-	tios->c_cc[VQUIT] = _POSIX_VDISABLE;
-	tios->c_lflag &= ~(ECHOCTL);
-	tcsetattr(STDIN_FILENO, TCSANOW, tios);
-}
-
 void	reset_term_attr(struct termios *tios)
 {
-	tios->c_lflag |= (ECHOCTL);
-	tcsetattr(STDIN_FILENO, TCSANOW, tios);
-}
-
-void	reset_term_attr_hdoc(struct termios *tios)
-{
-	tios->c_cc[VQUIT] = 034;
 	tios->c_lflag |= (ECHOCTL);
 	tcsetattr(STDIN_FILENO, TCSANOW, tios);
 }
@@ -61,7 +47,6 @@ void	check_g_sigflag(t_mini *line)
 
 void	handle_sigint(int signal)
 {
-	ft_printf("handle sigint\n");
 	if (signal == SIGINT)
 		g_sigflag = 130;
 }
@@ -76,7 +61,7 @@ void	handle_sigquit(int signal)
 		g_sigflag = 131;
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		printf("Quit\n");
+		printf("Quit (core dumped)\n");
 		ioctl(STDIN_FILENO, TIOCSTI, &eot);
 	}
 }
@@ -89,7 +74,6 @@ void	handle_heredoc_sig(int signal)
 	if (signal == SIGINT)
 	{
 		g_sigflag = 1;
-		printf("\n");
 		ioctl(STDIN_FILENO, TIOCSTI, &eot);
 	}
 }

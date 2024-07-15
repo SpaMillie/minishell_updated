@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 09:33:37 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/11 19:09:19 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/15 14:25:28 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 # include <limits.h>
 # include <stdarg.h>
 # include <stdint.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1000
+# endif
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -63,5 +67,6 @@ int		ft_print_char(int next_char);
 int		ft_print_int(int next_int);
 int		ft_print_ptr(unsigned long int next_ptr);
 int		ft_print_unsigned(unsigned int next_unsigned);
+char	*get_next_line(int fd);
 
 #endif
