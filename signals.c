@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:58:47 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/15 15:00:51 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:14:32 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,6 @@ void	handle_ctrl_c(int signal)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-}
-
-void	set_term_attr(struct termios *tios)
-{
-	tios->c_lflag &= ~(ECHOCTL);
-	tcsetattr(STDIN_FILENO, TCSANOW, tios);
-}
-
-void	reset_term_attr(struct termios *tios)
-{
-	tios->c_lflag |= (ECHOCTL);
-	tcsetattr(STDIN_FILENO, TCSANOW, tios);
 }
 
 void	check_g_sigflag(t_mini *line)

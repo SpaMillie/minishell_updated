@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:02:36 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/10 14:32:00 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/15 17:15:40 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**create_paths(char **tokens, char **envp, t_mini *line, t_tokens *token)
+static char	**create(char **tokens, char **envp, t_mini *line, t_tokens *token)
 {
 	char	*path_pointer;
 	char	**paths;
 	int		i;
 
-	path_pointer = get_env_value(envp, "PATH", line, token); //changed ft_getenv() to get_env_value() to remove path from the first element
+	path_pointer = get_env_value(envp, "PATH", line, token);
 	if (!path_pointer)
 		return (NULL);
 	paths = ft_split(path_pointer, ':');
@@ -60,48 +60,61 @@ static int	check_access(char **paths, t_mini *line, t_tokens *token)
 	return (-1);
 }
 
-int	get_path(char **tokens, t_mini *line, t_tokens *token)
+static void	path_error(char *str, char **tokens, t_mini *line, t_tokens *token)
 {
-	char	**paths;
-	int		fd;
+	line->err_num = 127;
+	print_error(str, tokens);
+	tokens[0][0] = 9;
+	unnecessary_path(line, token);
+}
 
-	if (ft_strchr(tokens[0], '/'))
+static int	file_or_directory(char **tokens, t_mini *line, t_tokens *token)
+{
+	int	fd;
+
+	if (access(tokens[0], F_OK) == 0)
 	{
-		if (access(tokens[0], F_OK) == 0)
+		fd = open(tokens[0], O_RDONLY | O_DIRECTORY);
+		if (fd == -1)
 		{
-			fd = open(tokens[0], O_RDONLY | O_DIRECTORY);
-			if (fd == -1)
-			{
-				line->paths[line->i] = ft_strdup(tokens[0]);
-				if (!line->paths[line->i])
-					return (-1);
-			}
-			else
-			{
-				print_error("Is a directory", tokens);
-				line->err_num = 126;
-				tokens[0][0] = 9;
-				unnecessary_path(line, token);
-			}
+			line->paths[line->i] = ft_strdup(tokens[0]);
+			if (!line->paths[line->i])
+				return (-1);
 		}
 		else
 		{
-			print_error("No such file or directory", tokens);
-			line->err_num = 127;
-			tokens[0][0] = 9;
-			unnecessary_path(line, token);
+			path_error("Is a directory", tokens, line, token);
+			line->err_num = 126;
 		}
+	}
+	else
+		path_error("No such file or directory", tokens, line, token);
+	return (0);
+}
+
+int	get_path(char **tokens, t_mini *line, t_tokens *token)
+{
+	char	**paths;
+
+	if (!ft_strncmp(tokens[0], ".", 2))
+	{
+		path_error("filename argument required", tokens, line, token);
+		line->err_num = 2;
 		return (0);
 	}
-	paths = create_paths(tokens, line->envp, line, token);
-	// if (!paths)
-	// 	return ();
-	if (!paths || check_access(paths, line, token) != 0)
+	if (!ft_strncmp(tokens[0], "..", 3))
 	{
-		print_error("command not found", tokens);
-		line->err_num = 127;
-		tokens[0][0] = 9;
-		unnecessary_path(line, token);
+		path_error("command not found", tokens, line, token);
+		return (0);
 	}
+	if (ft_strchr(tokens[0], '/'))
+	{
+		if (file_or_directory(tokens, line, token) == -1)
+			return (-1);
+		return (0);
+	}
+	paths = create(tokens, line->envp, line, token);
+	if (!paths || check_access(paths, line, token) != 0)
+		path_error("command not found", tokens, line, token);
 	return (0);
 }
