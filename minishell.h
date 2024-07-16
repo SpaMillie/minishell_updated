@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/16 17:20:29 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/16 17:52:50 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,7 @@ void		unset(char *arg, t_mini *line, t_tokens *token);
 int			export_unset_error_check(char **args, t_mini *line);
 //env.c
 char		*ft_getenv(char **envp, char *str, t_mini *line, t_tokens *token);
-char		*get_env_value(char **envp, char *str, t_mini *line,
-				t_tokens *token);
+char		*get_env_value(char **envp, char *str, t_mini *line, t_tokens *token);
 //error.c
 void		free_2d(char **tab);
 void		malloc_failure(t_mini *line, t_tokens *token);
@@ -107,6 +106,7 @@ void		expansion(t_mini *line);
 char		*get_substring(char *s, int j);
 int			dup_or_join(char **new_tokens, int loop, int i, char *str);
 void		duplicate(t_mini *line, char **new_tokens);
+char		*nothing_to_expand(t_mini *line, char **new_tokens, int loop, int j);
 //fd_handling.c
 int			init_fd(int *input, int *output);
 int			close_cleanup(t_mini *line);

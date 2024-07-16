@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 10:38:12 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/10 14:38:02 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/16 17:55:04 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	cleanup_close(t_mini *line, t_tokens *token)
 	exit (1);
 }
 
-int has_input(t_tokens *token)
+int	has_input(t_tokens *token)
 {
     int i;
 

@@ -6,11 +6,18 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:21:50 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/16 13:48:25 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:51:49 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	otherwise(char *s, int len)
+{
+	while (s[len] != '$' && s[len] != '\0')
+		len++;
+	return (len);
+}
 
 static int	get_len(char *s, int start, int len)
 {
@@ -37,8 +44,7 @@ static int	get_len(char *s, int start, int len)
 		}
 	}
 	else
-		while (s[len] != '$' && s[len] != '\0')
-			len++;
+		len = otherwise(s, len);
 	return (len - start);
 }
 
@@ -59,32 +65,12 @@ char	*get_substring(char *s, int j)
 	return (substring);
 }
 
-int	dup_or_join(char **new_tokens, int loop, int i, char *str)
+char	*nothing_to_expand(t_mini *line, char **new_tokens, int loop, int j)
 {
-	if (loop == 0)
-		new_tokens[i] = ft_strdup(str);
-	else
-		new_tokens[i] = join_and_free(new_tokens[i], str);
-	if (!new_tokens[i])
-		return (1);
-	return (0);
-}
+	char	*substring;
 
-void	duplicate(t_mini *line, char **new_tokens)
-{
-	int	j;
-
-	if (ft_strchr(line->metaed[line->i], 7))
-	{
-		j = 0;
-		while (line->metaed[line->i][j])
-		{
-			if (line->metaed[line->i][j] == 7)
-				line->metaed[line->i][j] = '$';
-			j++;
-		}
-	}
-	new_tokens[line->i] = ft_strdup(line->metaed[line->i]);
-	if (!new_tokens[line->i])
+	substring = get_substring(line->metaed[line->i], j);
+	if (dup_or_join(new_tokens, loop, line->i, substring))
 		malloc_failure_without_token(line);
+	return (substring);
 }

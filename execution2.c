@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:50 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/16 14:36:14 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/16 18:05:42 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	single_builtin(t_tokens *token, t_mini *line)
 {		
-	int	fd[2];
+	int		fd[2];
 	t_fds	cur;
 
 	if (init_fd(&fd[0], &fd[1]) == -1)
@@ -34,7 +34,7 @@ void	single_builtin(t_tokens *token, t_mini *line)
 	if (dup2_in(&fd[0], NULL, 0) == -1 || dup2_out(&fd[1], NULL, 0) == -1)
 	{
 		cleanup(line, token, 1);
-		exit (1);	
+		exit(1);	
 	}
 }
 
@@ -49,10 +49,10 @@ void	shell_lvl_check(t_mini *line, t_tokens *token)
 	value = ft_atoi(shell_value);
 	value++;
 	str = ft_itoa(value);
-	if(!str)
+	if (!str)
 		malloc_failure(line, token);
 	str_to_export = ft_strjoin("SHLVL=", str);
-	if(!str_to_export)
+	if (!str_to_export)
 		malloc_failure(line, token);
 	export(str_to_export, line, token);
 	free(str);

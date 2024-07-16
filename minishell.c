@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:13:45 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/15 15:03:19 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:53:47 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	to_token(t_mini *line, t_tokens **token)
 
 static int	prompting(char **line_read, struct termios tios, t_mini *line)
 {					
-	char *prompt;
+	char	*prompt;
 
 	prompt = create_prompt();
 	set_term_attr(&tios);
@@ -69,7 +69,7 @@ static int	minishell_loop(t_mini *line, struct termios tios)
 {
 	t_tokens	*token;
 	char		*line_read;
-	
+
 	token = (t_tokens *){0};
 	line_read = NULL;
 	signal(SIGINT, handle_ctrl_c);

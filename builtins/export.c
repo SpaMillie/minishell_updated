@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:28:58 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/16 16:08:52 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:40:58 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static char	*env_exists(char *arg, t_mini *line, t_tokens *token)
 	{
 		if (!ft_strncmp(line->envp[i], arg, len))
 		{
-			ft_printf("ONE\n");
 			existing = malloc(sizeof(char) * len + 1);
 			if (!existing)
 				malloc_failure(line, token);
@@ -49,7 +48,6 @@ static char	*env_exists(char *arg, t_mini *line, t_tokens *token)
 		}
 		i++;
 	}
-	ft_printf("TWO\n");
 	return (NULL);
 }
 
@@ -58,7 +56,6 @@ static void	unset_existing(char *arg, t_mini *line, t_tokens *token)
 	char		*existing;
 
 	existing = env_exists(arg, line, token);
-	ft_printf("existing = %s\n", existing);
 	if (existing)
 	{
 		unset(existing, line, token);

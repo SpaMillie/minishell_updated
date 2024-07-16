@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+         #
+#    By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 10:22:54 by tparratt          #+#    #+#              #
-#    Updated: 2024/07/16 17:19:01 by mspasic          ###   ########.fr        #
+#    Updated: 2024/07/16 17:49:50 by tparratt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC			=	minishell.c \
 					parsing.c \
 					expansion.c \
 					expansion2.c \
+					expansion3.c \
 					paths.c \
 					env.c \
 					utils.c \

@@ -6,21 +6,11 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 12:31:15 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/16 16:42:01 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:50:42 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char	*nothing_to_expand(t_mini *line, char **new_tokens, int loop, int j)
-{
-	char	*substring;
-
-	substring = get_substring(line->metaed[line->i], j);
-	if (dup_or_join(new_tokens, loop, line->i, substring))
-		malloc_failure_without_token(line);
-	return (substring);
-}
 
 static char	*substring_expand(t_mini *line, char **new_tokens, int loop, int *j)
 {
@@ -65,7 +55,7 @@ static void	expand(t_mini *line, char **new_tokens)
 	while (metaed[j])
 	{
 		if (metaed[j] == '$' && (!ft_isalnum(metaed[j + 1])
-				&& metaed[j + 1] != '_' && metaed[j + 1] != '?')) // dollars only
+				&& metaed[j + 1] != '_' && metaed[j + 1] != '?'))
 		{
 			dollars_only(line, new_tokens, &loop, &j);
 			continue ;
@@ -85,11 +75,12 @@ static void	remove_dollar(t_mini *line, char **new_tokens)
 {
 	int		i;
 	char	*str;
-	
+
 	i = 0;
 	while (new_tokens[i])
 	{
-		if (new_tokens[i][0] == '$' && (new_tokens[i][1] == '\'' || new_tokens[i][1] == '"'))
+		if (new_tokens[i][0] == '$' && (new_tokens[i][1] == '\''
+			|| new_tokens[i][1] == '"'))
 		{
 			str = ft_substr(new_tokens[i], 1, ft_strlen(new_tokens[i]));
 			if (!str)

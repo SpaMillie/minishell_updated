@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:51:42 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/15 14:47:48 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/16 17:54:39 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	cleanup(t_mini *line, t_tokens *token, int option)
 	int	i;
 
 	i = 0;
-
 	free_2d(line->element);
 	free_2d(line->metaed);
 	free_paths(line);
@@ -88,4 +87,3 @@ char	*join_and_free(char *prompt, char *str)
 	prompt = temp;
 	return (prompt);
 }
-

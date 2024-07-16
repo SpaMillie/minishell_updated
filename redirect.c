@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/15 18:33:16 by mspasic          ###   ########.fr       */
+/*   Created: 2024/07/16 18:03:09 by tparratt          #+#    #+#             */
+/*   Updated: 2024/07/16 18:03:57 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 
@@ -56,4 +55,3 @@ void	redirections(t_mini *line, t_tokens *token, t_fds *cur)
 	if (cur->close != -2 && close(cur->close) == -1)
 		cleanup_close(line, token);
 }
-
