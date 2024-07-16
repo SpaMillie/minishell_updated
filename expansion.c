@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 12:31:15 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/16 14:00:40 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:42:01 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static void	remove_dollar(t_mini *line, char **new_tokens)
 	i = 0;
 	while (new_tokens[i])
 	{
-		if (new_tokens[i][0] == '$')
+		if (new_tokens[i][0] == '$' && (new_tokens[i][1] == '\'' || new_tokens[i][1] == '"'))
 		{
 			str = ft_substr(new_tokens[i], 1, ft_strlen(new_tokens[i]));
 			if (!str)
