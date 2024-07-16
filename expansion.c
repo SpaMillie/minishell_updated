@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 12:31:15 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/16 16:39:37 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:42:01 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ void	expansion(t_mini *line)
 		malloc_failure_without_token(line);
 	while (line->metaed[line->i])
 	{
-		ft_printf("line->metaed[line->i] = %s\n", line->metaed[line->i]);
 		if (ft_strchr(line->metaed[line->i], '$'))
 			expand(line, new_tokens);
 		else
