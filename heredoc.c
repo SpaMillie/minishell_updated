@@ -6,32 +6,30 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:22:45 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/16 14:03:53 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/16 14:42:51 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	heredoc_strncmp(const char *s1, const char *s2)
+static int	heredoc_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
 
-	printf("s1 is %s, s2 is %s\n", s1, s2);
-	i = 1;
+	i = 0;
 	if (ft_strlen(s2) == 0)
 	{
 		if (ft_strlen(s1) - 1 == 0)
 			return (0);
 		else
-			return ((unsigned char)*s1 - (unsigned char)*s2);
+			return (1);
 	}
-	while (*s1 == *s2 && *s1 + 1 != '\0' && *s2 != '\0')
-	{
-		s1++;
-		s2++;
+	while (s1[i] == s2[i] && s1[i + 1] != '\0' && s2[i] != '\0' && i < n)
 		i++;
-	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
+	if (s1[i + 1] == '\0' && s2[i] == '\0')
+		return (0);
+	else
+		return (1);
 }
 
 char	*here_strjoin(char *s1, char *s2)
@@ -101,10 +99,9 @@ static char	*heredocing(char *delim, char *hd)
 		return (NULL);
 	write(1, "heredoc> ", 9);
 	line = get_next_line(0);
-	printf("line is %s\n", line);
 	while (line)
 	{
-		if (!heredoc_strncmp(line, delim))
+		if (!heredoc_strncmp(line, delim, ft_strlen(delim)))
 			break ;
 		write(1, "heredoc> ", 9);
 		ft_putstr_fd(line, fd);
