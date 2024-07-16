@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:58:47 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/15 16:14:32 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/16 14:50:37 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,11 @@ void	handle_sigquit(int signal)
 {
 	char	eot;
 
-	eot = 4;
+	eot = 3;
+	ft_putendl_fd("Quit (core dumped)", 1);
 	if (signal == SIGQUIT)
 	{
 		g_sigflag = 131;
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		printf("Quit (core dumped)\n");
 		ioctl(STDIN_FILENO, TIOCSTI, &eot);
 	}
 }
