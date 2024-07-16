@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/15 12:48:53 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:20:29 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@
 # include <sys/ioctl.h>
 
 extern int	g_sigflag;
+
+#define PIPE 3
+#define RED_IN 4
+#define RED_OUT 5
+#define DOLLAR 7
 
 typedef struct s_mini
 {
@@ -121,6 +126,8 @@ void		redirections(t_mini *line, t_tokens *token, t_fds *cur);
 //restore_fds.c
 int			dup2_in(int *input, int *other, int option);
 int			dup2_out(int *output, int *other, int option);
+//retrim.c
+void    	retrim_tokens(t_tokens *token);
 //second_split.c
 int			second_split(t_mini *line);
 //signals.c

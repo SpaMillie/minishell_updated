@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:05:39 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/09 18:25:05 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/16 17:20:58 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,7 @@ void	tokenising(t_mini *line, t_tokens *token)
 			i++;
 		j++;
 	}
+	j = 0;
+	while (j < line->pipe_num)
+		retrim_tokens(&token[j++]);
 }

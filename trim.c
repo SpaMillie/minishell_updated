@@ -1,5 +1,19 @@
 #include "minishell.h"
 
+static  void	set_meta(char replace, char *copy, char c, int k)
+{
+	if (c == '\'' && replace == '$')
+		copy[k] = DOLLAR;
+	else if (replace == '|')
+		copy[k] = PIPE;
+	else if (replace == '>')
+		copy[k] = RED_OUT;
+	else if (replace == '<')
+		copy[k] = RED_IN;
+	else
+		copy[k] = replace;
+}
+
 static char	*trim_copy(t_mini *line, char *copy, int i, int j)
 {
 	int		k;
@@ -15,13 +29,9 @@ static char	*trim_copy(t_mini *line, char *copy, int i, int j)
 	j++;
 	while (line->metaed[i][j] != c)
 	{
-		if (c == '\'' && line->metaed[i][j] == '$')
-		{
-			copy[k++] = 7;
-			j++;
-		}
-		else
-			copy[k++] = line->metaed[i][j++];
+		set_meta(line->metaed[i][j], copy, c, k);
+		j++;
+		k++;
 	}
 	j++;
 	while (line->metaed[i][j] != '\0')

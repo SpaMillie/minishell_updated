@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:48:57 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/16 13:35:04 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/16 17:25:50 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int validating(char *argv, t_mini *line, char *line_read)
 		return (syntax_error(line, NULL, 4));
     trim_quotes(line);
     here_doc(line);
-   	i = 0;
     return (0);
 }
 
