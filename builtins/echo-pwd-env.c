@@ -6,11 +6,16 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:16:35 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/15 16:11:40 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/16 12:22:10 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+/*static void echo_string()
+{
+	
+}*/
 
 static int	all_ens(char *arg)
 {

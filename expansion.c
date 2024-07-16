@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 12:31:15 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/05 17:41:30 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/16 14:00:40 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	expand(t_mini *line, char **new_tokens)
 	while (metaed[j])
 	{
 		if (metaed[j] == '$' && (!ft_isalnum(metaed[j + 1])
-				&& metaed[j + 1] != '_' && metaed[j + 1] != '?'))
+				&& metaed[j + 1] != '_' && metaed[j + 1] != '?')) // dollars only
 		{
 			dollars_only(line, new_tokens, &loop, &j);
 			continue ;
@@ -79,6 +79,30 @@ static void	expand(t_mini *line, char **new_tokens)
 		free(substring);
 		loop++;
 	}
+}
+
+static void	remove_dollar(t_mini *line, char **new_tokens)
+{
+	int		i;
+	char	*str;
+	
+	i = 0;
+	while (new_tokens[i])
+	{
+		if (new_tokens[i][0] == '$')
+		{
+			str = ft_substr(new_tokens[i], 1, ft_strlen(new_tokens[i]));
+			if (!str)
+				malloc_failure_without_token(line);
+			free(new_tokens[i]);
+			new_tokens[i] = ft_strdup(str);
+			if (!new_tokens[i])
+				malloc_failure_without_token(line);
+			free(str);
+		}
+		i++;
+	}
+	line->metaed = new_tokens;
 }
 
 void	expansion(t_mini *line)
@@ -100,4 +124,5 @@ void	expansion(t_mini *line)
 	new_tokens[line->i] = NULL;
 	free_2d(line->metaed);
 	line->metaed = new_tokens;
+	remove_dollar(line, new_tokens);
 }
