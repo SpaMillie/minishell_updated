@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 12:31:15 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/05 17:41:30 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/16 12:34:11 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,11 @@ static void	expand(t_mini *line, char **new_tokens)
 	metaed = line->metaed[line->i];
 	while (metaed[j])
 	{
+		ft_printf("entered expansion loop\n");
 		if (metaed[j] == '$' && (!ft_isalnum(metaed[j + 1])
-				&& metaed[j + 1] != '_' && metaed[j + 1] != '?'))
+				&& metaed[j + 1] != '_' && metaed[j + 1] != '?')) // dollars only
 		{
+			ft_printf("dollars only\n");
 			dollars_only(line, new_tokens, &loop, &j);
 			continue ;
 		}
@@ -74,7 +76,10 @@ static void	expand(t_mini *line, char **new_tokens)
 				|| metaed[j + 1] == '_' || metaed[j + 1] == '?'))
 			substring = substring_expand(line, new_tokens, loop, &j);
 		else
+		{
+			ft_printf("nothing to expand\n");
 			substring = nothing_to_expand(line, new_tokens, loop, j);
+		}
 		j += ft_strlen(substring);
 		free(substring);
 		loop++;
@@ -91,10 +96,16 @@ void	expansion(t_mini *line)
 		malloc_failure_without_token(line);
 	while (line->metaed[line->i])
 	{
+		ft_printf("line->metaed = %s\n", line->metaed[line->i]);
 		if (ft_strchr(line->metaed[line->i], '$'))
 			expand(line, new_tokens);
 		else
 			duplicate(line, new_tokens);
+		if (line->metaed[line->i][0] == '$')
+		{
+			ft_printf("HELLO\n");
+			new_tokens[line->i] = ft_substr(line->metaed[line->i], 1, ft_strlen(line->metaed[line->i]));
+		}
 		line->i++;
 	}
 	new_tokens[line->i] = NULL;

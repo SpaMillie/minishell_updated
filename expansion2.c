@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:21:50 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/25 11:34:33 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/16 12:14:00 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static int	get_len(char *s, int start, int len)
 {
 	if (start > 0 && s[start - 1] == '$')
 	{
+		if (s[len] == '\'' || s[len] == '"')
+			len++;
 		if (!is_it_space(s, len))
 		{
 			while (s[len] != '$' && s[len] != '\0' && (ft_isalnum(s[len])
