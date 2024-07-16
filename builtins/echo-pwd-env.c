@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:16:35 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/16 14:54:55 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:27:28 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,12 @@ static void	echon(char **args)
 {
 	int	i;
 
-	i = 2;
+	i = 1;
+	
+	while (args[i] && all_ens(args[i]))
+		i++;
 	while (args[i])
 	{
-		if (all_ens(args[i]))
-		{
-			i++;
-			continue ;
-		}
 		if (args[i + 1] == NULL)
 			ft_printf("%s", args[i]);
 		else
