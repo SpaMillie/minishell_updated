@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/17 16:38:12 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 17:57:34 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void		cd(char **args, t_mini *line, t_tokens *token);
 t_fds		set_fds(t_mini *line, t_tokens *token, int *prev);
 //echo-pwd-env.c
 void		echo(char **args);
-void		pwd(void);
+void		pwd(t_mini *line, t_tokens *token);
 void		env(char **args, t_mini *line);
 //exit.c
 void		exit_cmd(char **args, t_mini *line, t_tokens *token);

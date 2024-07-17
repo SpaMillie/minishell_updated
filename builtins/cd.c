@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 09:29:33 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/25 11:44:08 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 17:54:56 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ static int	check_args(char **args, t_mini *line, t_tokens *token)
 {
 	char	*home;
 
-	if (!args[1])
+	if (!args[1] || !ft_strncmp(args[1], "~", 2))
 	{
 		home = get_env_value(line->envp, "HOME", line, token);
 		if (chdir(home) == -1)
 		{
 			line->err_num = 1;
-			print_error("No such file or directory", args);
+			print_error("Error changing directory", args);
 			return (1);
 		}
 		free(home);
@@ -40,7 +40,7 @@ static int	check_args(char **args, t_mini *line, t_tokens *token)
 		if (chdir(args[1]) == -1)
 		{
 			line->err_num = 1;
-			print_error("No such file or directory", args);
+			print_error("Error changing directory", args);
 			return (1);
 		}
 	}
@@ -61,6 +61,7 @@ static char	*cd_error_check(char **args, t_mini *line, t_tokens *token)
 	if (!old_pwd_path)
 	{
 		perror("getcwd");
+		cleanup(line, token, 1);
 		exit(1);
 	}
 	if (check_args(args, line, token) == 1)
@@ -85,10 +86,11 @@ void	cd(char **args, t_mini *line, t_tokens *token)
 	old_pwd = ft_strjoin("OLDPWD=", old_pwd_path);
 	if (!old_pwd)
 		malloc_failure(line, token);
-	new_pwd_path = getcwd(NULL, 0);
+	new_pwd_path = NULL;
 	if (!new_pwd_path)
 	{
 		perror("getcwd");
+		cleanup(line, token, 1);
 		exit(1);
 	}
 	new_pwd = ft_strjoin("PWD=", new_pwd_path);

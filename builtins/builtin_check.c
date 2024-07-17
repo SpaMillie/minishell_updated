@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 13:47:13 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/17 15:42:44 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 17:57:15 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	execute_builtin(t_tokens *token, t_mini *line)
 	if (!ft_strncmp(token->command[0], "echo", 5))
 		echo(token->command);
 	else if (!ft_strncmp(token->command[0], "pwd", 4))
-		pwd();
+		pwd(line, token);
 	else if (!ft_strncmp(token->command[0], "cd", 3))
 		cd(token->command, line, token);
 	else if (!ft_strncmp(token->command[0], "env", 4))
