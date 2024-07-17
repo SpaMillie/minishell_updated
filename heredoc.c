@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:22:45 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/17 13:26:13 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:46:00 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,39 +88,86 @@ static char	*simple_itoa(int n)
 	return (str);
 }
 
-static char	*heredocing(char *delim, char *hd)
+static char	*hdoc_loop(char *hdoc_line, int fd, char *delim)
+{
+	while (hdoc_line)
+	{
+		if (!heredoc_strncmp(hdoc_line, delim, ft_strlen(delim)))
+			break ;
+		write(1, "heredoc> ", 9);
+		ft_putstr_fd(hdoc_line, fd);
+		free(hdoc_line);
+		hdoc_line = get_next_line(0);
+	}
+	return (hdoc_line);
+}
+
+static char	*null_hdoc_line(char *hdoc_line, char *delim, t_mini *line)
+{
+	char	*str;
+
+	if (!hdoc_line)
+	{
+		write(1, "\n", 1);
+		free(delim);
+		free(hdoc_line);
+		signal(SIGINT, handle_ctrl_c);
+		str = ft_strdup("");
+		if (!str)
+			malloc_failure_without_token(line);
+		return (str);
+	}
+	return (NULL);
+}
+
+static char	*hdocing(char *delim, char *hd, t_mini *line)
 {
 	int				fd;
-	char			*line;
+	char			*hdoc_line;
+	char			*str;
 
 	signal(SIGINT, handle_heredoc_sig);
 	fd = open(hd, O_CREAT | O_RDWR | O_TRUNC, 0777);
 	if (fd == -1)
 		return (NULL);
 	write(1, "heredoc> ", 9);
-	line = get_next_line(0);
-	while (line)
-	{
-		if (!heredoc_strncmp(line, delim, ft_strlen(delim)))
-			break ;
-		write(1, "heredoc> ", 9);
-		ft_putstr_fd(line, fd);
-		free(line);
-		line = get_next_line(0);
-	}
-	if (!line)
-	{
-		write(1, "\n", 1);
-		free (delim);
-		free (line);
-		signal(SIGINT, handle_ctrl_c);
-		return(NULL);
-	}
-	if (close (fd) == -1)
+	hdoc_line = get_next_line(0);
+	hdoc_line = hdoc_loop(hdoc_line, fd, delim);
+	str = null_hdoc_line(hdoc_line, delim, line);
+	if (str)
+		return (str);
+	if (close(fd) == -1)
 		return (NULL);
-	free (delim);
-	free (line);
+	free(delim);
+	free(hdoc_line);
 	return (hd);
+}
+
+static char	*create_hd_name(int hd_num, t_mini *line)
+{
+	char	*str;
+
+	str = here_strjoin(".here_", simple_itoa(hd_num));
+	if (!str)
+		malloc_failure_without_token(line);
+	return (str);
+}
+
+static void	free_before_return(t_mini *line, char *hd_name)
+{
+	free_2d(line->element);
+	free_2d(line->metaed);
+	free(hd_name);
+}
+
+static void	free_and_exit(t_mini *line, char *hd_name)
+{
+	ft_putendl_fd("minishell: couldn't handle here_doc", 2);
+	free_2d(line->element);
+	free_2d(line->metaed);
+	free(hd_name);
+	free_2d(line->envp);
+	exit(1);
 }
 
 int	here_doc(t_mini *line)
@@ -135,25 +182,15 @@ int	here_doc(t_mini *line)
 	{
 		if (ft_strncmp(line->metaed[i], "<<", 3) == 0)
 		{
-			hd_name = here_strjoin(".here_", simple_itoa(hd_num));
-			if (!hd_name)
-				malloc_failure_without_token(line);
-			line->metaed[i + 1] = heredocing(line->metaed[i + 1], hd_name);
+			hd_name = create_hd_name(hd_num, line);
+			line->metaed[i + 1] = hdocing(line->metaed[i + 1], hd_name, line);
 			if (line->metaed[i + 1] == NULL)
-			{
-				ft_putendl_fd("minishell: couldn't handle here_doc", 2);
-				free_2d(line->metaed);
-				free_2d(line->element);
-				free_2d(line->envp);
-				exit(1);
-			}
+				free_and_exit(line, hd_name);
 			if (ft_strlen(line->metaed[i + 1]) == 0)
 			{
-				free_2d(line->element);
-				free_2d(line->metaed);
+				free_before_return(line, hd_name);
 				return (1);
 			}
-			
 			hd_num++;
 		}
 		i++;
