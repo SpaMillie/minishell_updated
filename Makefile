@@ -6,7 +6,7 @@
 #    By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 10:22:54 by tparratt          #+#    #+#              #
-#    Updated: 2024/07/17 12:44:48 by mspasic          ###   ########.fr        #
+#    Updated: 2024/07/17 15:27:23 by mspasic          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC			=	minishell.c \
 					utils.c \
 					utils2.c \
 					utils3.c \
+					utils4.c \
 					execution.c \
 					execution2.c \
 					error.c \
@@ -38,6 +39,7 @@ SRC			=	minishell.c \
 					signals.c \
 					syntax_errors.c \
 					heredoc.c \
+					heredoc2.c \
 					set_termios.c \
 					builtins/echo-pwd-env.c \
 					builtins/cd.c \

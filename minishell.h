@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/17 12:53:24 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 15:42:03 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,13 @@ int			close_cleanup(t_mini *line);
 int			first_split(char *argv, t_mini *line);
 //heredoc.c
 int			here_doc(t_mini *line);
+char		*create_hd_name(int hd_num, t_mini *line);
+//heredoc2.c
+int			heredoc_strncmp(const char *s1, const char *s2, size_t n);
+char		*here_strjoin(char *s1, char *s2);
+int			ft_intlen(int n);
+char		*null_hdoc_line(char *hdoc_line, char *delim, t_mini *line);
+char		*hdoc_loop(char *hdoc_line, int fd, char *delim);
 //opening_files.c
 int			opening(t_tokens *token, t_mini *line);
 //parsing.c
@@ -160,6 +167,9 @@ int			has_input(t_tokens *token);
 int			has_output(t_tokens *token);
 void		unnecessary_path(t_mini *line, t_tokens *token);
 int			empty_command(t_mini *line, char *line_read);
+//utils4.c
+char		*simple_itoa(int n);
+void		free_before_return(t_mini *line, char *hd_name, int hd_num);
 //validation.c
 int			validating(char *argv, t_mini *line, char *line_read);
 int			is_it_redirect(char *s);
