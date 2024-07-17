@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/16 17:52:50 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 12:44:20 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 
 extern int	g_sigflag;
 
-#define PIPE 3
-#define RED_IN 4
-#define RED_OUT 5
-#define DOLLAR 7
+# define PIPE 3
+# define RED_IN 4
+# define RED_OUT 5
+# define DOLLAR 7
 
 typedef struct s_mini
 {
@@ -87,13 +87,13 @@ void		unset(char *arg, t_mini *line, t_tokens *token);
 int			export_unset_error_check(char **args, t_mini *line);
 //env.c
 char		*ft_getenv(char **envp, char *str, t_mini *line, t_tokens *token);
-char		*get_env_value(char **envp, char *str, t_mini *line, t_tokens *token);
+char		*get_env_value(char **envp, char *str, t_mini *line,
+				t_tokens *token);
 //error.c
 void		free_2d(char **tab);
 void		malloc_failure(t_mini *line, t_tokens *token);
 void		malloc_failure_without_token(t_mini *line);
 void		malloc_failure_no_cleanup(void);
-int			syntax_error(t_mini *line, char *s, int i);
 //execution.c
 void		execute(t_tokens *token, t_mini *line);
 //execution2.c
@@ -106,7 +106,8 @@ void		expansion(t_mini *line);
 char		*get_substring(char *s, int j);
 int			dup_or_join(char **new_tokens, int loop, int i, char *str);
 void		duplicate(t_mini *line, char **new_tokens);
-char		*nothing_to_expand(t_mini *line, char **new_tokens, int loop, int j);
+char		*nothing_to_expand(t_mini *line, char **new_tokens, int loop,
+				int j);
 //fd_handling.c
 int			init_fd(int *input, int *output);
 int			close_cleanup(t_mini *line);
@@ -127,7 +128,7 @@ void		redirections(t_mini *line, t_tokens *token, t_fds *cur);
 int			dup2_in(int *input, int *other, int option);
 int			dup2_out(int *output, int *other, int option);
 //retrim.c
-void    	retrim_tokens(t_tokens *token);
+void		retrim_tokens(t_tokens *token);
 //second_split.c
 int			second_split(t_mini *line);
 //signals.c
@@ -138,6 +139,9 @@ void		check_g_sigflag(t_mini *line);
 void		handle_sigint(int signal);
 void		handle_sigquit(int signal);
 void		handle_heredoc_sig(int signal);
+//syntax_errors.c
+int			syntax_error(t_mini *line, char *s, int i);
+int			check_syntax_errors(t_mini *line, int words);
 //trim.c
 void		trim_quotes(t_mini *line);
 //utils.c

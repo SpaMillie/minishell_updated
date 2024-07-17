@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 10:38:12 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/16 17:55:04 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 12:14:21 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,34 +21,34 @@ void	cleanup_close(t_mini *line, t_tokens *token)
 
 int	has_input(t_tokens *token)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (token->redirect[i])
+	i = 0;
+	while (token->redirect[i])
 	{
 		if ((ft_strncmp(token->redirect[i], "<", 2) == 0)
 			|| (ft_strncmp(token->redirect[i], "<<", 3) == 0))
 			return (1);
-        else
-            i += 2;
+		else
+			i += 2;
 	}
-    return (0);
+	return (0);
 }
 
-int has_output(t_tokens *token)
+int	has_output(t_tokens *token)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (token->redirect[i])
+	i = 0;
+	while (token->redirect[i])
 	{
 		if ((ft_strncmp(token->redirect[i], ">", 2) == 0)
 			|| (ft_strncmp(token->redirect[i], ">>", 3) == 0))
 			return (1);
-        else
-            i += 2;
+		else
+			i += 2;
 	}
-    return (0);
+	return (0);
 }
 
 int	empty_command(t_mini *line, char *line_read)
@@ -63,5 +63,5 @@ void	unnecessary_path(t_mini *line, t_tokens *token)
 {
 	line->paths[line->i] = ft_strdup("won't be used\n");
 	if (!line->paths[line->i])
-		malloc_failure(line, token);	
+		malloc_failure(line, token);
 }

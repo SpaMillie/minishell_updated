@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+         #
+#    By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 10:22:54 by tparratt          #+#    #+#              #
-#    Updated: 2024/07/16 17:49:50 by tparratt         ###   ########.fr        #
+#    Updated: 2024/07/17 12:44:48 by mspasic          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC			=	minishell.c \
 					dup2ing_fds.c \
 					opening_files.c \
 					signals.c \
+					syntax_errors.c \
 					heredoc.c \
 					set_termios.c \
 					builtins/echo-pwd-env.c \

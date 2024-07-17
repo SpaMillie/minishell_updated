@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 14:03:35 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/15 15:04:47 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/17 12:16:04 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static int	open_output_append(t_mini *line, t_tokens *token, int j)
 		perror(token->redirect[j + 1]);
 		if (line->output_fd != -2 && close (line->output_fd) == -1)
 			cleanup_close(line, token);
-    	line->output_fd = fd;
-        return (-1);
+		line->output_fd = fd;
+		return (-1);
 	}		
 	if (line->output_fd != -2 && close (line->output_fd) == -1)
 		cleanup_close(line, token);
-    line->output_fd = fd;
+	line->output_fd = fd;
 	return (0);
 }
 
@@ -43,12 +43,12 @@ static int	open_output(t_mini *line, t_tokens *token, int j)
 		perror(token->redirect[j + 1]);
 		if (line->output_fd != -2 && close (line->output_fd) == -1)
 			cleanup_close(line, token);
-        line->output_fd = fd;
-        return (-1);
+		line->output_fd = fd;
+		return (-1);
 	}
 	if (line->output_fd != -2 && close (line->output_fd) == -1)
 		cleanup_close(line, token);
-    line->output_fd = fd;
+	line->output_fd = fd;
 	return (0);
 }
 
@@ -63,16 +63,17 @@ static int	open_input(t_mini *line, t_tokens *token, int j)
 		perror(token->redirect[j + 1]);
 		if (close (line->input_fd) == -1)
 			cleanup_close(line, token);
-        line->input_fd = fd;
+		line->input_fd = fd;
 		return (-1);
 	}
-	if (line->input_fd != -2  && close (line->input_fd) == -1)
+	if (line->input_fd != -2 && close (line->input_fd) == -1)
 		cleanup_close(line, token);
-    line->input_fd = fd;
+	line->input_fd = fd;
 	return (0);
 }
 
 int	opening(t_tokens *token, t_mini *line)
+
 {
 	int	j;
 	int	check;

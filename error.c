@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:39:35 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/10 13:47:22 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/17 12:43:08 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,29 +49,3 @@ void	malloc_failure_no_cleanup(void)
 	exit(1);
 }
 
-int	syntax_error(t_mini *line, char *s, int i)
-{
-	char	*str;
-
-	if (i == 1)
-	{
-		ft_putendl_fd("minishell: could not find the matching quote", 2);
-		return (1);
-	}
-	else if (i == 2)
-		ft_putendl_fd("minishell: parse error near '|'", 2);
-	else if (i == 3)
-	{
-		str = ft_strjoin("minishell: parse error near ", s);
-		if (!str)
-			malloc_failure_without_token(line);
-		ft_putendl_fd(str, 2);
-		free (str);
-	}
-	else if (i == 4)
-		ft_putendl_fd("minishell: parse error near \\n", 2);
-	line->err_num = 2;
-	free_2d(line->element);
-	free_2d(line->metaed);
-	return (1);
-}
