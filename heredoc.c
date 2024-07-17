@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:22:45 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/16 14:42:51 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/17 10:04:02 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,13 @@ static char	*heredocing(char *delim, char *hd)
 		free(line);
 		line = get_next_line(0);
 	}
+	if (!line)
+	{
+		// don't print heredoc
+	}
 	if (close (fd) == -1)
 		return (NULL);
-	write(1, "\n", 1);
+	write(1, "\n", 1); //why do we have this new line?
 	free (delim);
 	free (line);
 	signal(SIGINT, handle_ctrl_c);

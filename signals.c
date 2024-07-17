@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:58:47 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/16 14:50:37 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 09:32:49 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	handle_sigquit(int signal)
 	char	eot;
 
 	eot = 3;
-	ft_putendl_fd("Quit (core dumped)", 1);
+	ft_putendl_fd("Quit", 1);
 	if (signal == SIGQUIT)
 	{
 		g_sigflag = 131;
