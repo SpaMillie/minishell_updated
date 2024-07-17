@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:58:47 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/17 09:32:49 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 16:15:42 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	handle_sigquit(int signal)
 	ft_putendl_fd("Quit", 1);
 	if (signal == SIGQUIT)
 	{
-		g_sigflag = 131;
 		ioctl(STDIN_FILENO, TIOCSTI, &eot);
+		g_sigflag = 131;
 	}
 }
 
@@ -59,7 +59,7 @@ void	handle_heredoc_sig(int signal)
 	eot = 4;
 	if (signal == SIGINT)
 	{
-		g_sigflag = 1;
+		g_sigflag = 130;
 		ioctl(STDIN_FILENO, TIOCSTI, &eot);
 	}
 }

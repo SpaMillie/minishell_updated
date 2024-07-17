@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:13:45 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/17 13:15:10 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 16:12:52 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	prompting(char **line_read, struct termios tios, t_mini *line)
 	free(prompt);
 	check_g_sigflag(line);
 	if (!(*line_read))
-		return (1); // NULL if failed to allocate?
+		return (1);
 	return (0);
 }
 
@@ -78,11 +78,6 @@ static int	minishell_loop(t_mini *line, struct termios tios)
 	{	
 		if (prompting(&line_read, tios, line) == 1)
 			return (1);
-		if (ft_strlen(line_read) == 0)
-		{
-			free(line_read);
-			continue ;
-		}
 		add_history(line_read);
 		if (validating(line_read, line, line_read) == 1)
 		{
@@ -93,11 +88,6 @@ static int	minishell_loop(t_mini *line, struct termios tios)
 		expansion(line);
 		to_token(line, &token);
 		execute(token, line);
-		if (token->command[0] && ft_strncmp(token->command[0], "exit", ft_strlen(token->command[0])) == 0 && line->pipe_num == 1)
-		{
-			cleanup(line, token, 1);
-			break ;
-		}
 		cleanup(line, token, 0);
 	}
 	return (0);
@@ -109,7 +99,6 @@ int	main(int argc, char **argv, char **envp)
 	struct termios		tios;
 
 	(void)argv;
-	// system("lsof -p $$");
 	line = (t_mini){0};
 	g_sigflag = 0;
 	line.envp = envp_dup(envp);

@@ -6,13 +6,13 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:43:38 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/18 15:36:30 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 15:43:59 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	non_numeric_arg(char **args)
+static void	non_numeric_arg(char **args, t_mini *line, t_tokens *token)
 {
 	int	i;
 	int	num;
@@ -23,6 +23,7 @@ static void	non_numeric_arg(char **args)
 		if (!ft_isdigit(args[1][i]) && args[1][i] != '+' && args[1][i] != '-')
 		{
 			print_error("numeric argument required", args);
+			cleanup(line, token, 1);
 			exit(255);
 		}
 		i++;
@@ -31,7 +32,7 @@ static void	non_numeric_arg(char **args)
 	exit(num);
 }
 
-void	exit_cmd(char **args, t_mini *line)
+void	exit_cmd(char **args, t_mini *line, t_tokens *token)
 {
 	int	i;
 
@@ -47,11 +48,15 @@ void	exit_cmd(char **args, t_mini *line)
 		return ;
 	}
 	else if (i > 1)
-		non_numeric_arg(args);
+		non_numeric_arg(args, line, token);
 	else if (i == 1)
 	{
 		if (line->pipe_num == 1)
+		{
+			cleanup(line, token, 1);
 			exit(0);
+		}
+		cleanup(line, token, 1);
 		exit(1);
 	}
 }

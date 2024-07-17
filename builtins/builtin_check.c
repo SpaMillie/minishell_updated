@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 13:47:13 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 14:10:12 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 15:42:44 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	execute_builtin(t_tokens *token, t_mini *line)
 	else if (!ft_strncmp(token->command[0], "env", 4))
 		env(token->command, line);
 	else if (!ft_strncmp(token->command[0], "exit", 5))
-		exit_cmd(token->command, line);
+		exit_cmd(token->command, line, token);
 	else if (!ft_strncmp(token->command[0], "export", 7))
 		export_cmd(token->command, line, token);
 	else if (!ft_strncmp(token->command[0], "unset", 6))
