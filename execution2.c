@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:50 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/17 16:30:45 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 16:38:25 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	shell_lvl_check(t_mini *line, t_tokens *token)
 	free(str_to_export);
 }
 
-void	wait_for_child(t_mini *line)
+void	wait_for_child(t_mini *line, t_tokens *token)
 {
 	int	status;
 
@@ -67,7 +67,8 @@ void	wait_for_child(t_mini *line)
 	status = 0;
 	signal(SIGINT, SIG_IGN);
 	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, handle_sigquit);
+	if (ft_strncmp(token[line->i].command[0], "./minishell", 12))
+		signal(SIGQUIT, handle_sigquit);
 	while (line->i < line->pipe_num)
 	{
 		if (line->flag == 0)

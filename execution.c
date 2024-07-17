@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/17 16:30:50 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 16:37:59 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,5 @@ void	execute(t_tokens *token, t_mini *line)
 			parent(line, token, &cur);
 		line->i++;
 	}
-	wait_for_child(line);
+	wait_for_child(line, token);
 }

@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/17 16:31:02 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 16:38:12 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void		execute(t_tokens *token, t_mini *line);
 //execution2.c
 void		single_builtin(t_tokens *token, t_mini *line);
 void		shell_lvl_check(t_mini *line, t_tokens *token);
-void		wait_for_child(t_mini *line);
+void		wait_for_child(t_mini *line, t_tokens *token);
 //expansion.c
 void		expansion(t_mini *line);
 //expansion2.c
