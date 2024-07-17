@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:22:45 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/17 12:54:09 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:26:13 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ static char	*heredocing(char *delim, char *hd)
 		free (delim);
 		free (line);
 		signal(SIGINT, handle_ctrl_c);
-		return("");
+		return(NULL);
 	}
 	if (close (fd) == -1)
 		return (NULL);
@@ -143,11 +143,17 @@ int	here_doc(t_mini *line)
 			{
 				ft_putendl_fd("minishell: couldn't handle here_doc", 2);
 				free_2d(line->metaed);
+				free_2d(line->element);
 				free_2d(line->envp);
-				exit (1);
+				exit(1);
 			}
 			if (ft_strlen(line->metaed[i + 1]) == 0)
+			{
+				free_2d(line->element);
+				free_2d(line->metaed);
 				return (1);
+			}
+			
 			hd_num++;
 		}
 		i++;
