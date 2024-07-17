@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:39:35 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/17 12:43:08 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/17 14:47:07 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,3 @@ void	malloc_failure_no_cleanup(void)
 	ft_putendl_fd("minishell: malloc failure", 2);
 	exit(1);
 }
-

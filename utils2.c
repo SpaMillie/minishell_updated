@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:51:42 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/16 17:54:39 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:50:52 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	unlink_heredoc(t_mini *line, t_tokens *token)
 		{
 			if (ft_strncmp(token[i].redirect[j], "<<", 3) == 0)
 			{
-				unlink(token[i].redirect[j + 1]); //error handling?
+				unlink(token[i].redirect[j + 1]);
 			}
 			j++;
 			j++;

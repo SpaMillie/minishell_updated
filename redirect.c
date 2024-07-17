@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:03:09 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/16 18:03:57 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:47:48 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 static void	redirect_output(t_mini *line, t_tokens *token, int *output)
 {
-	// printf("output is %d\n", *output);
 	if (*output == -2 || *output == -1)
 		return ;
 	if (dup2(*output, STDOUT_FILENO) == -1)
 	{
-		ft_putendl_fd("minishell: red_out dup2 failed", 2); //remember to delete
+		ft_putendl_fd("minishell: dup2 failed", 2);
 		cleanup(line, token, 1);
 		exit (1);
 	}
@@ -32,12 +31,11 @@ static void	redirect_output(t_mini *line, t_tokens *token, int *output)
 
 static void	redirect_input(t_mini *line, t_tokens *token, int *input)
 {
-	// printf("input is %d\n", *input);
 	if (*input == -2 || *input == -1)
 		return ;
 	if (dup2(*input, STDIN_FILENO) == -1)
 	{
-		ft_putendl_fd("minishell: red_in dup2 failed", 2); //remember to delete
+		ft_putendl_fd("minishell: dup2 failed", 2);
 		cleanup(line, token, 1);
 		exit (1);
 	}

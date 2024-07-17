@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:50 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/16 18:05:42 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:50:08 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ void	single_builtin(t_tokens *token, t_mini *line)
 		cleanup(line, token, 1);
 		exit (1);
 	}
-	opening(&token[line->i], line); //in opening it returns -1 if its an error but thats important for forking only
+	opening(&token[line->i], line);
 	unnecessary_path(line, token);
 	cur = set_fds(line, &token[line->i], &fd[0]);
 	redirections(line, &token[line->i], &cur);
 	if (line->input_fd != -1 && line->output_fd != -1)
 	{
 		line->err_num = 0;
-		execute_builtin(&token[line->i], line); // Execute the built-in
+		execute_builtin(&token[line->i], line);
 	}
 	if (dup2_in(&fd[0], NULL, 0) == -1 || dup2_out(&fd[1], NULL, 0) == -1)
 	{
 		cleanup(line, token, 1);
-		exit(1);	
+		exit (1);
 	}
 }
 
