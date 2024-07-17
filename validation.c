@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:48:57 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/17 12:42:36 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/17 12:52:50 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	validating(char *argv, t_mini *line, char *line_read)
 	if (check_syntax_errors(line, words) == 1)
 		return (1);
 	trim_quotes(line);
-	here_doc(line);
+	if (here_doc(line))
+		return (1);
 	return (0);
 }

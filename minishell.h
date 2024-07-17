@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/17 12:44:20 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/17 12:53:24 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int			close_cleanup(t_mini *line);
 //first_split.c
 int			first_split(char *argv, t_mini *line);
 //heredoc.c
-void		here_doc(t_mini *line);
+int			here_doc(t_mini *line);
 //opening_files.c
 int			opening(t_tokens *token, t_mini *line);
 //parsing.c

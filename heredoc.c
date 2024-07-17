@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:22:45 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/17 10:04:02 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/17 12:54:09 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,18 +110,20 @@ static char	*heredocing(char *delim, char *hd)
 	}
 	if (!line)
 	{
-		// don't print heredoc
+		write(1, "\n", 1);
+		free (delim);
+		free (line);
+		signal(SIGINT, handle_ctrl_c);
+		return("");
 	}
 	if (close (fd) == -1)
 		return (NULL);
-	write(1, "\n", 1); //why do we have this new line?
 	free (delim);
 	free (line);
-	signal(SIGINT, handle_ctrl_c);
 	return (hd);
 }
 
-void	here_doc(t_mini *line)
+int	here_doc(t_mini *line)
 {
 	int		hd_num;
 	int		i;
@@ -144,8 +146,11 @@ void	here_doc(t_mini *line)
 				free_2d(line->envp);
 				exit (1);
 			}
+			if (ft_strlen(line->metaed[i + 1]) == 0)
+				return (1);
 			hd_num++;
 		}
 		i++;
 	}
+	return (0);
 }
