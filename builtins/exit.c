@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:43:38 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/17 18:12:58 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:19:30 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,18 @@ static void	non_numeric_arg(char **args, t_mini *line, t_tokens *token)
 	i = 0;
 	if (line->pipe_num == 1)
 		ft_printf("exit\n");
+	line->err_num = 2;
 	while (args[1][i])
 	{
 		if (!ft_isdigit(args[1][i]) && args[1][i] != '+' && args[1][i] != '-')
 		{
 			print_error("numeric argument required", args);
-			cleanup(line, token, 1);
-			exit(255);
+			if (line->pipe_num == 1)
+			{
+				cleanup(line, token, 1);
+				exit(2);
+			}
+			return ;
 		}
 		i++;
 	}
@@ -61,6 +66,6 @@ void	exit_cmd(char **args, t_mini *line, t_tokens *token)
 		}
 		if (line->i == line->pipe_num)
 			cleanup(line, token, 1);
-		exit(1);
+		exit(0);
 	}
 }
