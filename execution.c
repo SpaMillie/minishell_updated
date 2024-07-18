@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/18 12:45:11 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:48:09 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	fork_and_execute(t_tokens *token, t_mini *line, t_fds cur)
 	pid = fork();
 	if (pid == -1)
 	{
-		print_error("minishell: failed to fork");
+		ft_putstr_fd("minishell: failed to fork", 2);
 		cleanup(line, token, 1);
 		exit(1);
 	}
