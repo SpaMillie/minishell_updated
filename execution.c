@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/18 12:48:09 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:48:41 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,22 +85,6 @@ static void	fork_and_execute(t_tokens *token, t_mini *line, t_fds cur)
 		child(token, line, &cur);
 	else
 		parent(line, token, &cur);
-}
-
-static t_fds	set_path_fds(int check, t_tokens *token, t_mini *line, int prev)
-{	
-	t_fds	current;
-
-	if (check != -1 && token[line->i].command[0] != NULL
-		&& !(is_builtin(token[line->i].command[0])))
-	{
-		if (get_path(token[line->i].command, line, token) == -1)
-			malloc_failure(line, token);
-	}
-	else
-		unnecessary_path(line, token);
-	current = set_fds(line, &token[line->i], &prev);
-	return (current);
 }
 
 void	execute(t_tokens *token, t_mini *line)
