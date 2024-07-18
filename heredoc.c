@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:22:45 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/17 15:42:27 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/18 10:40:28 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	*hdocing(char *delim, char *hd, t_mini *line)
 	fd = open(hd, O_CREAT | O_RDWR | O_TRUNC, 0777);
 	if (fd == -1)
 		return (NULL);
-	write(1, "heredoc> ", 9);
+	write(1, "> ", 2);
 	hdoc_line = get_next_line(0);
 	hdoc_line = hdoc_loop(hdoc_line, fd, delim);
 	str = null_hdoc_line(hdoc_line, delim, line);

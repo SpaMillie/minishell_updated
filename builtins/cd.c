@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 09:29:33 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/17 17:54:56 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/18 11:06:53 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	check_args(char **args, t_mini *line, t_tokens *token)
 		if (chdir(home) == -1)
 		{
 			line->err_num = 1;
-			print_error("Error changing directory", args);
+			perror("minishell: cd");
 			return (1);
 		}
 		free(home);
@@ -40,7 +40,7 @@ static int	check_args(char **args, t_mini *line, t_tokens *token)
 		if (chdir(args[1]) == -1)
 		{
 			line->err_num = 1;
-			print_error("Error changing directory", args);
+			perror("minishell: cd");
 			return (1);
 		}
 	}
@@ -86,7 +86,7 @@ void	cd(char **args, t_mini *line, t_tokens *token)
 	old_pwd = ft_strjoin("OLDPWD=", old_pwd_path);
 	if (!old_pwd)
 		malloc_failure(line, token);
-	new_pwd_path = NULL;
+	new_pwd_path = getcwd(NULL, 0);
 	if (!new_pwd_path)
 	{
 		perror("getcwd");

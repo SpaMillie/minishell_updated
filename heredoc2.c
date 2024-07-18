@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:03:15 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/17 15:07:20 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/18 10:40:12 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	*hdoc_loop(char *hdoc_line, int fd, char *delim)
 	{
 		if (!heredoc_strncmp(hdoc_line, delim, ft_strlen(delim)))
 			break ;
-		write(1, "heredoc> ", 9);
+		write(1, "> ", 2);
 		ft_putstr_fd(hdoc_line, fd);
 		free(hdoc_line);
 		hdoc_line = get_next_line(0);
