@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:16:35 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/17 17:26:59 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:55:15 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,15 @@ void	echo(char **args)
 	}
 }
 
-void	pwd(t_mini *line, t_tokens *token)
+void	pwd(void)
 {
 	char	*cwd;
 
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 	{
-		perror("getcwd");
-		cleanup(line, token, 1);
-		exit(1);
+		chdir("/home");
+		cwd = getcwd(NULL, 0);
 	}
 	ft_printf("%s\n", cwd);
 	free(cwd);

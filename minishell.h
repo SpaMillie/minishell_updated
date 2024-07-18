@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/18 14:42:25 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/18 17:55:47 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void		cd(char **args, t_mini *line, t_tokens *token);
 t_fds		set_fds(t_mini *line, t_tokens *token, int *prev);
 //echo-pwd-env.c
 void		echo(char **args);
-void		pwd(t_mini *line, t_tokens *token);
+void		pwd(void);
 void		env(char **args, t_mini *line);
 //exit.c
 void		exit_cmd(char **args, t_mini *line, t_tokens *token);
