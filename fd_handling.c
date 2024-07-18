@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:15:28 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/15 15:04:09 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/18 21:16:34 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,12 @@ int	close_cleanup(t_mini *line)
 {
 	if (line->input_fd != -2 && line->input_fd != -1)
 	{
-		if (close(line->input_fd) == -1)
-		{
-			ft_putendl_fd("minishell: error while closing a file", 2);
-			return (-1);
-		}
+		close(line->input_fd);
 		line->input_fd = -2;
 	}
 	if (line->output_fd != -2 && line->output_fd != -1)
 	{
-		if (close(line->output_fd) == -1)
-		{
-			ft_putendl_fd("minishell: error while closing a file", 2);
-			return (-1);
-		}
+		close(line->output_fd);
 		line->output_fd = -2;
 	}
 	return (0);

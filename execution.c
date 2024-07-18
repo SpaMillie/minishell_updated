@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/18 20:04:13 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/18 21:16:56 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	child(t_tokens *token, t_mini *line, t_fds *cur)
 	}
 }
 
-static int	set_error(t_tokens *token, t_mini *line, int check)
+static int	set_error(t_tokens *token, t_mini *line, int check, t_fds *cur)
 {
 	if (check == -1 || token[line->i].command[0] == NULL \
 		|| ft_strlen(token[line->i].command[0]) == 0 \
@@ -65,9 +65,21 @@ static int	set_error(t_tokens *token, t_mini *line, int check)
 		if (check == -1)
 			line->err_num = 1;
 		line->flag = 1;
+		if (line->pipe_num != 1)
+		{
+			if (line->i != 0 && cur->in != -2)
+			{
+				close(cur->in);
+				cur->in = -2;
+			}
+			if (line->i != line->pipe_num - 1 && cur->out != -2)
+			{
+				close(cur->out);
+				cur->in = -2;
+			}
+		}
 		line->i++;
-		close(line->input_fd);
-		close(line->output_fd);
+		close_cleanup(line);
 		return (1);
 	}
 	return (0);
@@ -111,7 +123,7 @@ void	execute(t_tokens *token, t_mini *line)
 		check = opening(&token[line->i], line);
 		cur = set_path_fds(check, token, line, prev);
 		prev = cur.close;
-		if (set_error(token, line, check))
+		if (set_error(token, line, check, &cur))
 			continue ;
 		fork_and_execute(token, line, cur);
 		line->i++;
