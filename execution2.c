@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:50 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/18 14:46:27 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/18 15:56:59 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ void	wait_for_child(t_mini *line, t_tokens *token)
 	status = 0;
 	signal(SIGINT, SIG_IGN);
 	signal(SIGINT, handle_sigint);
-	if (ft_strncmp(token[line->i].command[0], "./minishell", 12))
+	if (token[line->i].command[0] != NULL && \
+	ft_strncmp(token[line->i].command[0], "./minishell", 12))
 		signal(SIGQUIT, handle_sigquit);
 	while (line->i < line->pipe_num)
 	{
