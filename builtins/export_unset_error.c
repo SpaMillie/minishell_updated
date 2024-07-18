@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_unset_error.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:06:43 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/19 12:08:43 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:55:50 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,36 +26,58 @@ static int	is_invalid_start_char(char c)
 	return (0);
 }
 
-static void	handle_error(t_mini *line, char **args)
+static char	*handle_error(t_mini *line, char *arg)
 {
 	line->err_num = 1;
-	print_error("not a valid identifier", args);
+	ft_putstr_fd("minishell: export: ", 2);
+	ft_putstr_fd(arg, 2);
+	ft_putendl_fd(": not a valid identifier", 2);
+	free(arg);
+	arg = ft_strdup("");
+	if (!arg)
+		return (NULL);
+	return (arg);
+	// print_error("not a valid identifier", args); //another error func
 }
 
-int	export_unset_error_check(char **args, t_mini *line)
+static char *with_valid_start(char *arg, t_mini *line)
 {
 	int	i;
-	int	j;
+
+	i = 0;
+	while (arg[i] != '\0' && arg[i] != '=')
+	{
+		line->err_num = 0;
+		if (!is_valid_identifier_char(arg[i]) || arg[i] == '-')
+		{
+			arg = handle_error(line, arg);
+			if (!arg)
+				return (NULL);
+		}
+		i++;
+	}
+	return (arg);
+}
+
+char	**export_unset_error_check(char **args, t_mini *line)
+{
+	int	i;
 
 	i = 1;
 	while (args[i])
 	{
 		if (is_invalid_start_char(args[i][0]))
 		{
-			handle_error(line, args);
-			return (1);
+			args[i] = handle_error(line, args[i]);
+			if (!args[i])
+				return (NULL);
+			i++;
+			continue ;
 		}
-		j = 0;
-		while (args[i][j] != '\0' && args[i][j] != '=')
-		{
-			if (!is_valid_identifier_char(args[i][j]) || args[i][j] == '-')
-			{
-				handle_error(line, args);
-				return (1);
-			}
-			j++;
-		}
+		args[i] = with_valid_start(args[i], line);
+		if (!args[i])
+			return (NULL);
 		i++;
 	}
-	return (0);
+	return (args);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/18 17:55:47 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:53:26 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void		export(char *arg, t_mini *line, t_tokens *token);
 //unset.c
 void		unset_cmd(char **args, t_mini *line, t_tokens *token);
 void		unset(char *arg, t_mini *line, t_tokens *token);
-int			export_unset_error_check(char **args, t_mini *line);
+char		**export_unset_error_check(char **args, t_mini *line);
 //env.c
 char		*ft_getenv(char **envp, char *str, t_mini *line, t_tokens *token);
 char		*get_env_value(char **envp, char *str, t_mini *line,

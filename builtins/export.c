@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:28:58 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/16 17:40:58 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:52:31 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static char	*env_exists(char *arg, t_mini *line, t_tokens *token)
 	char	*existing;
 
 	len = 0;
+	if (ft_strlen(arg) != 0)
+		return (NULL);
 	while (arg[len] != '=' && arg[len] != '\0')
 		len++;
 	i = 0;
@@ -104,12 +106,14 @@ void	export_cmd(char **args, t_mini *line, t_tokens *token)
 	}
 	else
 	{
-		if (export_unset_error_check(args, line))
-			return ;
+		token[line->i].command = export_unset_error_check(args, line);
+		if (!token[line->i].command)
+			malloc_failure(line, token);
 		i = 1;
 		while (args[i])
 		{
-			export(args[i], line, token);
+			if (ft_strlen(args[i]) != 0)
+				export(args[i], line, token);
 			i++;
 		}
 	}
