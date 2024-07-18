@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/18 12:39:57 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:42:25 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void		execute(t_tokens *token, t_mini *line);
 void		single_builtin(t_tokens *token, t_mini *line);
 void		shell_lvl_check(t_mini *line, t_tokens *token);
 void		wait_for_child(t_mini *line, t_tokens *token);
+t_fds		set_path_fds(int check, t_tokens *token, t_mini *line, int prev);
 //expansion.c
 void		expansion(t_mini *line);
 //expansion2.c
@@ -164,12 +165,12 @@ void		cleanup_close(t_mini *line, t_tokens *token);
 int			has_input(t_tokens *token);
 int			has_output(t_tokens *token);
 void		unnecessary_path(t_mini *line, t_tokens *token);
-int			empty_command(t_mini *line, char *line_read);
+int			empty_command(t_mini *line);
 //utils4.c
 char		*simple_itoa(int n);
 void		free_before_return(t_mini *line, char *hd_name, int hd_num);
 //validation.c
-int			validating(char *argv, t_mini *line, char *line_read);
+int			validating(char *argv, t_mini *line);
 int			is_it_redirect(char *s);
 int			is_it_space(char *s, int i);
 int			ft_skip(char *s, int i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:48:57 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/17 13:09:39 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:42:15 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	is_it_redirect(char *s)
 	return (-1);
 }
 
-int	validating(char *argv, t_mini *line, char *line_read)
+int	validating(char *argv, t_mini *line)
 {
 	int	words;
 	int	i;
@@ -51,7 +51,7 @@ int	validating(char *argv, t_mini *line, char *line_read)
 		return (syntax_error(line, NULL, 1));
 	words = second_split(line);
 	if (line->metaed[i] == NULL)
-		return (empty_command(line, line_read));
+		return (empty_command(line));
 	if (check_syntax_errors(line, words) == 1)
 		return (1);
 	trim_quotes(line);

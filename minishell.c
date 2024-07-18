@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:13:45 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/18 12:39:24 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:42:38 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	minishell_loop(t_mini *line, struct termios tios)
 		if (prompting(&line_read, tios, line) == 1)
 			return (1);
 		add_history(line_read);
-		if (validating(line_read, line, line_read) == 1)
+		if (validating(line_read, line) == 1)
 		{
 			free(line_read);
 			continue ;
