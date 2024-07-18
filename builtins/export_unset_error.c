@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:06:43 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/18 18:55:50 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/18 19:07:17 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,9 @@ static char	*handle_error(t_mini *line, char *arg)
 	if (!arg)
 		return (NULL);
 	return (arg);
-	// print_error("not a valid identifier", args); //another error func
 }
 
-static char *with_valid_start(char *arg, t_mini *line)
+static char	*with_valid_start(char *arg, t_mini *line)
 {
 	int	i;
 
@@ -53,6 +52,7 @@ static char *with_valid_start(char *arg, t_mini *line)
 			arg = handle_error(line, arg);
 			if (!arg)
 				return (NULL);
+			break ;
 		}
 		i++;
 	}
@@ -74,7 +74,8 @@ char	**export_unset_error_check(char **args, t_mini *line)
 			i++;
 			continue ;
 		}
-		args[i] = with_valid_start(args[i], line);
+		if (ft_strlen(args[i]) != 0)
+			args[i] = with_valid_start(args[i], line);
 		if (!args[i])
 			return (NULL);
 		i++;
