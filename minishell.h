@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/17 17:57:34 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:39:57 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,6 @@ void		trim_quotes(t_mini *line);
 void		print_error(char *message, char **args);
 char		**malloc_2d(char **arr);
 char		**envp_dup(char **envp);
-char		*build_prompt(char *username, char *hostname, char *cwd);
 //utils2.c
 void		cleanup(t_mini *line, t_tokens *token, int option);
 void		print_2d(char **tab);

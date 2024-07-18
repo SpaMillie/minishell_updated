@@ -6,36 +6,13 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:13:45 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/18 11:55:33 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:39:24 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_sigflag;
-
-static char	*create_prompt(void)
-{
-	char	*cwd;
-	char	*username;
-	char	*hostname;
-	char	*prompt;
-
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
-	{
-		perror("getcwd");
-		exit(1);
-	}
-	username = getenv("USER");
-	if (!username)
-		username = "unknown";
-	hostname = getenv("HOSTNAME");
-	if (!hostname)
-		hostname = "hive";
-	prompt = build_prompt(username, hostname, cwd);
-	return (prompt);
-}
 
 static void	to_token(t_mini *line, t_tokens **token)
 {		
@@ -55,7 +32,13 @@ static int	prompting(char **line_read, struct termios tios, t_mini *line)
 {					
 	char	*prompt;
 
-	prompt = create_prompt();
+	prompt = ft_strdup("minishell > ");
+	if (!prompt)
+	{
+		free_2d(line->envp);
+		ft_putendl_fd("minishell: malloc failure", 2);
+		exit(1);
+	}
 	set_term_attr(&tios);
 	*line_read = readline(prompt);
 	free(prompt);

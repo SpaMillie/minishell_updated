@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:00:48 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/25 11:35:34 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:39:43 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,28 +54,3 @@ char	**envp_dup(char **envp)
 	return (res);
 }
 
-char	*build_prompt(char *username, char *hostname, char *cwd)
-{
-	char	*prompt;
-
-	prompt = ft_strdup(username);
-	if (!prompt)
-		malloc_failure_no_cleanup();
-	prompt = join_and_free(prompt, "@");
-	if (!prompt)
-		malloc_failure_no_cleanup();
-	prompt = join_and_free(prompt, hostname);
-	if (!prompt)
-		malloc_failure_no_cleanup();
-	prompt = join_and_free(prompt, ":");
-	if (!prompt)
-		malloc_failure_no_cleanup();
-	prompt = join_and_free(prompt, cwd);
-	if (!prompt)
-		malloc_failure_no_cleanup();
-	free(cwd);
-	prompt = join_and_free(prompt, "$ ");
-	if (!prompt)
-		malloc_failure_no_cleanup();
-	return (prompt);
-}	

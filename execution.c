@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/17 16:37:59 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:45:11 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,56 +56,77 @@ static void	child(t_tokens *token, t_mini *line, t_fds *cur)
 	}
 }
 
-static void	set_error(t_mini *line, int check)
+static int	set_error(t_tokens *token, t_mini *line, int check)
 {
-	if (check == -1)
-		line->err_num = 1;
-	line->flag = 1;
-	line->i++;
+	if (check == -1 || token[line->i].command[0] == NULL
+		|| token[line->i].command[0][0] == 9)
+	{
+		if (check == -1)
+			line->err_num = 1;
+		line->flag = 1;
+		line->i++;
+		return (1);
+	}
+	return (0);
 }
 
-void	set_path(int check, t_tokens *token, t_mini *line)
+static void	fork_and_execute(t_tokens *token, t_mini *line, t_fds cur)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		print_error("minishell: failed to fork");
+		cleanup(line, token, 1);
+		exit(1);
+	}
+	if (pid == 0)
+		child(token, line, &cur);
+	else
+		parent(line, token, &cur);
+}
+
+static t_fds	set_path_fds(int check, t_tokens *token, t_mini *line, int prev)
 {	
-	if (check != -1 && token[line->i].command[0] != NULL && !(is_builtin(token[line->i].command[0])))
+	t_fds	current;
+
+	if (check != -1 && token[line->i].command[0] != NULL
+		&& !(is_builtin(token[line->i].command[0])))
 	{
 		if (get_path(token[line->i].command, line, token) == -1)
 			malloc_failure(line, token);
 	}
 	else
 		unnecessary_path(line, token);
+	current = set_fds(line, &token[line->i], &prev);
+	return (current);
 }
 
 void	execute(t_tokens *token, t_mini *line)
 {
-	pid_t	pid;
 	int		check;
 	t_fds	cur;
 	int		prev;
 
 	line->i = 0;
 	prev = -2;
-	if (line->pipe_num == 1 && token[line->i].command[0] != NULL && is_builtin(token[line->i].command[0]))
-		return (single_builtin(token, line));
+	if (line->pipe_num == 1 && token[line->i].command[0] != NULL
+		&& is_builtin(token[line->i].command[0]))
+	{
+		single_builtin(token, line);
+		return ;
+	}
 	while (line->i < line->pipe_num)
 	{
 		line->flag = 0;
 		line->err_num = 0;
 		check = opening(&token[line->i], line);
-		set_path(check, token, line);
-		cur = set_fds(line, &token[line->i], &prev);
+		cur = set_path_fds(check, token, line, prev);
 		prev = cur.close;
-		if (check == -1 || token[line->i].command[0] == NULL || token[line->i].command[0][0] == 9)
-		{
-			set_error(line, check);
+		if (set_error(token, line, check))
 			continue ;
-		}
-		pid = fork();
-		if (pid == -1)
-			exit(1);
-		if (pid == 0)
-			child(token, line, &cur);
-		else
-			parent(line, token, &cur);
+		fork_and_execute(token, line, cur);
 		line->i++;
 	}
 	wait_for_child(line, token);
