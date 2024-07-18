@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/18 14:48:41 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/18 20:04:13 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,16 @@ static void	child(t_tokens *token, t_mini *line, t_fds *cur)
 
 static int	set_error(t_tokens *token, t_mini *line, int check)
 {
-	if (check == -1 || token[line->i].command[0] == NULL
+	if (check == -1 || token[line->i].command[0] == NULL \
+		|| ft_strlen(token[line->i].command[0]) == 0 \
 		|| token[line->i].command[0][0] == 9)
 	{
 		if (check == -1)
 			line->err_num = 1;
 		line->flag = 1;
 		line->i++;
+		close(line->input_fd);
+		close(line->output_fd);
 		return (1);
 	}
 	return (0);

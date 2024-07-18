@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:13:45 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/18 14:42:38 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/18 19:59:35 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ static int	minishell_loop(t_mini *line, struct termios tios)
 	{	
 		if (prompting(&line_read, tios, line) == 1)
 			return (1);
-		add_history(line_read);
+		if (line_read && ft_strlen(line_read) != 0)
+			add_history(line_read);
 		if (validating(line_read, line) == 1)
 		{
 			free(line_read);

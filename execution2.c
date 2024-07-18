@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:50 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/18 15:56:59 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/18 19:40:16 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ t_fds	set_path_fds(int check, t_tokens *token, t_mini *line, int prev)
 {	
 	t_fds	current;
 
-	if (check != -1 && token[line->i].command[0] != NULL
-		&& !(is_builtin(token[line->i].command[0])))
+	if (check != -1 && token[line->i].command[0] != NULL && \
+		ft_strlen(token[line->i].command[0]) != 0 && \
+		!(is_builtin(token[line->i].command[0])))
 	{
 		if (get_path(token[line->i].command, line, token) == -1)
 			malloc_failure(line, token);
