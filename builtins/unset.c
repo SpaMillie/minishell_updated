@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:41:22 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/24 14:11:33 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:41:37 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,14 @@ void	unset_cmd(char **args, t_mini *line, t_tokens *token)
 		return ;
 	else
 	{
-		if (export_unset_error_check(args, line))
-			return ;
+		token[line->i].command = export_unset_error_check(args, line);
+		if (!token[line->i].command)
+			malloc_failure(line, token);
 		i = 1;
 		while (args[i])
 		{
-			unset(args[i], line, token);
+			if (ft_strlen(args[i]) != 0)
+				unset(args[i], line, token);
 			i++;
 		}
 	}

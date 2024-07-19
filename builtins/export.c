@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:28:58 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/18 18:52:31 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/19 14:53:00 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ static char	*env_exists(char *arg, t_mini *line, t_tokens *token)
 	char	*existing;
 
 	len = 0;
-	if (ft_strlen(arg) != 0)
-		return (NULL);
 	while (arg[len] != '=' && arg[len] != '\0')
 		len++;
 	i = 0;
