@@ -6,7 +6,7 @@
 #    By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 10:22:54 by tparratt          #+#    #+#              #
-#    Updated: 2024/07/18 19:26:30 by mspasic          ###   ########.fr        #
+#    Updated: 2024/07/19 15:11:51 by mspasic          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ CC			=	cc
 
 RM			=	rm -f
 
-CFLAGS		= -Wextra -Wall -Werror -g -fsanitize=address
+CFLAGS		= -Wextra -Wall -Werror
 
 $(NAME):	$(OBJ)
 			make -C ./libft
