@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:51:42 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/19 12:19:22 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/19 13:45:21 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	cleanup(t_mini *line, t_tokens *token, int option)
 	free_paths(line);
 	if (option != 0)
 		free_2d(line->envp);
-	if (line->pid != 0)
+	if (line->i == line->pipe_num)
 	{
 		unlink_heredoc(line, token);
 		while (i < line->pipe_num)
