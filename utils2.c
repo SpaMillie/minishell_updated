@@ -6,7 +6,7 @@
 /*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:51:42 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/19 13:45:21 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:15:03 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	cleanup(t_mini *line, t_tokens *token, int option)
 	free_paths(line);
 	if (option != 0)
 		free_2d(line->envp);
-	if (line->i == line->pipe_num)
+	if (line->i == line->pipe_num || line->pipe_num == 1)
 	{
 		unlink_heredoc(line, token);
 		while (i < line->pipe_num)
