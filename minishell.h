@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:18:20 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/18 18:53:26 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/19 12:17:18 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_mini
 	int		i;
 	int		input_fd;
 	int		output_fd;
+	pid_t	pid;
 }	t_mini;
 
 typedef struct s_tokens

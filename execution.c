@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/18 21:16:56 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/19 12:18:03 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,14 @@ static int	set_error(t_tokens *token, t_mini *line, int check, t_fds *cur)
 
 static void	fork_and_execute(t_tokens *token, t_mini *line, t_fds cur)
 {
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == -1)
+	line->pid = fork();
+	if (line->pid == -1)
 	{
 		ft_putstr_fd("minishell: failed to fork", 2);
 		cleanup(line, token, 1);
 		exit(1);
 	}
-	if (pid == 0)
+	if (line->pid == 0)
 		child(token, line, &cur);
 	else
 		parent(line, token, &cur);

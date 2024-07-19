@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:51:42 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/17 14:50:52 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/19 12:19:22 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,17 @@ void	cleanup(t_mini *line, t_tokens *token, int option)
 	free_paths(line);
 	if (option != 0)
 		free_2d(line->envp);
-	unlink_heredoc(line, token);
-	while (i < line->pipe_num)
+	if (line->pid != 0)
 	{
-		free_2d(token[i].command);
-		free_2d(token[i].redirect);
-		i++;
+		unlink_heredoc(line, token);
+		while (i < line->pipe_num)
+		{
+			free_2d(token[i].command);
+			free_2d(token[i].redirect);
+			i++;
+		}
+		free(token);
 	}
-	free(token);
 }
 
 void	print_2d(char **tab)
