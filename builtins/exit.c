@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:43:38 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/18 14:19:30 by tparratt         ###   ########.fr       */
+/*   Updated: 2024/07/18 21:32:09 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	non_numeric_arg(char **args, t_mini *line, t_tokens *token)
 		i++;
 	}
 	num = ft_atoi(args[1]);
-	if (line->i == line->pipe_num)
+	if (line->i == line->pipe_num - 1)
 		cleanup(line, token, 1);
 	exit(num);
 }
@@ -64,7 +64,7 @@ void	exit_cmd(char **args, t_mini *line, t_tokens *token)
 			cleanup(line, token, 1);
 			exit(0);
 		}
-		if (line->i == line->pipe_num)
+		if (line->i == line->pipe_num - 1)
 			cleanup(line, token, 1);
 		exit(0);
 	}
