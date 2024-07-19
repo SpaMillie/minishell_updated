@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tparratt <tparratt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:13:45 by mspasic           #+#    #+#             */
-/*   Updated: 2024/07/18 19:59:35 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/19 11:10:03 by tparratt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	prompting(char **line_read, struct termios tios, t_mini *line)
 {					
 	char	*prompt;
 
-	prompt = ft_strdup("minishell > ");
+	prompt = ft_strdup("minishell> ");
 	if (!prompt)
 	{
 		free_2d(line->envp);
@@ -45,6 +45,20 @@ static int	prompting(char **line_read, struct termios tios, t_mini *line)
 	check_g_sigflag(line);
 	if (!(*line_read))
 		return (1);
+	return (0);
+}
+
+static int	all_whitespace(char *line_read)
+{
+	int	i;
+
+	i = 0;
+	while (line_read[i])
+	{
+		if (!is_it_space(line_read, i))
+			return (1);
+		i++;
+	}
 	return (0);
 }
 
@@ -61,7 +75,7 @@ static int	minishell_loop(t_mini *line, struct termios tios)
 	{	
 		if (prompting(&line_read, tios, line) == 1)
 			return (1);
-		if (line_read && ft_strlen(line_read) != 0)
+		if (line_read && ft_strlen(line_read) && !all_whitespace(line_read))
 			add_history(line_read);
 		if (validating(line_read, line) == 1)
 		{
