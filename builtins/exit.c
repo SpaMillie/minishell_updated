@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:43:38 by tparratt          #+#    #+#             */
-/*   Updated: 2024/07/18 21:32:09 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/07/19 14:21:42 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	non_numeric_arg(char **args, t_mini *line, t_tokens *token)
 
 	i = 0;
 	if (line->pipe_num == 1)
-		ft_printf("exit\n");
+		ft_putendl_fd("exit", 2);
 	line->err_num = 2;
 	while (args[1][i])
 	{
@@ -60,7 +60,7 @@ void	exit_cmd(char **args, t_mini *line, t_tokens *token)
 	{
 		if (line->pipe_num == 1)
 		{
-			ft_printf("exit\n");
+			ft_putendl_fd("exit", 2);
 			cleanup(line, token, 1);
 			exit(0);
 		}
